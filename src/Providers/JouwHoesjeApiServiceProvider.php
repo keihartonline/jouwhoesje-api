@@ -1,6 +1,6 @@
 <?php
 
-namespace KeihartOnline\JouwHoesjeApi\providers;
+namespace KeihartOnline\JouwHoesjeApi\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use KeihartOnline\JouwHoesjeApi\ApiClient;
@@ -11,7 +11,7 @@ class JouwHoesjeApiServiceProvider extends ServiceProvider
     public function register()
     {
         // Config publishable maken
-        $this->mergeConfigFrom(__DIR__ . '/../config/jouwhoesje-api.php', 'jouwhoesje-api');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/jouwhoesje-api.php', 'jouwhoesje-api');
 
         $this->app->singleton(ApiClient::class, function ($app) {
             return new ApiClient(
