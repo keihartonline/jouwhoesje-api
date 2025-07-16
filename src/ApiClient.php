@@ -14,8 +14,7 @@ use Throwable;
 readonly class ApiClient
 {
     public function __construct(
-        private TokenResolverInterface $tokenResolver,
-        private string $baseUrl
+        private TokenResolverInterface $tokenResolver
     ) {}
 
     /**
@@ -90,7 +89,7 @@ readonly class ApiClient
     private function client(): PendingRequest
     {
         return Http::withToken($this->getToken())
-            ->baseUrl($this->baseUrl)
+            ->baseUrl(config('jouw-hoesje-api.base_url'))
             ->acceptJson();
     }
 }
