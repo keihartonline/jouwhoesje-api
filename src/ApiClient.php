@@ -89,7 +89,7 @@ readonly class ApiClient
     private function client(): PendingRequest
     {
         return Http::withToken($this->getToken())
-            ->baseUrl(config('jouw-hoesje-api.base_url'))
+            ->baseUrl(config('jouwhoesje-api.base_url'))
             ->acceptJson();
     }
 }
