@@ -1,0 +1,28 @@
+<?php
+
+namespace KeihartOnline\JouwHoesjeApi\providers;
+
+use Illuminate\Support\ServiceProvider;
+use KeihartOnline\JouwHoesjeApi\ApiClient;
+use KeihartOnline\JouwHoesjeApi\Contracts\TokenResolverInterface;
+
+class JouwHoesjeApiServiceProvider extends ServiceProvider
+{
+    public function register()
+    {
+        // Config publishable maken
+        $this->mergeConfigFrom(__DIR__ . '/../config/jouwhoesje-api.php', 'jouwhoesje-api');
+
+        $this->app->singleton(ApiClient::class, function ($app) {
+            return new ApiClient(
+                $app->make(TokenResolverInterface::class),
+                config('jouwhoesje-api.base_url')
+            );
+        });
+    }
+
+    public function boot()
+    {
+        //
+    }
+}

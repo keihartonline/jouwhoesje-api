@@ -1,28 +1,22 @@
 <?php
 
-namespace App\Api;
+namespace KeihartOnline\JouwHoesjeApi;
 
 use Exception;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
+use KeihartOnline\JouwHoesjeApi\Contracts\TokenResolverInterface;
+use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
 use Throwable;
 
-class ApiClient
+readonly class ApiClient
 {
-    private string $baseUrl;
-
-    private array $tokens;
-
-    private string $token;
-
-    public function __construct()
-    {
-        $this->baseUrl = config('services.api.base_url');
-        $this->tokens = config('services.api.tokens');
-    }
+    public function __construct(
+        private TokenResolverInterface $tokenResolver,
+        private string $baseUrl
+    ) {}
 
     /**
      * @throws Throwable
@@ -70,38 +64,24 @@ class ApiClient
             Log::error("API {$method} error: {$e->getMessage()}", [
                 'endpoint' => $endpoint,
                 'data' => $data,
-                'domain' => $this->getDomain(),
             ]);
 
             throw $e;
         }
     }
 
-    private function getDomain(): string
-    {
-        return Str::replace(
-            ['www.', '.test'],
-            '',
-            request()->getHost()
-        );
-    }
-
     /**
-     * @throws Exception
+     * @throws ApiException
      */
-    private function getToken(): string
+    protected function getToken(): string
     {
-        if (isset($this->token)) {
-            return $this->token;
+        $token = $this->tokenResolver->resolveToken();
+
+        if (! $token) {
+            throw new ApiException('Geen geldig API-token gevonden');
         }
 
-        $domain = $this->getDomain();
-
-        if (! isset($this->tokens[$domain])) {
-            throw new Exception("Geen API-token geconfigureerd voor domein: {$domain}");
-        }
-
-        return $this->token = $this->tokens[$domain];
+        return $token;
     }
 
     /**

@@ -1,61 +1,47 @@
 <?php
 
-namespace App\Api;
+namespace KeihartOnline\JouwHoesjeApi;
 
-use App\Api\DTO\Brand;
-use App\Api\DTO\Shop;
-use Illuminate\Support\Facades\Cache;
+use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
+use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
+use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
+use Throwable;
 
 readonly class ApiService
 {
     public function __construct(private ApiClient $client) {}
 
-    public function getShop(): ?Shop
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getShop(): ShopDto
     {
-        return Cache::remember(
-            $this->getCacheKey('shop'),
-            now()->addDay(),
-            function () {
-                $response = $this->client->get('/shop');
+        $response = $this->client->get('/shop');
 
-                if ($response->successful()) {
-                    return Shop::fromResponse($response->json());
-                }
+        if ($response->successful()) {
+            return ShopDto::fromResponse($response->json());
+        }
 
-                return null;
-            }
-        );
+        throw new ApiException('Geen geldige shop gevonden.');
     }
 
     /**
-     * @return Brand[]
+     * @return BrandDto[]
+     * @throws ApiException
+     * @throws Throwable
      */
     public function getBrands(): array
     {
-        return Cache::remember(
-            $this->getCacheKey('brands'),
-            now()->addWeek(),
-            function () {
-                $response = $this->client->get('/brands');
+        $response = $this->client->get('/brands');
 
-                if ($response->successful()) {
-                    return array_map(
-                        fn (array $brandData) => Brand::fromResponse($brandData),
-                        $response->json()
-                    );
-                }
+        if ($response->successful()) {
+            return array_map(
+                fn (array $brandData) => BrandDto::fromResponse($brandData),
+                $response->json()
+            );
+        }
 
-                return [];
-            }
-        );
-    }
-
-    private function getCacheKey(string $string): string
-    {
-        return sprintf(
-            'api:%s_%s',
-            $string,
-            request()->getHost()
-        );
+        throw new ApiException('Geen geldige shop gevonden.');
     }
 }

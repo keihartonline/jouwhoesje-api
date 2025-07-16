@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Api\DTO;
+namespace KeihartOnline\JouwHoesjeApi\Dto;
 
-class Shop
+class ShopDto
 {
     public int $shopId;
 

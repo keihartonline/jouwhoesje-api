@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\Exceptions;
+namespace KeihartOnline\JouwHoesjeApi\Exceptions;
 
 use Exception;
 
