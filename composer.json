@@ -5,11 +5,8 @@
     "description": "API services t.b.v. communicatie website en backend.",
     "require": {
         "php": "^8.2",
-        "illuminate/support": "^10.0",
-        "illuminate/http": "^10.0"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^11.5.3"
+        "illuminate/support": "^12.0",
+        "illuminate/http": "^12.0"
     },
     "autoload": {
         "psr-4": {
