@@ -16,7 +16,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "KeihartOnline\\JouwHoesjeApi\\JouwHoesjeApiServiceProvider"
+                "KeihartOnline\\JouwHoesjeApi\\Providers\\JouwHoesjeApiServiceProvider"
             ]
         }
     },
