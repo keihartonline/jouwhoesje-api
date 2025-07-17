@@ -5,6 +5,7 @@ namespace KeihartOnline\JouwHoesjeApi;
 use Exception;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use KeihartOnline\JouwHoesjeApi\Contracts\TokenResolverInterface;
@@ -55,10 +56,15 @@ readonly class ApiClient
     private function request(string $method, string $endpoint, array $data = []): Response
     {
         try {
-            $response = $this->client()->$method($endpoint, $data);
-            $response->throw();
-
-            return $response;
+            return Cache::driver('array')
+                ->rememberForever(
+                    'jouw-hoesje-api-request-' . md5($endpoint . json_encode($data)),
+                    function () use ($method, $endpoint, $data) {
+                        return $this->client()
+                            ->$method($endpoint, $data)
+                            ->throw();
+                    }
+                );
         } catch (Throwable $e) {
             Log::error("API {$method} error: {$e->getMessage()}", [
                 'endpoint' => $endpoint,
