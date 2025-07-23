@@ -25,7 +25,7 @@ readonly class ApiService
                     $response = $this->client->get('/shop');
 
                     if ($response->successful()) {
-                        return ShopDto::fromArray($response->json());
+                        return ShopDto::fromArray($response->json()['data']);
                     }
 
                     throw new ApiException('Geen geldige shop gevonden.');
@@ -46,7 +46,7 @@ readonly class ApiService
         if ($response->successful()) {
             return array_map(
                 fn (array $brandData) => BrandDto::fromArray($brandData),
-                $response->json()
+                $response->json()['data']
             );
         }
 
@@ -62,7 +62,7 @@ readonly class ApiService
         $response = $this->client->get('/brands/'.$slug);
 
         if ($response->successful()) {
-            return BrandDto::fromArray($response->json());
+            return BrandDto::fromArray($response->json()['data']);
         }
 
         throw new ApiException('Geen geldige shop gevonden.');
@@ -77,7 +77,7 @@ readonly class ApiService
         $response = $this->client->get('/devices/'.$slug);
 
         if ($response->successful()) {
-            return DeviceDto::fromArray($response->json());
+            return DeviceDto::fromArray($response->json()['data']);
         }
 
         throw new ApiException('Geen geldige shop gevonden.');
