@@ -11,7 +11,7 @@ class JouwHoesjeApiServiceProvider extends ServiceProvider
     public function register()
     {
         // Config publishable maken
-        $this->mergeConfigFrom(__DIR__ . '/../../config/jouwhoesje-api.php', 'jouwhoesje-api');
+        $this->mergeConfigFrom(__DIR__.'/../../config/jouwhoesje-api.php', 'jouwhoesje-api');
 
         $this->app->singleton(ApiClient::class, function ($app) {
             return new ApiClient($app->make(TokenResolverInterface::class));

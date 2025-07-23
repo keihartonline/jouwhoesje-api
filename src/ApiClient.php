@@ -58,7 +58,7 @@ readonly class ApiClient
         try {
             return Cache::driver('array')
                 ->rememberForever(
-                    'jouw-hoesje-api-request-' . md5($endpoint . json_encode($data)),
+                    'jouw-hoesje-api-request-'.md5($endpoint.json_encode($data)),
                     function () use ($method, $endpoint, $data) {
                         return $this->client()
                             ->$method($endpoint, $data)

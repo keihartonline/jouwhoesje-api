@@ -4,30 +4,30 @@ namespace KeihartOnline\JouwHoesjeApi\Dto;
 
 class BrandDto
 {
-    public int $brandId;
-
-    public string $name;
-
-    public string|null $slug;
-
-    public int $sellableCovers;
-
     /**
-     * @param  array<string, mixed>  $data
+     * @param  DeviceDto[]  $devices
      */
-    public function __construct(array $data)
-    {
-        $this->brandId = $data['brand_id'];
-        $this->name = $data['name'];
-        $this->slug = $data['slug'];
-        $this->sellableCovers = $data['sellable_covers'];
-    }
+    public function __construct(
+        public int $brandId,
+        public string $name,
+        public ?string $slug = null,
+        public ?int $sellableCoversCount = null,
+        public array $devices = [],
+    ) {}
 
-    /**
-     * @param  array<string, mixed>  $response
-     */
-    public static function fromResponse(array $response): self
+    public static function fromArray(array $data): self
     {
-        return new self($response);
+        $devices = array_map(
+            fn (array $deviceData) => DeviceDto::fromArray($deviceData),
+            $data['devices'] ?? []
+        );
+
+        return new self(
+            brandId: $data['brand_id'],
+            name: $data['name'],
+            slug: $data['slug'] ?? null,
+            sellableCoversCount: $data['sellable_covers_count'] ?? null,
+            devices: $devices,
+        );
     }
 }
