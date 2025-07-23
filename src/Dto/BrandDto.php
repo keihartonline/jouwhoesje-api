@@ -8,7 +8,7 @@ class BrandDto
 
     public string $name;
 
-    public string $slug;
+    public string|null $slug;
 
     public int $sellableCovers;
 

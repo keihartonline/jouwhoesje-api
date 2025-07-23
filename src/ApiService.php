@@ -2,6 +2,7 @@
 
 namespace KeihartOnline\JouwHoesjeApi;
 
+use Illuminate\Support\Facades\Cache;
 use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
@@ -17,13 +18,19 @@ readonly class ApiService
      */
     public function getShop(): ShopDto
     {
-        $response = $this->client->get('/shop');
+        return Cache::driver('array')
+            ->rememberForever(
+                'jouw-hoesje-api:shop',
+                function () {
+                    $response = $this->client->get('/shop');
 
-        if ($response->successful()) {
-            return ShopDto::fromResponse($response->json());
-        }
+                    if ($response->successful()) {
+                        return ShopDto::fromResponse($response->json());
+                    }
 
-        throw new ApiException('Geen geldige shop gevonden.');
+                    throw new ApiException('Geen geldige shop gevonden.');
+                }
+            );
     }
 
     /**
@@ -40,6 +47,21 @@ readonly class ApiService
                 fn (array $brandData) => BrandDto::fromResponse($brandData),
                 $response->json()
             );
+        }
+
+        throw new ApiException('Geen geldige shop gevonden.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getBrand(string $slug): BrandDto
+    {
+        $response = $this->client->get('/brands/'.$slug);
+
+        if ($response->successful()) {
+            return BrandDto::fromResponse($response->json());
         }
 
         throw new ApiException('Geen geldige shop gevonden.');
