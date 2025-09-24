@@ -39,9 +39,11 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
-    public function getBrands(): array
+    public function getBrands(int $devicesLimit = 1000): array
     {
-        $response = $this->client->get('/brands');
+        $response = $this->client->get('/brands', [
+            'devices_limit' => $devicesLimit,
+        ]);
 
         if ($response->successful()) {
             return array_map(
