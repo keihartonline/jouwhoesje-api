@@ -4,6 +4,7 @@ namespace KeihartOnline\JouwHoesjeApi;
 
 use Illuminate\Support\Facades\Cache;
 use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
+use KeihartOnline\JouwHoesjeApi\Dto\CoverDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
@@ -83,5 +84,20 @@ readonly class ApiService
         }
 
         throw new ApiException('Geen geldige shop gevonden.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getCover(string $slug): CoverDto
+    {
+        $response = $this->client->get('/covers/'.$slug);
+
+        if ($response->successful()) {
+            return CoverDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Geen geldige cover gevonden.');
     }
 }
