@@ -11,6 +11,7 @@ readonly class DeviceDto
         public array $allNames = [],
         public ?int $releaseYear = null,
         public ?string $slug = null,
+        public int $completeCoversCount = 0,
         public ?BrandDto $brand = null,
     ) {}
 
@@ -23,6 +24,7 @@ readonly class DeviceDto
             allNames: $data['all_names'] ?? [],
             releaseYear: $data['release_year'] ?? null,
             slug: $data['slug'] ?? null,
+            completeCoversCount: $data['complete_covers_count'] ?? 0,
             brand: isset($data['brand']) ? BrandDto::fromArray($data['brand']) : null,
         );
     }
