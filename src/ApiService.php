@@ -40,11 +40,14 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
-    public function getBrands(int $devicesLimit = 1000): array
-    {
-        $response = $this->client->get('/brands', [
+    public function getBrands(
+        ?int $devicesLimit = null,
+        ?bool $withImages = null,
+    ): array {
+        $response = $this->client->get('/brands', array_filter([
             'devices_limit' => $devicesLimit,
-        ]);
+            'with_images' => $withImages,
+        ]));
 
         if ($response->successful()) {
             return array_map(
@@ -53,22 +56,28 @@ readonly class ApiService
             );
         }
 
-        throw new ApiException('Geen geldige shop gevonden.');
+        throw new ApiException('Geen merken gevonden.');
     }
 
     /**
      * @throws ApiException
      * @throws Throwable
      */
-    public function getBrand(string $slug): BrandDto
-    {
-        $response = $this->client->get('/brands/'.$slug);
+    public function getBrand(
+        string $slug,
+        ?int $devicesLimit = null,
+        ?bool $withImages = null,
+    ): BrandDto {
+        $response = $this->client->get('/brands/'.$slug, array_filter([
+            'devices_limit' => $devicesLimit,
+            'with_images' => $withImages,
+        ]));
 
         if ($response->successful()) {
             return BrandDto::fromArray($response->json()['data']);
         }
 
-        throw new ApiException('Geen geldige shop gevonden.');
+        throw new ApiException('Geen geldig merk gevonden.');
     }
 
     /**
