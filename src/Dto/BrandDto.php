@@ -13,6 +13,7 @@ class BrandDto
         public ?string $slug = null,
         public ?int $sellableCoversCount = null,
         public array $devices = [],
+        public ?ImageDto $image = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -28,6 +29,7 @@ class BrandDto
             slug: $data['slug'] ?? null,
             sellableCoversCount: $data['sellable_covers_count'] ?? null,
             devices: $devices,
+            image: $data['image'] ? ImageDto::fromArray($data['image']) : null,
         );
     }
 }
