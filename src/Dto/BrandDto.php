@@ -29,7 +29,7 @@ class BrandDto
             slug: $data['slug'] ?? null,
             sellableCoversCount: $data['sellable_covers_count'] ?? null,
             devices: $devices,
-            image: $data['image'] ? ImageDto::fromArray($data['image']) : null,
+            image: isset($data['image']) ? ImageDto::fromArray($data['image']) : null,
         );
     }
 }
