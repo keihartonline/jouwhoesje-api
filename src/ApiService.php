@@ -42,11 +42,11 @@ readonly class ApiService
      */
     public function getBrands(
         ?int $devicesLimit = null,
-        ?bool $withImages = null,
+        ?bool $withImage = null,
     ): array {
         $response = $this->client->get('/brands', array_filter([
             'devices_limit' => $devicesLimit,
-            'with_images' => $withImages,
+            'with_image' => $withImage,
         ]));
 
         if ($response->successful()) {
@@ -66,11 +66,11 @@ readonly class ApiService
     public function getBrand(
         string $slug,
         ?int $devicesLimit = null,
-        ?bool $withImages = null,
+        ?bool $withImage = null,
     ): BrandDto {
         $response = $this->client->get('/brands/'.$slug, array_filter([
             'devices_limit' => $devicesLimit,
-            'with_images' => $withImages,
+            'with_image' => $withImage,
         ]));
 
         if ($response->successful()) {
