@@ -103,12 +103,12 @@ readonly class ApiService
      * @throws Throwable
      */
     public function getCovers(
-        int $limit = 15,
+        int $perPage = 15,
         ?int $page = null,
         array $filters = [],
     ): array {
         $response = $this->client->get('/covers', array_filter([
-            'limit' => $limit,
+            'per_page' => $perPage,
             'page' => $page,
             'filters' => $filters,
         ]));
