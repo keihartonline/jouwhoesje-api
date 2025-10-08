@@ -104,7 +104,7 @@ readonly class ApiService
         $response = $this->client->get('/covers/'.$slug);
 
         if ($response->successful()) {
-            return CoverDto::fromArray($response->json());
+            return CoverDto::fromArray($response->json()['data']);
         }
 
         throw new ApiException('Geen geldige cover gevonden.');
