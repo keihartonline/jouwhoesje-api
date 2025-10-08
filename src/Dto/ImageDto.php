@@ -2,11 +2,10 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
-readonly class ImageDto
+final readonly class ImageDto
 {
     /**
-     * @param string $url
-     * @param array<string, string> $conversions Key is the name of the conversion, value is the URL
+     * @param  array<string, string>  $conversions  Key is the name of the conversion, value is the URL
      */
     public function __construct(
         public string $url,

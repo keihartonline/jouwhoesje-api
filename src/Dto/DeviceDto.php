@@ -2,7 +2,7 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
-readonly class DeviceDto
+final readonly class DeviceDto
 {
     public function __construct(
         public int $deviceId,

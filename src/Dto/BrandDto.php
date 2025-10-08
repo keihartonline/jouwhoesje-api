@@ -2,7 +2,7 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
-class BrandDto
+final readonly class BrandDto
 {
     /**
      * @param  DeviceDto[]  $devices

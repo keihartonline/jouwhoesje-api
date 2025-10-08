@@ -4,6 +4,7 @@ namespace KeihartOnline\JouwHoesjeApi;
 
 use Illuminate\Support\Facades\Cache;
 use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
+use KeihartOnline\JouwHoesjeApi\Dto\CoverCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CoverDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
@@ -51,7 +52,7 @@ readonly class ApiService
 
         if ($response->successful()) {
             return array_map(
-                fn (array $brandData) => BrandDto::fromArray($brandData),
+                fn (array $record) => BrandDto::fromArray($record),
                 $response->json()['data']
             );
         }
@@ -93,6 +94,33 @@ readonly class ApiService
         }
 
         throw new ApiException('Geen geldige shop gevonden.');
+    }
+
+    /**
+     * @return CoverCompactDto[]
+     *
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getCovers(
+        int $limit = 15,
+        ?int $page = null,
+        array $filters = [],
+    ): array {
+        $response = $this->client->get('/covers', array_filter([
+            'limit' => $limit,
+            'page' => $page,
+            'filters' => $filters,
+        ]));
+
+        if ($response->successful()) {
+            return array_map(
+                fn (array $record) => CoverCompactDto::fromArray($record),
+                $response->json()['data']
+            );
+        }
+
+        throw new ApiException('Geen merken gevonden.');
     }
 
     /**

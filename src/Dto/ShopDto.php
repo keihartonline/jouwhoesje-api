@@ -2,7 +2,7 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
-readonly class ShopDto
+final readonly class ShopDto
 {
     public function __construct(
         public int $shopId,
