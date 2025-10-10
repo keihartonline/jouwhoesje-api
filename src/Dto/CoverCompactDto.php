@@ -16,6 +16,7 @@ final readonly class CoverCompactDto
         public ?int $retailPrice,
         public string $deviceCombinedName,
         public string $brandName = '',
+        public string $brandSlug = '',
         public array $media = [],
     ) {}
 
@@ -33,6 +34,7 @@ final readonly class CoverCompactDto
             retailPrice: $data['retail_price'] ?? null,
             deviceCombinedName: $data['device_combined_name'],
             brandName: $data['brand_name'] ?? '',
+            brandSlug: $data['brand_slug'] ?? '',
             media: $data['media'] ?? [],
         );
     }
