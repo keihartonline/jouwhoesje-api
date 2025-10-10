@@ -2,10 +2,14 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
+use KeihartOnline\JouwHoesjeApi\Enums\LabelEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\StockStatusEnum;
 
 final readonly class CoverDto
 {
+    /**
+     * @param LabelEnum[] $labels
+     */
     public function __construct(
         public string $slug,
         public StockStatusEnum $stockStatus,
@@ -28,6 +32,7 @@ final readonly class CoverDto
         public ?int $deviceReleaseYear = null,
         public string $brandName = '',
         public string $brandSlug = '',
+        public array $labels = [],
         public array $media = [],
     ) {}
 
@@ -55,6 +60,10 @@ final readonly class CoverDto
             deviceReleaseYear: $data['device_release_year'] ?? null,
             brandName: $data['brand_name'] ?? '',
             brandSlug: $data['brand_slug'] ?? '',
+            labels: array_map(
+                fn (array $labelData) => LabelEnum::from($labelData['label']),
+                $data['labels'] ?? []
+            ),
             media: $data['media'] ?? [],
         );
     }
