@@ -2,11 +2,13 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
+use KeihartOnline\JouwHoesjeApi\Enums\StockStatusEnum;
+
 final readonly class CoverCompactDto
 {
     public function __construct(
         public string $slug,
-        public string $stockStatus,
+        public StockStatusEnum $stockStatus,
         public bool $canBackorder,
         public ?int $amountLeft,
         public string $articleNumber,
@@ -24,7 +26,7 @@ final readonly class CoverCompactDto
     {
         return new self(
             slug: $data['slug'],
-            stockStatus: $data['stock_status'],
+            stockStatus: StockStatusEnum::from($data['stock_status']),
             canBackorder: (bool) $data['can_backorder'],
             amountLeft: $data['amount_left'] ?? null,
             articleNumber: $data['article_number'],
