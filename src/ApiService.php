@@ -2,11 +2,12 @@
 
 namespace KeihartOnline\JouwHoesjeApi;
 
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
+use KeihartOnline\JouwHoesjeApi\Dto\CoverCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CoverDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
-use KeihartOnline\JouwHoesjeApi\Dto\PaginatedCoverResultDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
 use Throwable;
@@ -104,20 +105,36 @@ readonly class ApiService
         int $perPage = 15,
         ?int $page = null,
         array $filters = [],
-    ): PaginatedCoverResultDto {
-        $response = $this->client->get('/covers', array_filter([
+    ): LengthAwarePaginator {
+        $query = array_filter([
             'per_page' => $perPage,
             'page' => $page,
             'filters' => $filters,
-        ]));
+        ]);
 
-        if ($response->successful()) {
-            return PaginatedCoverResultDto::fromArray(
-                $response->json()
-            );
+        $response = $this->client->get('/covers', $query);
+
+        if (! $response->successful()) {
+            throw new ApiException('Covers ophalen mislukte.');
         }
 
-        throw new ApiException('Geen hoesjes gevonden.');
+        $payload = $response->json();
+        $items = array_map(
+            fn (array $record) => CoverCompactDto::fromArray($record),
+            $payload['data'] ?? []
+        );
+
+        $currentPage = data_get($payload, 'meta.current_page', $page ?? 1);
+        $perPage = (int) data_get($payload, 'meta.per_page', $perPage);
+        $total = (int) data_get($payload, 'meta.total', count($items));
+
+        // Zorg dat generated links jouw huidige URL & query meenemen
+        return new LengthAwarePaginator(
+            items: $items,
+            total: $total,
+            perPage: $perPage,
+            currentPage: $currentPage,
+        );
     }
 
     /**
