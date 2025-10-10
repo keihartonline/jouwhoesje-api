@@ -4,9 +4,9 @@ namespace KeihartOnline\JouwHoesjeApi;
 
 use Illuminate\Support\Facades\Cache;
 use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
-use KeihartOnline\JouwHoesjeApi\Dto\CoverCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CoverDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
+use KeihartOnline\JouwHoesjeApi\Dto\PaginatedCoverResultDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
 use Throwable;
@@ -97,8 +97,6 @@ readonly class ApiService
     }
 
     /**
-     * @return CoverCompactDto[]
-     *
      * @throws ApiException
      * @throws Throwable
      */
@@ -106,7 +104,7 @@ readonly class ApiService
         int $perPage = 15,
         ?int $page = null,
         array $filters = [],
-    ): array {
+    ): PaginatedCoverResultDto {
         $response = $this->client->get('/covers', array_filter([
             'per_page' => $perPage,
             'page' => $page,
@@ -114,13 +112,12 @@ readonly class ApiService
         ]));
 
         if ($response->successful()) {
-            return array_map(
-                fn (array $record) => CoverCompactDto::fromArray($record),
-                $response->json()['data']
+            return PaginatedCoverResultDto::fromArray(
+                $response->json()
             );
         }
 
-        throw new ApiException('Geen merken gevonden.');
+        throw new ApiException('Geen hoesjes gevonden.');
     }
 
     /**
