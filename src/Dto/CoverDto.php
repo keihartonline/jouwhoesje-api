@@ -61,7 +61,7 @@ final readonly class CoverDto
             brandName: $data['brand_name'] ?? '',
             brandSlug: $data['brand_slug'] ?? '',
             labels: array_map(
-                fn (array $label) => LabelEnum::from($label),
+                fn (string $label) => LabelEnum::from($label),
                 $data['labels'] ?? []
             ),
             media: $data['media'] ?? [],
