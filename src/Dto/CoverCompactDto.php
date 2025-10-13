@@ -24,6 +24,7 @@ final readonly class CoverCompactDto
         public string $brandName = '',
         public string $brandSlug = '',
         public array $labels = [],
+        public ?string $emoji = null,
         public array $media = [],
     ) {}
 
@@ -46,6 +47,7 @@ final readonly class CoverCompactDto
                 fn (string $label) => LabelEnum::from($label),
                 $data['labels'] ?? []
             ),
+            emoji: $data['emoji'] ?? null,
             media: $data['media'] ?? [],
         );
     }

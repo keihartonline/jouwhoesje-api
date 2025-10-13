@@ -33,6 +33,7 @@ final readonly class CoverDto
         public string $brandName = '',
         public string $brandSlug = '',
         public array $labels = [],
+        public ?string $emoji = null,
         public array $media = [],
     ) {}
 
@@ -64,6 +65,7 @@ final readonly class CoverDto
                 fn (string $label) => LabelEnum::from($label),
                 $data['labels'] ?? []
             ),
+            emoji: $data['emoji'] ?? null,
             media: $data['media'] ?? [],
         );
     }
