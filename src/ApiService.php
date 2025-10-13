@@ -8,6 +8,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CoverCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CoverDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
+use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
 use Throwable;
@@ -150,5 +151,30 @@ readonly class ApiService
         }
 
         throw new ApiException('Geen geldige cover gevonden.');
+    }
+
+    /**
+     * @return FilterDto[]
+     *
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getFilters(
+        string $brand,
+        ?string $device = null,
+    ): array {
+        $response = $this->client->get('/filters', array_filter([
+            'brand' => $brand,
+            'device' => $device,
+        ]));
+
+        if ($response->successful()) {
+            return array_map(
+                fn (array $record) => FilterDto::fromArray($record),
+                $response->json()['data']
+            );
+        }
+
+        throw new ApiException('Geen filters gevonden.');
     }
 }
