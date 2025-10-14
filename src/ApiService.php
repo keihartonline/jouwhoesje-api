@@ -129,7 +129,7 @@ readonly class ApiService
         $perPage = (int) data_get($payload, 'meta.per_page', $perPage);
         $total = (int) data_get($payload, 'meta.total', count($items));
 
-        // Zorg dat generated links jouw huidige URL & query meenemen
+
         return new LengthAwarePaginator(
             items: $items,
             total: $total,
