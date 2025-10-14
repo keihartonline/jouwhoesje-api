@@ -9,10 +9,7 @@ final readonly class PaginatedCoverResultDto
      */
     public function __construct(
         public array $items,
-        public ?int $currentPage,
-        public ?int $perPage,
-        public ?int $total,
-        public ?int $lastPage,
+        public array $meta,
     ) {}
 
     public static function fromArray(array $data): self
@@ -22,10 +19,7 @@ final readonly class PaginatedCoverResultDto
                 fn (array $itemData) => CoverCompactDto::fromArray($itemData),
                 $data['data']
             ),
-            currentPage: $data['current_page'],
-            perPage: $data['per_page'],
-            total: $data['total'],
-            lastPage: $data['last_page'],
+            meta: $data['meta'],
         );
     }
 }

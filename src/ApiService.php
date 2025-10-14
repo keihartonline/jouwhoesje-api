@@ -2,13 +2,13 @@
 
 namespace KeihartOnline\JouwHoesjeApi;
 
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CoverCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CoverDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
+use KeihartOnline\JouwHoesjeApi\Dto\PaginatedCoverResultDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
 use Throwable;
@@ -106,7 +106,7 @@ readonly class ApiService
         int $perPage = 15,
         ?int $page = null,
         array $filters = [],
-    ): LengthAwarePaginator {
+    ): PaginatedCoverResultDto {
         $query = array_filter([
             'per_page' => $perPage,
             'page' => $page,
@@ -125,16 +125,10 @@ readonly class ApiService
             $payload['data'] ?? []
         );
 
-        $currentPage = data_get($payload, 'meta.current_page', $page ?? 1);
-        $perPage = (int) data_get($payload, 'meta.per_page', $perPage);
-        $total = (int) data_get($payload, 'meta.total', count($items));
-
         // Zorg dat generated links jouw huidige URL & query meenemen
-        return new LengthAwarePaginator(
+        return new PaginatedCoverResultDto(
             items: $items,
-            total: $total,
-            perPage: $perPage,
-            currentPage: $currentPage,
+            meta: $payload['meta'],
         );
     }
 

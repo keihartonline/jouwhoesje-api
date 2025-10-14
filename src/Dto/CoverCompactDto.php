@@ -8,7 +8,7 @@ use KeihartOnline\JouwHoesjeApi\Enums\StockStatusEnum;
 final readonly class CoverCompactDto
 {
     /**
-     * @param LabelEnum[] $labels
+     * @param  LabelEnum[]  $labels
      */
     public function __construct(
         public string $slug,
