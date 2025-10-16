@@ -7,7 +7,6 @@ final readonly class FilterOptionDto
     public function __construct(
         public string $label,
         public int|string $value,
-        public ?string $group = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -15,7 +14,6 @@ final readonly class FilterOptionDto
         return new self(
             label: $data['label'],
             value: $data['value'],
-            group: $data['group'] ?? null,
         );
     }
 }
