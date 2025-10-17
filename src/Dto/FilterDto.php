@@ -20,7 +20,9 @@ final readonly class FilterDto
 
     public static function fromArray(array $data): self
     {
-        if (Arr::get($data['options'], '.0.options')) {
+        $firstOption = Arr::first($data['options']);
+
+        if (array_key_exists('options', $firstOption) && is_array($firstOption['options'])) {
             $options = array_map(
                 fn (array $optionGroupData) => FilterOptionGroupDto::fromArray($optionGroupData),
                 $data['options']
