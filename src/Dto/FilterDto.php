@@ -24,7 +24,7 @@ final readonly class FilterDto
         $firstOption = Arr::first($data['options']);
         $hasOptionGroups = false;
 
-        if (array_key_exists('options', $firstOption) && is_array($firstOption['options'])) {
+        if ($firstOption !== null && array_key_exists('options', $firstOption) && is_array($firstOption['options'])) {
             $options = array_map(
                 fn (array $optionGroupData) => FilterOptionGroupDto::fromArray($optionGroupData),
                 $data['options']
