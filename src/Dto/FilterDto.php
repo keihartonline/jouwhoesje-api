@@ -16,17 +16,20 @@ final readonly class FilterDto
         public string $label,
         public int $count,
         public array $options,
+        public bool $hasOptionGroups = false,
     ) {}
 
     public static function fromArray(array $data): self
     {
         $firstOption = Arr::first($data['options']);
+        $hasOptionGroups = false;
 
         if (array_key_exists('options', $firstOption) && is_array($firstOption['options'])) {
             $options = array_map(
                 fn (array $optionGroupData) => FilterOptionGroupDto::fromArray($optionGroupData),
                 $data['options']
             );
+            $hasOptionGroups = true;
         } else {
             $options = array_map(
                 fn (array $optionData) => FilterOptionDto::fromArray($optionData),
@@ -40,6 +43,7 @@ final readonly class FilterDto
             label: $data['label'],
             count: $data['count'],
             options: $options,
+            hasOptionGroups: $hasOptionGroups,
         );
     }
 }
