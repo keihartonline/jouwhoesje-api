@@ -35,6 +35,7 @@ final readonly class CoverDto
         public array $labels = [],
         public ?string $emoji = null,
         public array $media = [],
+        public bool $noLongerForSale = false,
     ) {}
 
     public static function fromArray(array $data): self
@@ -67,6 +68,7 @@ final readonly class CoverDto
             ),
             emoji: $data['emoji'] ?? null,
             media: $data['media'] ?? [],
+            noLongerForSale: $data['no_longer_for_sale'] ?? false,
         );
     }
 }
