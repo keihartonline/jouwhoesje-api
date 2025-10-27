@@ -2,13 +2,10 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use JsonSerializable;
 use KeihartOnline\JouwHoesjeApi\Enums\FilterTypeEnum;
 
-final readonly class FilterDto implements Arrayable, JsonSerializable
+final readonly class FilterDto
 {
     /**
      * @param  FilterOptionDto[]|FilterOptionGroupDto[]  $options
@@ -20,38 +17,7 @@ final readonly class FilterDto implements Arrayable, JsonSerializable
         public int $count,
         public array $options,
         public bool $hasOptionGroups = false,
-        public bool $searchable = false,
     ) {}
-
-    public function toArray(): array
-    {
-        return self::toSnakeArray(get_object_vars($this));
-    }
-
-    public function jsonSerialize(): mixed
-    {
-        return $this->toArray();
-    }
-
-    private static function toSnakeArray(mixed $value): mixed
-    {
-        if (is_array($value)) {
-            $out = [];
-            foreach ($value as $k => $v) {
-                $out[is_string($k) ? Str::snake($k) : $k] = self::toSnakeArray($v);
-            }
-            return $out;
-        }
-        if (is_object($value)) {
-            $vars = get_object_vars($value);
-            $out = [];
-            foreach ($vars as $k => $v) {
-                $out[Str::snake($k)] = self::toSnakeArray($v);
-            }
-            return $out;
-        }
-        return $value;
-    }
 
     public static function fromArray(array $data): self
     {
@@ -78,7 +44,6 @@ final readonly class FilterDto implements Arrayable, JsonSerializable
             count: $data['count'],
             options: $options,
             hasOptionGroups: $hasOptionGroups,
-            searchable: $data['searchable'],
         );
     }
 }
