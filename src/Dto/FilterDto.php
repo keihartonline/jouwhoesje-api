@@ -21,29 +21,21 @@ final readonly class FilterDto
 
     public static function fromArray(array $data): self
     {
-        $firstOption = Arr::first($data['options']);
-        $hasOptionGroups = false;
-
-        if ($firstOption !== null && array_key_exists('options', $firstOption) && is_array($firstOption['options'])) {
-            $options = array_map(
-                fn (array $optionGroupData) => FilterOptionGroupDto::fromArray($optionGroupData),
-                $data['options']
-            );
-            $hasOptionGroups = true;
-        } else {
-            $options = array_map(
-                fn (array $optionData) => FilterOptionDto::fromArray($optionData),
-                $data['options'] ?? []
-            );
-        }
-
         return new self(
-            filterType: FilterTypeEnum::from($data['filterType']),
+            filterType: FilterTypeEnum::from($data['filter_type']),
             name: $data['name'],
             label: $data['label'],
             count: $data['count'],
-            options: $options,
-            hasOptionGroups: $hasOptionGroups,
+            options: $data['has_option_groups']
+                ? array_map(
+                    fn (array $optionGroupData) => FilterOptionGroupDto::fromArray($optionGroupData),
+                    $data['options']
+                )
+                : array_map(
+                    fn (array $optionData) => FilterOptionDto::fromArray($optionData),
+                    $data['options'] ?? []
+                ),
+            hasOptionGroups: $data['has_option_groups'],
         );
     }
 }

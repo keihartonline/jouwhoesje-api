@@ -15,15 +15,13 @@ final readonly class FilterOptionGroupDto
 
     public static function fromArray(array $data): self
     {
-        $options = array_map(
-            fn (array $optionData) => FilterOptionDto::fromArray($optionData),
-            $data['options'] ?? []
-        );
-
         return new self(
             label: $data['label'],
             count: $data['count'],
-            options: $options,
+            options: array_map(
+                fn (array $optionData) => FilterOptionDto::fromArray($optionData),
+                $data['options'] ?? []
+            ),
         );
     }
 }
