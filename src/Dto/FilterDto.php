@@ -38,7 +38,7 @@ final readonly class FilterDto
         }
 
         return new self(
-            filterType: FilterTypeEnum::from($data['filter_type']),
+            filterType: FilterTypeEnum::from($data['filterType']),
             name: $data['name'],
             label: $data['label'],
             count: $data['count'],
