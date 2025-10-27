@@ -72,7 +72,7 @@ final readonly class FilterDto implements Arrayable, JsonSerializable
         }
 
         return new self(
-            filterType: FilterTypeEnum::from($data['filterType']),
+            filterType: FilterTypeEnum::from($data['filter_type']),
             name: $data['name'],
             label: $data['label'],
             count: $data['count'],
