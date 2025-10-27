@@ -17,6 +17,7 @@ final readonly class FilterDto
         public int $count,
         public array $options,
         public bool $hasOptionGroups = false,
+        public bool $searchable = false,
     ) {}
 
     public static function fromArray(array $data): self
@@ -44,6 +45,7 @@ final readonly class FilterDto
             count: $data['count'],
             options: $options,
             hasOptionGroups: $hasOptionGroups,
+            searchable: $data['searchable'],
         );
     }
 }
