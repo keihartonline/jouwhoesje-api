@@ -84,6 +84,33 @@ readonly class ApiService
     }
 
     /**
+     * @return DeviceDto[]
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getDevices(
+        string $query,
+        int $limit = 10,
+    ): array {
+        $query = array_filter([
+            'query' => $query,
+            'limit' => $limit,
+        ]);
+
+        $response = $this->client->get('/devices', $query);
+
+        if (! $response->successful()) {
+            throw new ApiException('Devices ophalen mislukte.');
+        }
+
+        $payload = $response->json();
+        return array_map(
+            fn (array $record) => DeviceDto::fromArray($record),
+            $payload['data'] ?? []
+        );
+    }
+
+    /**
      * @throws ApiException
      * @throws Throwable
      */
