@@ -217,11 +217,9 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
-    public function getCart(bool $recalculate = false): CartDto
+    public function getCart(): CartDto
     {
-        $response = $this->client->get('/cart', [
-            'recalculate' => $recalculate,
-        ]);
+        $response = $this->client->get('/cart');
 
         if ($response->successful()) {
             return CartDto::fromArray($response->json()['data']);
