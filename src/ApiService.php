@@ -2,6 +2,7 @@
 
 namespace KeihartOnline\JouwHoesjeApi;
 
+use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
@@ -16,7 +17,12 @@ use Throwable;
 
 readonly class ApiService
 {
-    public function __construct(private ApiClient $client) {}
+    public function __construct(
+        private ApiClient $client,
+        Request $request,
+    ) {
+        $this->client->setCartToken($request->cookie('cart_token'));
+    }
 
     /**
      * @throws Throwable
@@ -208,8 +214,6 @@ readonly class ApiService
     }
 
     /**
-     * @return CartDto
-     *
      * @throws ApiException
      * @throws Throwable
      */

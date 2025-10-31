@@ -12,8 +12,10 @@ use KeihartOnline\JouwHoesjeApi\Contracts\TokenResolverInterface;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
 use Throwable;
 
-readonly class ApiClient
+class ApiClient
 {
+    private ?string $cartToken = null;
+
     public function __construct(
         private TokenResolverInterface $tokenResolver
     ) {}
@@ -75,6 +77,11 @@ readonly class ApiClient
         }
     }
 
+    public function setCartToken(?string $cartToken = null): void
+    {
+        $this->cartToken = $cartToken;
+    }
+
     /**
      * @throws ApiException
      */
@@ -95,6 +102,13 @@ readonly class ApiClient
     private function client(): PendingRequest
     {
         return Http::withToken($this->getToken())
+            ->when(
+                $this->cartToken !== null,
+                fn ($test) => $test->withHeader(
+                    'X-Cart-Token',
+                    $this->cartToken
+                )
+            )
             ->baseUrl(config('jouwhoesje-api.base_url'))
             ->acceptJson();
     }
