@@ -237,10 +237,11 @@ readonly class ApiService
         ProductTypeEnum $productType,
         array $payload,
     ): CartDto {
-        $response = $this->client->post('/cart/add', [
-            'product_type' => $productType,
-            ...$payload,
-        ]);
+        $response = $this->client->throwError(false)
+            ->post('/cart/add', [
+                'product_type' => $productType,
+                ...$payload,
+            ]);
 
         if ($response->successful()) {
             return CartDto::fromArray($response->json()['data']);

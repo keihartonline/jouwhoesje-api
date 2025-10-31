@@ -15,6 +15,7 @@ use Throwable;
 class ApiClient
 {
     private ?string $cartToken = null;
+    private bool $throwError = true;
 
     public function __construct(
         private TokenResolverInterface $tokenResolver
@@ -64,7 +65,7 @@ class ApiClient
                     function () use ($method, $endpoint, $data) {
                         return $this->client()
                             ->$method($endpoint, $data)
-                            ->throw();
+                            ->throwIf($this->throwError);
                     }
                 );
         } catch (Throwable $e) {
@@ -80,6 +81,13 @@ class ApiClient
     public function setCartToken(?string $cartToken = null): void
     {
         $this->cartToken = $cartToken;
+    }
+
+    public function throwError(bool $value = true): self
+    {
+        $this->throwError = $value;
+
+        return $this;
     }
 
     /**
