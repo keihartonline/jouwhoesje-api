@@ -15,6 +15,7 @@ use Throwable;
 class ApiClient
 {
     private ?string $cartToken = null;
+
     private bool $throwError = true;
 
     public function __construct(

@@ -14,6 +14,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
+use KeihartOnline\JouwHoesjeApi\Exceptions\BuyableNotFoundException;
 use Throwable;
 
 readonly class ApiService
@@ -242,9 +243,16 @@ readonly class ApiService
             ->post('/cart/add', [
                 'product_type' => $productType,
                 ...$payload,
-            ])
-            ->throw();
+            ]);
 
-        return CartDto::fromArray($response->json()['data']);
+        if ($response->status() === 404) {
+            throw new BuyableNotFoundException;
+        }
+
+        if ($response->successful()) {
+            return CartDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Geen cart teruggegeven.');
     }
 }
