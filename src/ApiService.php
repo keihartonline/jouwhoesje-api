@@ -237,16 +237,14 @@ readonly class ApiService
         ProductTypeEnum $productType,
         array $payload,
     ): CartDto {
-        $response = $this->client->throwError(false)
+        $response = $this->client
+            ->throwError(false)
             ->post('/cart/add', [
                 'product_type' => $productType,
                 ...$payload,
-            ]);
+            ])
+            ->throw();
 
-        if ($response->successful()) {
-            return CartDto::fromArray($response->json()['data']);
-        }
-
-        throw new ApiException('Geen cart teruggegeven.');
+        return CartDto::fromArray($response->json()['data']);
     }
 }
