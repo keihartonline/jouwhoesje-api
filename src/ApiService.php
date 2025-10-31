@@ -12,6 +12,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\CoverDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
+use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
 use Throwable;
 
@@ -220,6 +221,26 @@ readonly class ApiService
     public function getCart(): CartDto
     {
         $response = $this->client->get('/cart');
+
+        if ($response->successful()) {
+            return CartDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Geen cart teruggegeven.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function addToCart(
+        ProductTypeEnum $productType,
+        array $payload,
+    ): CartDto {
+        $response = $this->client->post('/cart/add', [
+            'product_type' => $productType,
+            ...$payload,
+        ]);
 
         if ($response->successful()) {
             return CartDto::fromArray($response->json()['data']);
