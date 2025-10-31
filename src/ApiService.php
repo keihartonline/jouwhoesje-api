@@ -5,6 +5,7 @@ namespace KeihartOnline\JouwHoesjeApi;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
+use KeihartOnline\JouwHoesjeApi\Dto\CartDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CoverCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CoverDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
@@ -85,6 +86,7 @@ readonly class ApiService
 
     /**
      * @return DeviceDto[]
+     *
      * @throws ApiException
      * @throws Throwable
      */
@@ -104,6 +106,7 @@ readonly class ApiService
         }
 
         $payload = $response->json();
+
         return array_map(
             fn (array $record) => DeviceDto::fromArray($record),
             $payload['data'] ?? []
@@ -156,7 +159,6 @@ readonly class ApiService
         $perPage = (int) data_get($payload, 'meta.per_page', $perPage);
         $total = (int) data_get($payload, 'meta.total', count($items));
 
-
         return new LengthAwarePaginator(
             items: $items,
             total: $total,
@@ -203,5 +205,22 @@ readonly class ApiService
         }
 
         throw new ApiException('Geen filters gevonden.');
+    }
+
+    /**
+     * @return CartDto
+     *
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getCart(): CartDto
+    {
+        $response = $this->client->get('/cart');
+
+        if ($response->successful()) {
+            return CartDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Geen cart teruggegeven.');
     }
 }

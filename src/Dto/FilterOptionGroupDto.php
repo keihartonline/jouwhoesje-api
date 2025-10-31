@@ -5,7 +5,7 @@ namespace KeihartOnline\JouwHoesjeApi\Dto;
 final readonly class FilterOptionGroupDto
 {
     /**
-     * @param FilterOptionDto[] $options
+     * @param  FilterOptionDto[]  $options
      */
     public function __construct(
         public string $label,

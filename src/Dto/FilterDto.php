@@ -2,7 +2,6 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
-use Illuminate\Support\Arr;
 use KeihartOnline\JouwHoesjeApi\Enums\FilterTypeEnum;
 
 final readonly class FilterDto
