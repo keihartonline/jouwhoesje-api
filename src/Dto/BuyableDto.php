@@ -7,7 +7,8 @@ final readonly class BuyableDto
     public function __construct(
         public ?array $media,
         public string $name,
-        public ?string $slug,
+        public string $slug,
+        public string $brandSlug,
         public int $stock,
     ) {}
 
@@ -17,6 +18,7 @@ final readonly class BuyableDto
             media: $data['media'],
             name: $data['name'],
             slug: $data['slug'],
+            brandSlug: $data['brand_slug'],
             stock: $data['stock'],
         );
     }
