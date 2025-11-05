@@ -274,4 +274,25 @@ readonly class ApiService
 
         throw new ApiException('Geen cart teruggegeven.');
     }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function update(
+        string $cartItemToken,
+        array $payload,
+    ): CartDto {
+        $response = $this->client
+            ->post('/cart/update', [
+                'cart_item_token' => $cartItemToken,
+                ...$payload,
+            ]);
+
+        if ($response->successful()) {
+            return CartDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Geen cart teruggegeven.');
+    }
 }
