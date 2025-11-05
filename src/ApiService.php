@@ -255,4 +255,23 @@ readonly class ApiService
 
         throw new ApiException('Geen cart teruggegeven.');
     }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function deleteFromCart(
+        string $cartItemToken,
+    ): CartDto {
+        $response = $this->client
+            ->post('/cart/delete', [
+                'cart_item_token' => $cartItemToken,
+            ]);
+
+        if ($response->successful()) {
+            return CartDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Geen cart teruggegeven.');
+    }
 }
