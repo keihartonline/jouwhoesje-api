@@ -279,7 +279,7 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
-    public function update(
+    public function updateCartItem(
         string $cartItemToken,
         array $payload,
     ): CartDto {
