@@ -14,6 +14,7 @@ final readonly class CartItemDto
         public int $totalPriceGross,
         public int $totalPriceNet,
         public int $totalVat,
+        public array $media = [],
         public Carbon $createdAt,
         public Carbon $updatedAt,
     ) {}
@@ -28,6 +29,7 @@ final readonly class CartItemDto
             totalPriceGross: (int) ($data['total_price_gross'] ?? 0),
             totalPriceNet: (int) ($data['total_price_net'] ?? 0),
             totalVat: (int) ($data['total_vat'] ?? 0),
+            media: $data['media'] ?? [],
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
         );
