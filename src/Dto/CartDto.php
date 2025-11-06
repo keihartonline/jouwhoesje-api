@@ -16,6 +16,7 @@ final readonly class CartDto
         public int $totalPriceNet,
         public int $totalVat,
         public array $items,
+        public array $messages,
         public Carbon $createdAt,
         public Carbon $updatedAt,
     ) {}
@@ -31,6 +32,10 @@ final readonly class CartDto
             items: array_map(
                 fn (array $itemData) => CartItemDto::fromArray($itemData),
                 $data['items'] ?? []
+            ),
+            messages: array_map(
+                fn (array $messageData) => CartMessageDto::fromArray($messageData),
+                $data['messages'] ?? []
             ),
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
