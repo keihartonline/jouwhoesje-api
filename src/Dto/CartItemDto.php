@@ -3,15 +3,12 @@
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
 use Illuminate\Support\Carbon;
-use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
 
 final readonly class CartItemDto
 {
     public function __construct(
         public string $cartItemToken,
         public int $quantity,
-        public ProductTypeEnum $productType,
-        public string $productNumber,
         public int $priceGross,
         public int $priceNet,
         public int $totalPriceGross,
@@ -27,8 +24,6 @@ final readonly class CartItemDto
         return new self(
             cartItemToken: $data['cart_item_token'],
             quantity: (int) ($data['quantity'] ?? 0),
-            productType: ProductTypeEnum::from($data['product_type']),
-            productNumber: $data['product_number'] ?? '',
             priceGross: (int) ($data['price_gross'] ?? 0),
             priceNet: (int) ($data['price_net'] ?? 0),
             totalPriceGross: (int) ($data['total_price_gross'] ?? 0),
