@@ -30,7 +30,7 @@ final readonly class CartDto
             totalPriceGross: (int) ($data['total_price_gross'] ?? 0),
             totalPriceNet: (int) ($data['total_price_net'] ?? 0),
             totalVat: (int) ($data['total_vat'] ?? 0),
-            minimumOrderValue: (int) ($data['minimal_order_value'] ?? 0),
+            minimumOrderValue: (int) ($data['minimum_order_value'] ?? 0),
             items: array_map(
                 fn (array $itemData) => CartItemDto::fromArray($itemData),
                 $data['items'] ?? []
