@@ -147,6 +147,7 @@ readonly class ApiService
         string $device = null,
         int $perPage = 15,
         ?int $page = null,
+        array $filters = [],
     ): LengthAwarePaginator {
         $query = array_filter([
             'per_page' => $perPage,
@@ -154,6 +155,7 @@ readonly class ApiService
             'product_type' => $productType,
             'brand' => $brand,
             'device' => $device,
+            'filters' => $filters,
         ]);
 
         $response = $this->client->get('/results', $query);
