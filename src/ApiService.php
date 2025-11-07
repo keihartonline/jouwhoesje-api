@@ -11,6 +11,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\CoverCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CoverDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
+use KeihartOnline\JouwHoesjeApi\Dto\ProductCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
@@ -140,28 +141,39 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
-    public function getCovers(
+    public function getResults(
+        ProductTypeEnum $productType,
+        string $brand = null,
+        string $device = null,
         int $perPage = 15,
         ?int $page = null,
-        array $filters = [],
     ): LengthAwarePaginator {
         $query = array_filter([
             'per_page' => $perPage,
             'page' => $page,
-            'filters' => $filters,
+            'product_type' => $productType,
+            'brand' => $brand,
+            'device' => $device,
         ]);
 
-        $response = $this->client->get('/covers', $query);
+        $response = $this->client->get('/results', $query);
 
         if (! $response->successful()) {
-            throw new ApiException('Covers ophalen mislukte.');
+            throw new ApiException('Resultaten ophalen mislukte.');
         }
 
         $payload = $response->json();
-        $items = array_map(
-            fn (array $record) => CoverCompactDto::fromArray($record),
-            $payload['data'] ?? []
-        );
+        $items = match ($productType) {
+            ProductTypeEnum::COVER => array_map(
+                fn (array $record) => CoverCompactDto::fromArray($record),
+                $payload['data'] ?? []
+            ),
+            ProductTypeEnum::PRODUCT => array_map(
+                fn (array $record) => ProductCompactDto::fromArray($record),
+                $payload['data'] ?? []
+            ),
+            default => throw new ApiException('Onbekend producttype.'),
+        };
 
         $currentPage = data_get($payload, 'meta.current_page', $page ?? 1);
         $perPage = (int) data_get($payload, 'meta.per_page', $perPage);
