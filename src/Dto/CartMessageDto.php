@@ -2,9 +2,7 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
-use Illuminate\Support\Carbon;
 use KeihartOnline\JouwHoesjeApi\Enums\CartMessageTypeEnum;
-use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
 
 final readonly class CartMessageDto
 {

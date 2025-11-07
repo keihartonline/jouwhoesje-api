@@ -12,7 +12,6 @@ final readonly class ShopDto
         public string $fqdn,
         public string $locale,
         public string $countryCode,
-        public int $minimumOrderValue,
     ) {}
 
     public static function fromArray(array $data): self
@@ -25,7 +24,6 @@ final readonly class ShopDto
             fqdn: $data['fqdn'],
             locale: $data['locale'],
             countryCode: $data['country_code'],
-            minimumOrderValue: $data['minimum_order_value'],
         );
     }
 }
