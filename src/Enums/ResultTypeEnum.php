@@ -2,7 +2,7 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Enums;
 
-enum ProductTypeEnum: string
+enum ResultTypeEnum: string
 {
     case COVER = 'cover';
     case PRODUCT = 'product';

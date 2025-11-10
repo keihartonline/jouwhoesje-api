@@ -2,12 +2,12 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
-use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
+use KeihartOnline\JouwHoesjeApi\Enums\ResultTypeEnum;
 
 final readonly class BuyableDto
 {
     public function __construct(
-        public ProductTypeEnum $productType,
+        public ResultTypeEnum $productType,
         public string $productNumber,
         public ?array $media,
         public string $name,
@@ -20,7 +20,7 @@ final readonly class BuyableDto
     public static function fromArray(array $data): self
     {
         return new self(
-            productType: ProductTypeEnum::from($data['product_type']),
+            productType: ResultTypeEnum::from($data['product_type']),
             productNumber: $data['product_number'] ?? '',
             media: $data['media'],
             name: $data['name'],

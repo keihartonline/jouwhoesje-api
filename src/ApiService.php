@@ -13,7 +13,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ProductCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
-use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
+use KeihartOnline\JouwHoesjeApi\Enums\ResultTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
 use KeihartOnline\JouwHoesjeApi\Exceptions\BuyableNotFoundException;
 use Throwable;
@@ -142,9 +142,9 @@ readonly class ApiService
      * @throws Throwable
      */
     public function getResults(
-        ProductTypeEnum $productType,
-        string $brand = null,
-        string $device = null,
+        ResultTypeEnum $resultType,
+        ?string $brand = null,
+        ?string $device = null,
         int $perPage = 15,
         ?int $page = null,
         array $filters = [],
@@ -152,7 +152,7 @@ readonly class ApiService
         $query = array_filter([
             'per_page' => $perPage,
             'page' => $page,
-            'product_type' => $productType,
+            'product_type' => $resultType,
             'brand' => $brand,
             'device' => $device,
             'filters' => $filters,
@@ -165,12 +165,12 @@ readonly class ApiService
         }
 
         $payload = $response->json();
-        $items = match ($productType) {
-            ProductTypeEnum::COVER => array_map(
+        $items = match ($resultType) {
+            ResultTypeEnum::COVER => array_map(
                 fn (array $record) => CoverCompactDto::fromArray($record),
                 $payload['data'] ?? []
             ),
-            ProductTypeEnum::PRODUCT => array_map(
+            ResultTypeEnum::PRODUCT => array_map(
                 fn (array $record) => ProductCompactDto::fromArray($record),
                 $payload['data'] ?? []
             ),
@@ -249,7 +249,7 @@ readonly class ApiService
      * @throws Throwable
      */
     public function addToCart(
-        ProductTypeEnum $productType,
+        ResultTypeEnum $productType,
         array $payload,
     ): CartDto {
         $response = $this->client
