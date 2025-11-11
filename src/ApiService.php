@@ -7,11 +7,10 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CartDto;
-use KeihartOnline\JouwHoesjeApi\Dto\ResultCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CoverDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
-use KeihartOnline\JouwHoesjeApi\Dto\ProductCompactDto;
+use KeihartOnline\JouwHoesjeApi\Dto\FlatResultCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Enums\ResultTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
@@ -160,7 +159,7 @@ readonly class ApiService
 
         $payload = $response->json();
         $items = array_map(
-            fn (array $record) => ResultCompactDto::fromArray($record),
+            fn (array $record) => FlatResultCompactDto::fromArray($record),
             $payload['data'] ?? []
         );
 

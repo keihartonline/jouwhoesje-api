@@ -6,7 +6,7 @@ use KeihartOnline\JouwHoesjeApi\Enums\LabelEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\ResultTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\StockStatusEnum;
 
-final readonly class ResultCompactDto
+final readonly class FlatResultCompactDto
 {
     /**
      * @param  LabelEnum[]  $labels
@@ -19,16 +19,17 @@ final readonly class ResultCompactDto
         public ?int $amountLeft,
         public string $articleNumber,
         public ?string $ean,
-        public string $name,
         public string $title,
-        public ?string $emoji = null,
+        public ?string $emoji,
         public int $price,
         public ?int $retailPrice,
-        public string $deviceCombinedName,
-        public string $brandName = '',
-        public string $brandSlug = '',
+        public bool $isPromotion = false,
+        public ?string $deviceCombinedName = null,
+        public ?string $brandName = null,
+        public ?string $brandSlug = null,
         public array $labels = [],
         public array $media = [],
+        public bool $hasMedia = false,
     ) {}
 
     public static function fromArray(array $data): self
@@ -37,23 +38,24 @@ final readonly class ResultCompactDto
             resultType: ResultTypeEnum::from($data['result_type']),
             slug: $data['slug'],
             stockStatus: StockStatusEnum::from($data['stock_status']),
-            canBackorder: (bool) $data['can_backorder'],
-            amountLeft: $data['amount_left'] ?? null,
+            canBackorder: $data['can_backorder'],
+            amountLeft: $data['amount_left'],
             articleNumber: $data['article_number'],
-            ean: $data['ean'] ?? null,
-            name: $data['name'],
+            ean: $data['ean'],
             title: $data['title'],
-            emoji: $data['emoji'] ?? null,
-            price: (int) ($data['price'] ?? 0),
-            retailPrice: $data['retail_price'] ?? null,
+            emoji: $data['emoji'],
+            price: $data['price'],
+            retailPrice: $data['retail_price'],
+            isPromotion: $data['retail_price'] > $data['price'],
             deviceCombinedName: $data['device_combined_name'],
-            brandName: $data['brand_name'] ?? '',
-            brandSlug: $data['brand_slug'] ?? '',
+            brandName: $data['brand_name'],
+            brandSlug: $data['brand_slug'],
             labels: array_map(
                 fn (string $label) => LabelEnum::from($label),
-                $data['labels'] ?? []
+                $data['labels']
             ),
-            media: $data['media'] ?? [],
+            media: $data['media'],
+            hasMedia: count($data['media']) > 0,
         );
     }
 }
