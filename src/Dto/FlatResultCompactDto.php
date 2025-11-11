@@ -29,6 +29,7 @@ final readonly class FlatResultCompactDto
         public ?string $brandSlug = null,
         public array $labels = [],
         public array $media = [],
+        public ?array $firstMedia = null,
         public bool $hasMedia = false,
     ) {}
 
@@ -55,6 +56,7 @@ final readonly class FlatResultCompactDto
                 $data['labels']
             ),
             media: $data['media'],
+            firstMedia: reset($data['media']) ?? null,
             hasMedia: count($data['media']) > 0,
         );
     }
