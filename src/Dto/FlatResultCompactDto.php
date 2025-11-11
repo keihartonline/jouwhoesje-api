@@ -56,7 +56,9 @@ final readonly class FlatResultCompactDto
                 $data['labels']
             ),
             media: $data['media'],
-            firstMedia: reset($data['media']) ?? null,
+            firstMedia: count($data['media']) > 0
+                ? reset($data['media'])
+                : null,
             hasMedia: count($data['media']) > 0,
         );
     }
