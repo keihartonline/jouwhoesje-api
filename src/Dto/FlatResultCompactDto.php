@@ -28,9 +28,7 @@ final readonly class FlatResultCompactDto
         public ?string $brandName = null,
         public ?string $brandSlug = null,
         public array $labels = [],
-        public array $media = [],
-        public ?array $firstMedia = null,
-        public bool $hasMedia = false,
+        public ?array $media = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -55,11 +53,9 @@ final readonly class FlatResultCompactDto
                 fn (string $label) => LabelEnum::from($label),
                 $data['labels']
             ),
-            media: $data['media'],
-            firstMedia: count($data['media']) > 0
+            media: count($data['media']) > 0
                 ? reset($data['media'])
                 : null,
-            hasMedia: count($data['media']) > 0,
         );
     }
 }
