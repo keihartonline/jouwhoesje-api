@@ -5,7 +5,7 @@ namespace KeihartOnline\JouwHoesjeApi\Dto;
 final readonly class PaginatedCoverResultDto
 {
     /**
-     * @param  CoverCompactDto[]  $items
+     * @param  ResultCompactDto[]  $items
      */
     public function __construct(
         public array $items,
@@ -19,7 +19,7 @@ final readonly class PaginatedCoverResultDto
     {
         return new self(
             items: array_map(
-                fn (array $itemData) => CoverCompactDto::fromArray($itemData),
+                fn (array $itemData) => ResultCompactDto::fromArray($itemData),
                 $data['data']
             ),
             currentPage: $data['current_page'],

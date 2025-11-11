@@ -7,7 +7,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CartDto;
-use KeihartOnline\JouwHoesjeApi\Dto\CoverCompactDto;
+use KeihartOnline\JouwHoesjeApi\Dto\ResultCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CoverDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
@@ -142,9 +142,6 @@ readonly class ApiService
      * @throws Throwable
      */
     public function getResults(
-        ResultTypeEnum $resultType,
-        ?string $brand = null,
-        ?string $device = null,
         int $perPage = 15,
         ?int $page = null,
         array $filters = [],
@@ -152,9 +149,6 @@ readonly class ApiService
         $query = array_filter([
             'per_page' => $perPage,
             'page' => $page,
-            'product_type' => $resultType,
-            'brand' => $brand,
-            'device' => $device,
             'filters' => $filters,
         ]);
 
@@ -165,17 +159,10 @@ readonly class ApiService
         }
 
         $payload = $response->json();
-        $items = match ($resultType) {
-            ResultTypeEnum::COVER => array_map(
-                fn (array $record) => CoverCompactDto::fromArray($record),
-                $payload['data'] ?? []
-            ),
-            ResultTypeEnum::PRODUCT => array_map(
-                fn (array $record) => ProductCompactDto::fromArray($record),
-                $payload['data'] ?? []
-            ),
-            default => throw new ApiException('Onbekend producttype.'),
-        };
+        $items = array_map(
+            fn (array $record) => ResultCompactDto::fromArray($record),
+            $payload['data'] ?? []
+        );
 
         $currentPage = data_get($payload, 'meta.current_page', $page ?? 1);
         $perPage = (int) data_get($payload, 'meta.per_page', $perPage);
