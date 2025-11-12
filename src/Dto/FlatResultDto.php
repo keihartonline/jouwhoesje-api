@@ -6,7 +6,7 @@ use KeihartOnline\JouwHoesjeApi\Enums\LabelEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\StockStatusEnum;
 
-final readonly class FlatResultDto
+final class FlatResultDto
 {
     /**
      * @param  LabelEnum[]  $labels
