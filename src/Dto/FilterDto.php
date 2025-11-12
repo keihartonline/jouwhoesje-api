@@ -11,8 +11,6 @@ final readonly class FilterDto
      */
     public function __construct(
         public FilterEnum $filter,
-        public string $name,
-        public string $label,
         public int $count,
         public array $options,
         public bool $hasOptionGroups = false,
@@ -22,8 +20,6 @@ final readonly class FilterDto
     {
         return new self(
             filter: FilterEnum::from($data['filter']),
-            name: $data['name'],
-            label: $data['label'],
             count: $data['count'],
             options: $data['has_option_groups']
                 ? array_map(
