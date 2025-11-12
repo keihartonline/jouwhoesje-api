@@ -7,10 +7,10 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CartDto;
-use KeihartOnline\JouwHoesjeApi\Dto\CoverDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FlatResultCompactDto;
+use KeihartOnline\JouwHoesjeApi\Dto\FlatResultDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Enums\FilterEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\ResultTypeEnum;
@@ -182,12 +182,12 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
-    public function getCover(string $slug): CoverDto
+    public function getResult(string $slug): FlatResultDto
     {
-        $response = $this->client->get('/covers/'.$slug);
+        $response = $this->client->get('/results/'.$slug);
 
         if ($response->successful()) {
-            return CoverDto::fromArray($response->json()['data']);
+            return FlatResultDto::fromArray($response->json()['data']);
         }
 
         throw new ApiException('Geen geldige cover gevonden.');
