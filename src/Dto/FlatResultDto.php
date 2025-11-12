@@ -20,7 +20,7 @@ final class FlatResultDto
         public string $articleNumber,
         public ?string $ean,
         public string $title,
-        public string $subtitle,
+        public ?string $subtitle,
         public string $description,
         public string $metaDescription,
         public string $datasheetDescription,
