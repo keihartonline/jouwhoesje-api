@@ -12,7 +12,7 @@ final readonly class BuyableDto
         public ?array $media,
         public string $name,
         public string $slug,
-        public string $brandSlug,
+        public ?string $brandSlug,
         public int $limit,
         public int $stock,
     ) {}
@@ -25,7 +25,7 @@ final readonly class BuyableDto
             media: $data['media'],
             name: $data['name'],
             slug: $data['slug'],
-            brandSlug: $data['brand_slug'],
+            brandSlug: $data['brand_slug'] ?? null,
             limit: $data['limit'],
             stock: $data['stock'],
         );
