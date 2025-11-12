@@ -22,7 +22,9 @@ final readonly class BuyableDto
         return new self(
             productType: ProductTypeEnum::from($data['product_type']),
             articleNumber: $data['article_number'],
-            media: $data['media'],
+            media: count($data['media']) > 0
+                ? reset($data['media'])
+                : null,
             name: $data['name'],
             slug: $data['slug'],
             brandSlug: $data['brand_slug'] ?? null,
