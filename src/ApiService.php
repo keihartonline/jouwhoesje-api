@@ -206,7 +206,7 @@ readonly class ApiService
     ): array {
         $response = $this->client->get('/filters', array_filter([
             'filters' => $filters,
-            'hardFilters' => $hardFilters,
+            'hard_filters' => $hardFilters,
         ]));
 
         if ($response->successful()) {
