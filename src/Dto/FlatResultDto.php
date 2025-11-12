@@ -6,7 +6,7 @@ use KeihartOnline\JouwHoesjeApi\Enums\LabelEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\StockStatusEnum;
 
-final readonly class FlatResultCompactDto
+final readonly class FlatResultDto
 {
     /**
      * @param  LabelEnum[]  $labels
@@ -28,7 +28,7 @@ final readonly class FlatResultCompactDto
         public ?string $brandName = null,
         public ?string $brandSlug = null,
         public array $labels = [],
-        public ?array $media = null,
+        public array $media,
     ) {}
 
     public static function fromArray(array $data): self
@@ -53,9 +53,7 @@ final readonly class FlatResultCompactDto
                 fn (string $label) => LabelEnum::from($label),
                 $data['labels']
             ),
-            media: count($data['media']) > 0
-                ? reset($data['media'])
-                : null,
+            media: $data['media'],
         );
     }
 }
