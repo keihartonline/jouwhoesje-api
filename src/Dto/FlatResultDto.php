@@ -36,6 +36,7 @@ final readonly class FlatResultDto
         public ?string $brandSlug,
         public array $labels,
         public array $media,
+        public ?array $firstMedia,
     ) {}
 
     public static function fromArray(array $data): self
@@ -68,6 +69,9 @@ final readonly class FlatResultDto
                 $data['labels']
             ),
             media: $data['media'],
+            firstMedia: count($data['media']) > 0
+                ? reset($data['media'])
+                : null,
         );
     }
 }
