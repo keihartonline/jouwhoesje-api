@@ -31,7 +31,7 @@ final class FlatResultDto
         public ?string $deviceName,
         public ?string $deviceSlug,
         public ?string $deviceCombinedName,
-        public array $deviceAllNames = [],
+        public array $deviceAllNames,
         public ?string $brandName,
         public ?string $brandSlug,
         public array $labels,

@@ -13,7 +13,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\FlatResultCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FlatResultDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Enums\FilterEnum;
-use KeihartOnline\JouwHoesjeApi\Enums\ResultTypeEnum;
+use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
 use KeihartOnline\JouwHoesjeApi\Exceptions\BuyableNotFoundException;
 use Throwable;
@@ -239,14 +239,14 @@ readonly class ApiService
      * @throws Throwable
      */
     public function addToCart(
-        ResultTypeEnum $productType,
-        array $payload,
+        ProductTypeEnum $productType,
+        string $articleNumber,
     ): CartDto {
         $response = $this->client
             ->throwError(false)
             ->post('/cart/add', [
                 'product_type' => $productType,
-                ...$payload,
+                'article_number' => $articleNumber,
             ]);
 
         if ($response->status() === 404) {
