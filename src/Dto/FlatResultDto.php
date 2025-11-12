@@ -36,12 +36,16 @@ final readonly class FlatResultDto
         public ?string $brandSlug,
         public array $labels,
         public array $media,
-        public ?array $firstMedia,
+
+        // Handy accessors
+        public ?array $firstMedia = null,
+        public bool $noLongerAvailable = false,
+        public bool $isSellable = true,
     ) {}
 
     public static function fromArray(array $data): self
     {
-        return new self(
+        $dto = new self(
             productType: ProductTypeEnum::from($data['product_type']),
             slug: $data['slug'],
             stockStatus: StockStatusEnum::from($data['stock_status']),
@@ -69,9 +73,14 @@ final readonly class FlatResultDto
                 $data['labels']
             ),
             media: $data['media'],
-            firstMedia: count($data['media']) > 0
-                ? reset($data['media'])
-                : null,
         );
+
+        $dto->firstMedia = count($dto->media)
+            ? reset($dto->media)
+            : null;
+        $dto->noLongerAvailable = ! $dto->canBackorder && $dto->stockStatus === StockStatusEnum::OUT_OF_STOCK;
+        $dto->isSellable = in_array($dto->stockStatus, [StockStatusEnum::LOW_STOCK, StockStatusEnum::IN_STOCK]);
+
+        return $dto;
     }
 }
