@@ -2,7 +2,7 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
-use KeihartOnline\JouwHoesjeApi\Enums\FilterTypeEnum;
+use KeihartOnline\JouwHoesjeApi\Enums\FilterEnum;
 
 final readonly class FilterDto
 {
@@ -10,7 +10,7 @@ final readonly class FilterDto
      * @param  FilterOptionDto[]|FilterOptionGroupDto[]  $options
      */
     public function __construct(
-        public FilterTypeEnum $filterType,
+        public FilterEnum $filter,
         public string $name,
         public string $label,
         public int $count,
@@ -21,7 +21,7 @@ final readonly class FilterDto
     public static function fromArray(array $data): self
     {
         return new self(
-            filterType: FilterTypeEnum::from($data['filter_type']),
+            filter: FilterEnum::from($data['filter']),
             name: $data['name'],
             label: $data['label'],
             count: $data['count'],

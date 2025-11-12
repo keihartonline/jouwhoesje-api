@@ -12,6 +12,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FlatResultCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
+use KeihartOnline\JouwHoesjeApi\Enums\FilterEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\ResultTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
 use KeihartOnline\JouwHoesjeApi\Exceptions\BuyableNotFoundException;
@@ -193,18 +194,19 @@ readonly class ApiService
     }
 
     /**
+     * @param  FilterEnum[]  $filters
      * @return FilterDto[]
      *
      * @throws ApiException
      * @throws Throwable
      */
     public function getFilters(
-        string $brand,
-        ?string $device = null,
+        array $filters = [],
+        array $hardFilters = [],
     ): array {
         $response = $this->client->get('/filters', array_filter([
-            'brand' => $brand,
-            'device' => $device,
+            'filters' => $filters,
+            'hardFilters' => $hardFilters,
         ]));
 
         if ($response->successful()) {

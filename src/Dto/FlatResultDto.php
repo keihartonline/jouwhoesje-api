@@ -23,11 +23,11 @@ final readonly class FlatResultDto
         public ?string $emoji,
         public int $price,
         public ?int $retailPrice,
-        public bool $isPromotion = false,
-        public ?string $deviceCombinedName = null,
-        public ?string $brandName = null,
-        public ?string $brandSlug = null,
-        public array $labels = [],
+        public bool $isPromotion,
+        public ?string $deviceCombinedName,
+        public ?string $brandName,
+        public ?string $brandSlug,
+        public array $labels,
         public array $media,
     ) {}
 
