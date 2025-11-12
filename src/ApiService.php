@@ -143,12 +143,14 @@ readonly class ApiService
     public function getResults(
         int $perPage = 15,
         ?int $page = null,
-        array $filters = [],
+        array $hardFilters = [],
+        array $softFilters = [],
     ): LengthAwarePaginator {
         $query = array_filter([
             'per_page' => $perPage,
             'page' => $page,
-            'filters' => $filters,
+            'hard_filters' => $hardFilters,
+            'soft_filters' => $softFilters,
         ]);
 
         $response = $this->client->get('/results', $query);
