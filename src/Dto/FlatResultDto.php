@@ -73,7 +73,10 @@ final class FlatResultDto
                 fn (string $label) => LabelEnum::from($label),
                 $data['labels']
             ),
-            media: $data['media'],
+            media: array_map(
+                fn (array $row) => MediaDto::fromArray($row),
+                $data['media']
+            ),
         );
 
         $dto->firstMedia = ! blank($dto->media)
