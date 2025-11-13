@@ -9,7 +9,7 @@ final readonly class BuyableDto
     public function __construct(
         public ProductTypeEnum $productType,
         public string $articleNumber,
-        public ?array $media,
+        public ?MediaDto $firstMedia,
         public string $name,
         public string $slug,
         public ?string $brandSlug,
@@ -22,8 +22,8 @@ final readonly class BuyableDto
         return new self(
             productType: ProductTypeEnum::from($data['product_type']),
             articleNumber: $data['article_number'],
-            media: count($data['media']) > 0
-                ? reset($data['media'])
+            firstMedia: ! blank($data['media'])
+                ? MediaDto::fromArray($data['media'][0])
                 : null,
             name: $data['name'],
             slug: $data['slug'],

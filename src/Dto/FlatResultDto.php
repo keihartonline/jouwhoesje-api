@@ -10,6 +10,7 @@ final class FlatResultDto
 {
     /**
      * @param  LabelEnum[]  $labels
+     * @param  MediaDto[]  $media
      */
     public function __construct(
         public ProductTypeEnum $productType,
@@ -38,7 +39,7 @@ final class FlatResultDto
         public array $media,
 
         // Handy accessors
-        public ?array $firstMedia = null,
+        public ?MediaDto $firstMedia = null,
         public bool $noLongerAvailable = false,
         public bool $isSellable = true,
     ) {}
@@ -75,8 +76,8 @@ final class FlatResultDto
             media: $data['media'],
         );
 
-        $dto->firstMedia = count($dto->media)
-            ? reset($dto->media)
+        $dto->firstMedia = ! blank($dto->media)
+            ? $dto->media[0]
             : null;
         $dto->noLongerAvailable = ! $dto->canBackorder && $dto->stockStatus === StockStatusEnum::OUT_OF_STOCK;
         $dto->isSellable = in_array($dto->stockStatus, [StockStatusEnum::LOW_STOCK, StockStatusEnum::IN_STOCK]);
