@@ -13,6 +13,7 @@ final readonly class DeviceDto
         public ?string $slug = null,
         public int $completeCoversCount = 0,
         public ?BrandDto $brand = null,
+        public ?string $series = null,
         public ?MediaDto $firstMedia = null,
     ) {}
 
@@ -27,6 +28,7 @@ final readonly class DeviceDto
             slug: $data['slug'] ?? null,
             completeCoversCount: $data['complete_covers_count'] ?? 0,
             brand: isset($data['brand']) ? BrandDto::fromArray($data['brand']) : null,
+            series: $data['series'] ?? null,
             firstMedia: ! blank($data['media'] ?? null)
                 ? MediaDto::fromArray($data['media'][0])
                 : null,
