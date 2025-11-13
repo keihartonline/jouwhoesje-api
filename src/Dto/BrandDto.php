@@ -29,7 +29,7 @@ final readonly class BrandDto
             slug: $data['slug'] ?? null,
             sellableCoversCount: $data['sellable_covers_count'] ?? null,
             devices: $devices,
-            firstMedia: ! blank($data['media'])
+            firstMedia: ! blank($data['media'] ?? null)
                 ? MediaDto::fromArray($data['media'][0])
                 : null,
         );
