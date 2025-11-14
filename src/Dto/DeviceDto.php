@@ -12,6 +12,7 @@ final readonly class DeviceDto
         public ?int $releaseYear = null,
         public ?string $slug = null,
         public int $completeCoversCount = 0,
+        public bool $preferredProduct = false,
         public ?BrandDto $brand = null,
         public ?string $series = null,
         public ?MediaDto $firstMedia = null,
@@ -27,6 +28,7 @@ final readonly class DeviceDto
             releaseYear: $data['release_year'] ?? null,
             slug: $data['slug'] ?? null,
             completeCoversCount: $data['complete_covers_count'] ?? 0,
+            preferredProduct: $data['preferred_product'] ?? false,
             brand: isset($data['brand']) ? BrandDto::fromArray($data['brand']) : null,
             series: $data['series'] ?? null,
             firstMedia: ! blank($data['media'] ?? null)
