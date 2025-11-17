@@ -7,6 +7,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CartDto;
+use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignInfoDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FlatResultCompactDto;
@@ -217,6 +218,23 @@ readonly class ApiService
         }
 
         throw new ApiException('Geen filters gevonden.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getCustomDesignInfo(string $slug): CustomDesignInfoDto
+    {
+        $response = $this->client->get('/custom-design/info/'.$slug);
+
+        if ($response->successful()) {
+            return CustomDesignInfoDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException(
+            sprintf('Geen custom design info gevonden voor %s', $slug)
+        );
     }
 
     /**
