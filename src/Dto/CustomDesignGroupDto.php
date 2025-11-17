@@ -9,6 +9,7 @@ final readonly class CustomDesignGroupDto
      */
     public function __construct(
         public string $sku,
+        public array $skus,
         public array $prices,
         public string $name,
         public int $optionsCount,
@@ -20,6 +21,7 @@ final readonly class CustomDesignGroupDto
     {
         return new self(
             sku: $data['sku'],
+            skus: $data['skus'],
             prices: $data['prices'],
             name: $data['name'],
             optionsCount: $data['options_count'] ?? 0,
