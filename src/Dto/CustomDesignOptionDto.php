@@ -5,11 +5,13 @@ namespace KeihartOnline\JouwHoesjeApi\Dto;
 final readonly class CustomDesignOptionDto
 {
     /**
+     * @param  string[]  $skus
+     * @param  int[]  $prices
      * @param  CustomDesignOptionDto[]  $options
      */
     public function __construct(
-        public string $skus,
-        public int $prices,
+        public array $skus,
+        public array $prices,
         public string $name,
         public array $options = [],
         public ?MediaDto $firstMedia = null,
