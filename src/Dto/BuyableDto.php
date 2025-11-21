@@ -22,8 +22,8 @@ final readonly class BuyableDto
         return new self(
             productType: ProductTypeEnum::from($data['product_type']),
             articleNumber: $data['article_number'],
-            firstMedia: ! blank($data['media'])
-                ? MediaDto::fromArray($data['media'][0])
+            firstMedia: ! blank($data['first_media'])
+                ? MediaDto::fromArray($data['first_media'])
                 : null,
             name: $data['name'],
             slug: $data['slug'],
