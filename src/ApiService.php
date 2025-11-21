@@ -226,7 +226,7 @@ readonly class ApiService
      */
     public function getCustomDesignInfo(string $slug): CustomDesignInfoDto
     {
-        $response = $this->client->get('/custom-design/info/'.$slug);
+        $response = $this->client->get('/custom-designs/info/'.$slug);
 
         if ($response->successful()) {
             return CustomDesignInfoDto::fromArray($response->json()['data']);
@@ -326,7 +326,7 @@ readonly class ApiService
         string $sku,
     ): void {
         $response = $this->client
-            ->post('/custom-design/create', [
+            ->post('/custom-designs/create', [
                 'sku' => $sku,
             ]);
     }
