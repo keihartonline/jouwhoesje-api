@@ -317,4 +317,17 @@ readonly class ApiService
 
         throw new ApiException('Geen cart teruggegeven.');
     }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function createCustomDesign(
+        string $sku,
+    ): void {
+        $response = $this->client
+            ->post('/custom-design/create', [
+                'sku' => $sku,
+            ]);
+    }
 }
