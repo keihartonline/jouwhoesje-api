@@ -11,7 +11,8 @@ final readonly class BrandDto
         public int $brandId,
         public string $name,
         public ?string $slug = null,
-        public ?int $sellableCoversCount = null,
+        public int $coversCount = 0,
+        public int $customizableCount = 0,
         public array $devices = [],
         public ?MediaDto $firstMedia = null,
     ) {}
@@ -27,7 +28,8 @@ final readonly class BrandDto
             brandId: $data['brand_id'],
             name: $data['name'],
             slug: $data['slug'] ?? null,
-            sellableCoversCount: $data['sellable_covers_count'] ?? null,
+            coversCount: $data['covers_count'] ?? 0,
+            customizableCount: $data['customizable_count'] ?? 0,
             devices: $devices,
             firstMedia: ! blank($data['media'] ?? null)
                 ? MediaDto::fromArray($data['media'][0])
