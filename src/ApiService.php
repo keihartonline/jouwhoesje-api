@@ -10,8 +10,8 @@ use KeihartOnline\JouwHoesjeApi\Dto\CartDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignInfoDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
-use KeihartOnline\JouwHoesjeApi\Dto\FlatResultCompactDto;
-use KeihartOnline\JouwHoesjeApi\Dto\FlatResultDto;
+use KeihartOnline\JouwHoesjeApi\Dto\ResultCompactDto;
+use KeihartOnline\JouwHoesjeApi\Dto\ResultDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Enums\FilterEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
@@ -163,7 +163,7 @@ readonly class ApiService
 
         $payload = $response->json();
         $items = array_map(
-            fn (array $record) => FlatResultCompactDto::fromArray($record),
+            fn (array $record) => ResultCompactDto::fromArray($record),
             $payload['data'] ?? []
         );
 
@@ -183,12 +183,12 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
-    public function getResult(string $slug): FlatResultDto
+    public function getResult(string $slug): ResultDto
     {
         $response = $this->client->get('/results/'.$slug);
 
         if ($response->successful()) {
-            return FlatResultDto::fromArray($response->json()['data']);
+            return ResultDto::fromArray($response->json()['data']);
         }
 
         throw new ApiException('Geen geldige cover gevonden.');
