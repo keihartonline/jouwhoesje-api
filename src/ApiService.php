@@ -326,7 +326,7 @@ readonly class ApiService
         string $sku,
     ): void {
         $response = $this->client
-            ->post('/custom-designs/create', [
+            ->get('/custom-designs/create', [
                 'sku' => $sku,
             ]);
     }
