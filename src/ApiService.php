@@ -324,10 +324,12 @@ readonly class ApiService
      */
     public function createCustomDesign(
         string $sku,
+        string $device,
     ): void {
         $response = $this->client
             ->get('/custom-designs/create', [
                 'sku' => $sku,
+                'device' => $device,
             ]);
     }
 }
