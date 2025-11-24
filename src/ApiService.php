@@ -7,6 +7,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CartDto;
+use KeihartOnline\JouwHoesjeApi\Dto\CreatedCustomDesignDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignInfoDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
@@ -325,7 +326,7 @@ readonly class ApiService
     public function createCustomDesign(
         string $sku,
         string $device,
-    ): string {
+    ): CreatedCustomDesignDto {
         $response = $this->client
             ->get('/custom-designs/create', [
                 'sku' => $sku,
@@ -333,9 +334,9 @@ readonly class ApiService
             ]);
 
         if ($response->successful()) {
-            return $response->json();
+            return CreatedCustomDesignDto::fromArray($response->json()['data']);
         }
 
-        throw new ApiException('Geen custom_design_token teruggegeven.');
+        throw new ApiException('Geen custom design data teruggegeven.');
     }
 }
