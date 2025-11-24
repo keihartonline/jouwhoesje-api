@@ -325,11 +325,17 @@ readonly class ApiService
     public function createCustomDesign(
         string $sku,
         string $device,
-    ): void {
+    ): string {
         $response = $this->client
             ->get('/custom-designs/create', [
                 'sku' => $sku,
                 'device' => $device,
             ]);
+
+        if ($response->successful()) {
+            return $response->json()['custom_design_token'];
+        }
+
+        throw new ApiException('Geen custom_design_token teruggegeven.');
     }
 }
