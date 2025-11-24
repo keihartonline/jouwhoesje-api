@@ -333,7 +333,7 @@ readonly class ApiService
             ]);
 
         if ($response->successful()) {
-            return $response->json()['custom_design_token'];
+            return $response->json();
         }
 
         throw new ApiException('Geen custom_design_token teruggegeven.');
