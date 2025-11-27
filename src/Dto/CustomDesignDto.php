@@ -1,0 +1,19 @@
+<?php
+
+namespace KeihartOnline\JouwHoesjeApi\Dto;
+
+final readonly class CustomDesignDto
+{
+    public function __construct(
+        public string $customDesignToken,
+        public DeviceDto $device,
+    ) {}
+
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            customDesignToken: $data['custom_design_token'],
+            device: DeviceDto::fromArray($data['device']),
+        );
+    }
+}

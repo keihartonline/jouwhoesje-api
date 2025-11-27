@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CartDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CreatedCustomDesignDto;
+use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignInfoDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
@@ -338,5 +339,22 @@ readonly class ApiService
         }
 
         throw new ApiException('Geen custom design data teruggegeven.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getCustomDesign(
+        string $customDesignToken,
+    ): CustomDesignDto {
+        $response = $this->client
+            ->get('/custom-designs/'.$customDesignToken);
+
+        if ($response->successful()) {
+            return CustomDesignDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Geen custom design teruggegeven.');
     }
 }
