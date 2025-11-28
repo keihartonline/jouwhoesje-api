@@ -3,6 +3,7 @@
 namespace KeihartOnline\JouwHoesjeApi;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
@@ -15,6 +16,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
+use KeihartOnline\JouwHoesjeApi\Dto\UploadDto;
 use KeihartOnline\JouwHoesjeApi\Enums\FilterEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
@@ -358,5 +360,26 @@ readonly class ApiService
         }
 
         throw new ApiException('Geen custom design teruggegeven.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function uploadForCustomDesign(
+        string $customDesignToken,
+        UploadedFile $file
+    ): UploadDto {
+        $response = $this->client
+            ->setAttachment($file)
+            ->post('/custom-designs/upload', [
+                'custom_design_token' => $customDesignToken,
+            ]);
+
+        if ($response->successful()) {
+            return UploadDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Geen upload teruggegeven.');
     }
 }

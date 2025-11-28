@@ -5,6 +5,7 @@ namespace KeihartOnline\JouwHoesjeApi;
 use Exception;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -17,6 +18,8 @@ class ApiClient
     private ?string $cartToken = null;
 
     private bool $throwError = true;
+
+    private UploadedFile $file;
 
     public function __construct(
         private TokenResolverInterface $tokenResolver
@@ -105,6 +108,13 @@ class ApiClient
         return $token;
     }
 
+    public function setAttachment(UploadedFile $file): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
     /**
      * @throws Exception
      */
@@ -113,9 +123,20 @@ class ApiClient
         return Http::withToken($this->getToken())
             ->when(
                 $this->cartToken !== null,
-                fn ($test) => $test->withHeader(
+                fn ($client) => $client->withHeader(
                     'X-Cart-Token',
                     $this->cartToken
+                )
+            )
+            ->when(
+                isset($this->file),
+                fn ($client) => $client->attach(
+                    'file',
+                    $this->file->get(),
+                    $this->file->getClientOriginalName(),
+                    [
+                        'Content-Type' => $this->file->getMimeType(),
+                    ]
                 )
             )
             ->baseUrl(config('jouwhoesje-api.base_url'))
