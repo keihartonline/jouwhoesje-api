@@ -382,4 +382,25 @@ readonly class ApiService
 
         throw new ApiException('Geen upload teruggegeven.');
     }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function deleteUploadForCustomDesign(
+        string $customDesignToken
+    ): bool {
+        $response = $this->client
+            ->delete(
+                '/custom-designs/upload?'.http_build_query([
+                    'custom_design_token' => $customDesignToken,
+                ])
+            );
+
+        if ($response->successful()) {
+            return true;
+        }
+
+        return false;
+    }
 }
