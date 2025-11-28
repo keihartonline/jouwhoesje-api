@@ -8,6 +8,8 @@ final readonly class CustomDesignDto
         public string $customDesignToken,
         public DeviceDto $device,
         public MaskDto $mask,
+        public string $name,
+        public int $price,
     ) {}
 
     public static function fromArray(array $data): self
@@ -15,7 +17,9 @@ final readonly class CustomDesignDto
         return new self(
             customDesignToken: $data['custom_design_token'],
             device: DeviceDto::fromArray($data['device']),
-            mask: MaskDto::fromArray($data['mask'])
+            mask: MaskDto::fromArray($data['mask']),
+            name: $data['name'],
+            price: $data['price']
         );
     }
 }
