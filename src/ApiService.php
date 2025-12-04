@@ -397,4 +397,21 @@ readonly class ApiService
 
         return false;
     }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getCustomDesignPreview(
+        string $customDesignToken,
+    ): ?string {
+        $response = $this->client
+            ->get(sprintf('/custom-designs/%s/preview', $customDesignToken));
+
+        if ($response->successful()) {
+            return $response->json()['url'];
+        }
+
+        throw new ApiException('Geen custom design preview teruggegeven.');
+    }
 }
