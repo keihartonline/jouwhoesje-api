@@ -351,9 +351,7 @@ readonly class ApiService
         string $customDesignToken,
     ): CustomDesignDto {
         $response = $this->client
-            ->get('/custom-designs/show', [
-                'custom_design_token' => $customDesignToken,
-            ]);
+            ->get(sprintf('/custom-designs/%s/upload', $customDesignToken));
 
         if ($response->successful()) {
             return CustomDesignDto::fromArray($response->json()['data']);
@@ -372,9 +370,7 @@ readonly class ApiService
     ): UploadDto {
         $response = $this->client
             ->setAttachment($file)
-            ->post('/custom-designs/upload', [
-                'custom_design_token' => $customDesignToken,
-            ]);
+            ->post(sprintf('/custom-designs/%s/upload', $customDesignToken));
 
         if ($response->successful()) {
             return UploadDto::fromArray($response->json()['data']);
@@ -392,9 +388,7 @@ readonly class ApiService
     ): bool {
         $response = $this->client
             ->delete(
-                '/custom-designs/upload?'.http_build_query([
-                    'custom_design_token' => $customDesignToken,
-                ])
+                sprintf('/custom-designs/%s/upload', $customDesignToken)
             );
 
         if ($response->successful()) {
