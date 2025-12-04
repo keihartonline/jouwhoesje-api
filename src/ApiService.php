@@ -351,7 +351,7 @@ readonly class ApiService
         string $customDesignToken,
     ): CustomDesignDto {
         $response = $this->client
-            ->get(sprintf('/custom-designs/%s/upload', $customDesignToken));
+            ->get(sprintf('/custom-designs/%s', $customDesignToken));
 
         if ($response->successful()) {
             return CustomDesignDto::fromArray($response->json()['data']);
