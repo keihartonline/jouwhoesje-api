@@ -2,6 +2,8 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
+use KeihartOnline\JouwHoesjeApi\Enums\CustomDesignEffectEnum;
+
 final readonly class CustomDesignDto
 {
     public function __construct(
@@ -10,7 +12,8 @@ final readonly class CustomDesignDto
         public MaskDto $mask,
         public string $name,
         public int $price,
-        public ?UploadDto $upload = null
+        public CustomDesignEffectEnum $effect,
+        public ?UploadDto $upload = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -21,6 +24,7 @@ final readonly class CustomDesignDto
             mask: MaskDto::fromArray($data['mask']),
             name: $data['name'],
             price: $data['price'],
+            effect: CustomDesignEffectEnum::from($data['effect']),
             upload: ! blank($data['upload']) ? UploadDto::fromArray($data['upload']) : null,
         );
     }
