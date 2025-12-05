@@ -11,6 +11,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\CartDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CreatedCustomDesignDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignInfoDto;
+use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignPreviewDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultCompactDto;
@@ -404,12 +405,12 @@ readonly class ApiService
      */
     public function getCustomDesignPreview(
         string $customDesignToken,
-    ): ?string {
+    ): CustomDesignPreviewDto {
         $response = $this->client
             ->get(sprintf('/custom-designs/%s/preview', $customDesignToken));
 
         if ($response->successful()) {
-            return $response->json()['url'];
+            return CustomDesignPreviewDto::fromArray($response->json()['data']);
         }
 
         throw new ApiException('Geen custom design preview teruggegeven.');
