@@ -10,8 +10,7 @@ final readonly class CustomDesignDto
         public MaskDto $mask,
         public string $name,
         public int $price,
-        public ?UploadDto $upload = null,
-        public ?string $preview = null,
+        public ?UploadDto $upload = null
     ) {}
 
     public static function fromArray(array $data): self
@@ -23,7 +22,6 @@ final readonly class CustomDesignDto
             name: $data['name'],
             price: $data['price'],
             upload: ! blank($data['upload']) ? UploadDto::fromArray($data['upload']) : null,
-            preview: $data['preview'],
         );
     }
 }
