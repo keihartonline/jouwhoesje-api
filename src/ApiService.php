@@ -17,6 +17,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\ResultCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Dto\UploadDto;
+use KeihartOnline\JouwHoesjeApi\Enums\CustomDesignEffectEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\FilterEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
@@ -413,5 +414,25 @@ readonly class ApiService
         }
 
         throw new ApiException('Geen custom design preview teruggegeven.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function setEffectForCustomDesign(
+        string $customDesignToken,
+        CustomDesignEffectEnum $effect
+    ): bool {
+        $response = $this->client
+            ->post(sprintf('/custom-designs/%s/effect', $customDesignToken), [
+                'effect' => $effect->value,
+            ]);
+
+        if ($response->successful()) {
+            return true;
+        }
+
+        return false;
     }
 }
