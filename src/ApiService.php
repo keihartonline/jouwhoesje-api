@@ -17,7 +17,6 @@ use KeihartOnline\JouwHoesjeApi\Dto\ResultCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Dto\UploadDto;
-use KeihartOnline\JouwHoesjeApi\Enums\CustomDesignEffectEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\FilterEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
@@ -420,14 +419,12 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
-    public function setEffectForCustomDesign(
+    public function setSettingsForCustomDesign(
         string $customDesignToken,
-        CustomDesignEffectEnum $effect
+        array $settings
     ): bool {
         $response = $this->client
-            ->post(sprintf('/custom-designs/%s/effect', $customDesignToken), [
-                'effect' => $effect->value,
-            ]);
+            ->post(sprintf('/custom-designs/%s/settings', $customDesignToken), $settings);
 
         if ($response->successful()) {
             return true;
