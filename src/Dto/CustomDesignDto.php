@@ -3,6 +3,7 @@
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
 use KeihartOnline\JouwHoesjeApi\Enums\CustomDesignEffectEnum;
+use KeihartOnline\JouwHoesjeApi\Enums\CustomDesignFitTypeEnum;
 
 final readonly class CustomDesignDto
 {
@@ -13,6 +14,7 @@ final readonly class CustomDesignDto
         public string $name,
         public int $price,
         public CustomDesignEffectEnum $effect,
+        public CustomDesignFitTypeEnum $fitType,
         public ?UploadDto $upload = null,
     ) {}
 
@@ -25,6 +27,7 @@ final readonly class CustomDesignDto
             name: $data['name'],
             price: $data['price'],
             effect: CustomDesignEffectEnum::from($data['effect']),
+            fitType: CustomDesignFitTypeEnum::from($data['fit_type']),
             upload: ! blank($data['upload']) ? UploadDto::fromArray($data['upload']) : null,
         );
     }
