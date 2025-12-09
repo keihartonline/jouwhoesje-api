@@ -8,6 +8,9 @@ final readonly class UploadDto
         public string $name,
         public bool $hasTransparency,
         public string $path,
+        public int $width,
+        public int $height,
+        public float $ratio,
         public MediaDto $media,
     ) {}
 
@@ -17,6 +20,9 @@ final readonly class UploadDto
             name: $data['name'],
             hasTransparency: $data['has_transparency'],
             path: $data['path'],
+            width: $data['width'],
+            height: $data['height'],
+            ratio: $data['ratio'],
             media: MediaDto::fromArray($data['media']),
         );
     }
