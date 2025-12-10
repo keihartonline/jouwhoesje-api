@@ -17,6 +17,7 @@ final readonly class CustomDesignDto
         public CustomDesignFitTypeEnum $fitType,
         public ?string $preview = null,
         public ?UploadDto $upload = null,
+        public ?array $cropperData = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -31,6 +32,7 @@ final readonly class CustomDesignDto
             fitType: CustomDesignFitTypeEnum::from($data['fit_type']),
             preview: $data['preview'],
             upload: ! blank($data['upload']) ? UploadDto::fromArray($data['upload']) : null,
+            cropperData: $data['cropper_data'],
         );
     }
 }
