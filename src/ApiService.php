@@ -16,7 +16,6 @@ use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
-use KeihartOnline\JouwHoesjeApi\Dto\UploadDto;
 use KeihartOnline\JouwHoesjeApi\Enums\FilterEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
@@ -367,16 +366,16 @@ readonly class ApiService
     public function uploadForCustomDesign(
         string $customDesignToken,
         UploadedFile $file
-    ): UploadDto {
+    ): bool {
         $response = $this->client
             ->setAttachment($file)
             ->post(sprintf('/custom-designs/%s/upload', $customDesignToken));
 
         if ($response->successful()) {
-            return UploadDto::fromArray($response->json()['data']);
+            return true;
         }
 
-        throw new ApiException('Geen upload teruggegeven.');
+        return false;
     }
 
     /**
@@ -396,23 +395,6 @@ readonly class ApiService
         }
 
         return false;
-    }
-
-    /**
-     * @throws ApiException
-     * @throws Throwable
-     */
-    public function getCustomDesignPreview(
-        string $customDesignToken,
-    ): ?string {
-        $response = $this->client
-            ->get(sprintf('/custom-designs/%s/preview', $customDesignToken));
-
-        if ($response->successful()) {
-            return $response->json()['url'];
-        }
-
-        throw new ApiException('Geen custom design preview teruggegeven.');
     }
 
     /**

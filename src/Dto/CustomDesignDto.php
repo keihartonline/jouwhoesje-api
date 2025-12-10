@@ -15,6 +15,7 @@ final readonly class CustomDesignDto
         public int $price,
         public CustomDesignEffectEnum $effect,
         public CustomDesignFitTypeEnum $fitType,
+        public ?string $preview = null,
         public ?UploadDto $upload = null,
     ) {}
 
@@ -28,6 +29,7 @@ final readonly class CustomDesignDto
             price: $data['price'],
             effect: CustomDesignEffectEnum::from($data['effect']),
             fitType: CustomDesignFitTypeEnum::from($data['fit_type']),
+            preview: $data['preview'],
             upload: ! blank($data['upload']) ? UploadDto::fromArray($data['upload']) : null,
         );
     }
