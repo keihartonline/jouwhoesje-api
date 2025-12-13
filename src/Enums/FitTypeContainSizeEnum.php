@@ -4,7 +4,7 @@ namespace KeihartOnline\JouwHoesjeApi\Enums;
 
 enum FitTypeContainSizeEnum: string
 {
-    case SMALL = 'cover';
+    case SMALL = 'small';
     case LARGER = 'larger';
     case LARGEST = 'largest';
 }
