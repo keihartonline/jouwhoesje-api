@@ -18,7 +18,8 @@ final readonly class CustomDesignDto
         public bool $canHaveContainFitType,
         public ?string $preview = null,
         public ?UploadDto $upload = null,
-        public ?array $cropperData = null,
+        public ?array $fitTypeCoverData = null,
+        public ?array $fitTypeContainData = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -34,7 +35,8 @@ final readonly class CustomDesignDto
             canHaveContainFitType: $data['can_have_contain_fit_type'],
             preview: $data['preview'],
             upload: ! blank($data['upload']) ? UploadDto::fromArray($data['upload']) : null,
-            cropperData: $data['cropper_data'],
+            fitTypeCoverData: $data['fit_type_cover_data'] ?? null,
+            fitTypeContainData: $data['fit_type_contain_data'] ?? null,
         );
     }
 }
