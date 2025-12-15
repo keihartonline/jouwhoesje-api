@@ -2,9 +2,6 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
-use KeihartOnline\JouwHoesjeApi\Enums\CustomDesignEffectEnum;
-use KeihartOnline\JouwHoesjeApi\Enums\CustomDesignFitTypeEnum;
-
 final readonly class CustomDesignDto
 {
     public function __construct(
@@ -13,13 +10,10 @@ final readonly class CustomDesignDto
         public MaskDto $mask,
         public string $name,
         public int $price,
-        public CustomDesignEffectEnum $effect,
-        public CustomDesignFitTypeEnum $fitType,
         public bool $canHaveContainFitType,
-        public ?string $preview = null,
-        public ?UploadDto $upload = null,
-        public ?array $fitTypeCoverData = null,
-        public ?array $fitTypeContainData = null,
+        public ?string $preview,
+        public ?UploadDto $upload,
+        public CustomDesignSettingsDto $settings,
     ) {}
 
     public static function fromArray(array $data): self
@@ -30,13 +24,10 @@ final readonly class CustomDesignDto
             mask: MaskDto::fromArray($data['mask']),
             name: $data['name'],
             price: $data['price'],
-            effect: CustomDesignEffectEnum::from($data['effect']),
-            fitType: CustomDesignFitTypeEnum::from($data['fit_type']),
             canHaveContainFitType: $data['can_have_contain_fit_type'],
             preview: $data['preview'],
             upload: ! blank($data['upload']) ? UploadDto::fromArray($data['upload']) : null,
-            fitTypeCoverData: $data['fit_type_cover_data'] ?? null,
-            fitTypeContainData: $data['fit_type_contain_data'] ?? null,
+            settings: CustomDesignSettingsDto::fromArray($data['settings'])
         );
     }
 }
