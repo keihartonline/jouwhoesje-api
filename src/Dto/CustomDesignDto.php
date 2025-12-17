@@ -2,6 +2,8 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
+use KeihartOnline\JouwHoesjeApi\Enums\CustomDesignQualityEnum;
+
 final readonly class CustomDesignDto
 {
     public function __construct(
@@ -14,6 +16,7 @@ final readonly class CustomDesignDto
         public ?string $preview,
         public ?UploadDto $upload,
         public CustomDesignSettingsDto $settings,
+        public CustomDesignQualityEnum $quality,
     ) {}
 
     public static function fromArray(array $data): self
@@ -27,7 +30,8 @@ final readonly class CustomDesignDto
             canHaveContainFitType: $data['can_have_contain_fit_type'],
             preview: $data['preview'],
             upload: ! blank($data['upload']) ? UploadDto::fromArray($data['upload']) : null,
-            settings: CustomDesignSettingsDto::fromArray($data['settings'])
+            settings: CustomDesignSettingsDto::fromArray($data['settings']),
+            quality: CustomDesignQualityEnum::from($data['quality']),
         );
     }
 }
