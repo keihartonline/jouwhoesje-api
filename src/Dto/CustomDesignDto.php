@@ -17,6 +17,7 @@ final readonly class CustomDesignDto
         public ?UploadDto $upload,
         public CustomDesignSettingsDto $settings,
         public CustomDesignQualityEnum $quality,
+        public DimensionsDto $dimensions,
     ) {}
 
     public static function fromArray(array $data): self
@@ -32,6 +33,7 @@ final readonly class CustomDesignDto
             upload: ! blank($data['upload']) ? UploadDto::fromArray($data['upload']) : null,
             settings: CustomDesignSettingsDto::fromArray($data['settings']),
             quality: CustomDesignQualityEnum::from($data['quality']),
+            dimensions: DimensionsDto::fromArray($data['dimensions']),
         );
     }
 }
