@@ -414,4 +414,22 @@ readonly class ApiService
 
         return false;
     }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function addCustomDesignToCart(
+        string $customDesignToken
+    ): CartDto {
+        $response = $this->client
+            ->throwError(false)
+            ->post(sprintf('/custom-designs/%s/add-to-cart', $customDesignToken));
+
+        if ($response->successful()) {
+            return CartDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Custom design toevoegen aan cart mislukt.');
+    }
 }
