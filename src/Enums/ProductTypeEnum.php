@@ -5,6 +5,7 @@ namespace KeihartOnline\JouwHoesjeApi\Enums;
 enum ProductTypeEnum: string
 {
     case COVER = 'cover';
+    case CUSTOM_DESIGN = 'custom-design';
     case SCREEN_PROTECTOR = 'screen-protector';
     case CAMERA_PROTECTOR = 'camera-protector';
     case PHONE_CORD = 'phone-cord';
@@ -21,6 +22,7 @@ enum ProductTypeEnum: string
     {
         return match ($value) {
             self::COVER => 'Hoesje',
+            self::CUSTOM_DESIGN => 'Gepersonaliseerd hoesje',
             self::SCREEN_PROTECTOR => 'Screen protector',
             self::CAMERA_PROTECTOR => 'Camera protector',
             self::PHONE_CORD => 'Telefoonkoord',
