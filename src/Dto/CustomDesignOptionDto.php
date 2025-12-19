@@ -14,6 +14,7 @@ final readonly class CustomDesignOptionDto
         public array $prices,
         public string $name,
         public array $options = [],
+        public array $colours = [],
         public ?MediaDto $firstMedia = null,
     ) {}
 
@@ -27,6 +28,7 @@ final readonly class CustomDesignOptionDto
                 fn (array $row) => CustomDesignOptionDto::fromArray($row),
                 $data['options'] ?? []
             ),
+            colours: $data['colours'] ?? [],
             firstMedia: ! blank($data['first_media'])
                 ? MediaDto::fromArray($data['first_media'])
                 : null,
