@@ -350,9 +350,7 @@ readonly class ApiService
         string $customDesignToken,
     ): CustomDesignDto {
         $response = $this->client
-            ->get('/custom-designs/reopen', [
-                'custom_design_token' => $customDesignToken,
-            ]);
+            ->post(sprintf('/custom-designs/%s/reopen', $customDesignToken));
 
         if ($response->successful()) {
             return CustomDesignDto::fromArray($response->json()['data']);
