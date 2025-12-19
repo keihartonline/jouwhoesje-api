@@ -18,6 +18,7 @@ final readonly class CustomDesignDto
         public CustomDesignSettingsDto $settings,
         public CustomDesignQualityEnum $quality,
         public DimensionsDto $dimensions,
+        public array $colourVariants,
     ) {}
 
     public static function fromArray(array $data): self
@@ -34,6 +35,10 @@ final readonly class CustomDesignDto
             settings: CustomDesignSettingsDto::fromArray($data['settings']),
             quality: CustomDesignQualityEnum::from($data['quality']),
             dimensions: DimensionsDto::fromArray($data['dimensions']),
+            colourVariants: array_map(
+                fn (array $row) => CustomDesignColourVariantDto::fromArray($data['$row']),
+                $data['colours']
+            )
         );
     }
 }
