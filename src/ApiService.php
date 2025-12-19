@@ -346,6 +346,25 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
+    public function reopenCustomDesign(
+        string $customDesignToken,
+    ): CustomDesignDto {
+        $response = $this->client
+            ->get('/custom-designs/reopen', [
+                'custom_design_token' => $customDesignToken,
+            ]);
+
+        if ($response->successful()) {
+            return CustomDesignDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Geen custom design data teruggegeven.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
     public function getCustomDesign(
         string $customDesignToken,
     ): CustomDesignDto {
