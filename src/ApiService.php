@@ -380,6 +380,26 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
+    public function setColourForCustomDesign(
+        string $customDesignToken,
+        string $sku
+    ): bool {
+        $response = $this->client
+            ->post(sprintf('/custom-designs/%s/set-colour', $customDesignToken), [
+                'sku' => $sku,
+            ]);
+
+        if ($response->successful()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
     public function uploadForCustomDesign(
         string $customDesignToken,
         UploadedFile $file
