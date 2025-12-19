@@ -36,8 +36,8 @@ final readonly class CustomDesignDto
             quality: CustomDesignQualityEnum::from($data['quality']),
             dimensions: DimensionsDto::fromArray($data['dimensions']),
             colourVariants: array_map(
-                fn (array $row) => CustomDesignColourVariantDto::fromArray($data['$row']),
-                $data['colours']
+                fn (array $row) => CustomDesignColourVariantDto::fromArray($row),
+                $data['colour_variants']
             )
         );
     }
