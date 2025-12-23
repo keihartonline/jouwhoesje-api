@@ -11,6 +11,7 @@ final readonly class CustomDesignInfoDto
     public function __construct(
         public array $prices,
         public array $options,
+        public int $optionsCount,
         public array $media,
     ) {}
 
@@ -22,6 +23,7 @@ final readonly class CustomDesignInfoDto
                 fn (array $row) => CustomDesignOptionDto::fromArray($row),
                 $data['options']
             ),
+            optionsCount: $data['options_count'] ?? 1,
             media: array_map(
                 fn (array $row) => MediaDto::fromArray($row),
                 $data['media']
