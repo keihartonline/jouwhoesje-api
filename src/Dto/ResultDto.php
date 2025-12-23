@@ -73,7 +73,7 @@ final class ResultDto
             brandSlug: $data['brand_slug'],
             specifications: array_map(
                 fn ($row) => SpecificationDto::fromArray($row),
-                $data['specifications']
+                $data['specifications'] ?? []
             ),
             labels: array_map(
                 fn (string $label) => LabelEnum::from($label),

@@ -20,7 +20,7 @@ enum SpecificationTypeEnum: string
     public static function getLabel(self $value): string
     {
         return match ($value) {
-            self::COMPATIBLE_MODELS => 'Geschikt modellen',
+            self::COMPATIBLE_MODELS => 'Geschikte modellen',
             self::COLOUR => 'Kleur',
             self::MATERIAL => 'Materiaal',
             self::PRINT_SIDE => 'Bedrukking',
