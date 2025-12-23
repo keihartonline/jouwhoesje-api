@@ -9,6 +9,7 @@ use KeihartOnline\JouwHoesjeApi\Enums\StockStatusEnum;
 final class ResultDto
 {
     /**
+     * @param  SpecificationDto[]  $specifications
      * @param  LabelEnum[]  $labels
      * @param  MediaDto[]  $media
      */
@@ -35,6 +36,7 @@ final class ResultDto
         public array $deviceAllNames,
         public ?string $brandName,
         public ?string $brandSlug,
+        public array $specifications,
         public array $labels,
         public array $media,
 
@@ -69,6 +71,10 @@ final class ResultDto
             deviceAllNames: $data['device_all_names'] ?? [],
             brandName: $data['brand_name'],
             brandSlug: $data['brand_slug'],
+            specifications: array_map(
+                fn ($row) => SpecificationDto::fromArray($row),
+                $data['specifications']
+            ),
             labels: array_map(
                 fn (string $label) => LabelEnum::from($label),
                 $data['labels']
