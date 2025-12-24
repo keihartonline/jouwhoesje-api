@@ -2,10 +2,13 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
+use KeihartOnline\JouwHoesjeApi\Enums\DeviceTypeEnum;
+
 final readonly class DeviceDto
 {
     public function __construct(
         public int $deviceId,
+        public DeviceTypeEnum $type,
         public string $name,
         public ?string $combinedName = null,
         public array $allNames = [],
@@ -23,6 +26,7 @@ final readonly class DeviceDto
     {
         return new self(
             deviceId: $data['device_id'],
+            type: DeviceTypeEnum::from($data['type']),
             name: $data['name'],
             combinedName: $data['combined_name'] ?? null,
             allNames: $data['all_names'] ?? [],
