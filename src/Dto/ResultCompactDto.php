@@ -2,6 +2,7 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
+use KeihartOnline\JouwHoesjeApi\Enums\DeviceTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\LabelEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\StockStatusEnum;
@@ -25,6 +26,7 @@ final readonly class ResultCompactDto
         public ?int $retailPrice,
         public bool $isPromotion = false,
         public ?string $deviceCombinedName = null,
+        public ?DeviceTypeEnum $deviceType = null,
         public ?string $brandName = null,
         public ?string $brandSlug = null,
         public array $labels = [],
@@ -47,6 +49,7 @@ final readonly class ResultCompactDto
             retailPrice: $data['retail_price'],
             isPromotion: $data['retail_price'] > $data['price'],
             deviceCombinedName: $data['device_combined_name'],
+            deviceType: DeviceTypeEnum::tryFrom($data['device_type']),
             brandName: $data['brand_name'],
             brandSlug: $data['brand_slug'],
             labels: array_map(
