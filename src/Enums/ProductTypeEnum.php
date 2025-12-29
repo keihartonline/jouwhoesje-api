@@ -25,7 +25,7 @@ enum ProductTypeEnum: string
             self::CUSTOM_DESIGN => 'Gepersonaliseerd hoesje',
             self::SCREEN_PROTECTOR => 'Screen protector',
             self::CAMERA_PROTECTOR => 'Camera protector',
-            self::PHONE_CORD => 'Telefoonkoord',
+            self::PHONE_CORD => 'Telefoonkoord universeel',
             self::CROSSBODY_CORD => 'Crossbody koord',
             self::CHARGING_CABLE => 'Oplaadkabel',
             self::GIFT_PACKAGING => 'Cadeauverpakking',
