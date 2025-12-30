@@ -49,7 +49,9 @@ final readonly class ResultCompactDto
             retailPrice: $data['retail_price'],
             isPromotion: $data['retail_price'] > $data['price'],
             deviceCombinedName: $data['device_combined_name'],
-            deviceType: DeviceTypeEnum::tryFrom($data['device_type']),
+            deviceType: $data['device_type'] !== null
+                ? DeviceTypeEnum::tryFrom($data['device_type'])
+                : null,
             brandName: $data['brand_name'],
             brandSlug: $data['brand_slug'],
             labels: array_map(
