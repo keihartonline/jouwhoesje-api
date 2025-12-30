@@ -34,7 +34,7 @@ final class ResultDto
         public ?string $deviceSlug,
         public ?string $deviceCombinedName,
         public array $deviceAllNames,
-        public ?DeviceTypeEnum $deviceType = null,
+        public ?DeviceTypeEnum $deviceType,
         public ?string $brandName,
         public ?string $brandSlug,
         public array $specifications,

@@ -4,6 +4,9 @@ namespace KeihartOnline\JouwHoesjeApi\Dto;
 
 final readonly class ShopDto
 {
+    /**
+     * @param  PaymentMethodDto[]  $paymentMethods
+     */
     public function __construct(
         public int $shopId,
         public string $name,
@@ -12,6 +15,7 @@ final readonly class ShopDto
         public string $fqdn,
         public string $locale,
         public string $countryCode,
+        public array $paymentMethods = [],
     ) {}
 
     public static function fromArray(array $data): self
@@ -24,6 +28,10 @@ final readonly class ShopDto
             fqdn: $data['fqdn'],
             locale: $data['locale'],
             countryCode: $data['country_code'],
+            paymentMethods: array_map(
+                fn (array $paymentMethod) => PaymentMethodDto::fromArray($paymentMethod),
+                $data['payment_methods']
+            )
         );
     }
 }
