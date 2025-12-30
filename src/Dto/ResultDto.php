@@ -71,7 +71,9 @@ final class ResultDto
             deviceSlug: $data['device_slug'],
             deviceCombinedName: $data['device_combined_name'],
             deviceAllNames: $data['device_all_names'] ?? [],
-            deviceType: DeviceTypeEnum::tryFrom($data['device_type']),
+            deviceType: $data['device_type'] !== null
+                ? DeviceTypeEnum::tryFrom($data['device_type'])
+                : null,
             brandName: $data['brand_name'],
             brandSlug: $data['brand_slug'],
             specifications: array_map(
