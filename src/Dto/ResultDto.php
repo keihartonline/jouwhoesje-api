@@ -24,7 +24,7 @@ final class ResultDto
         public ?string $ean,
         public string $title,
         public ?string $subtitle,
-        public ?string $description,
+        public string $description,
         public ?string $metaDescription,
         public ?string $emoji,
         public int $price,
