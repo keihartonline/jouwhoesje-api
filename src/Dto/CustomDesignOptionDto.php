@@ -13,7 +13,7 @@ final readonly class CustomDesignOptionDto
         public array $skus,
         public array $prices,
         public string $name,
-        public string $description,
+        public ?string $description,
         public array $options,
         public array $colours,
         public array $specifications,
@@ -26,7 +26,7 @@ final readonly class CustomDesignOptionDto
             skus: $data['skus'],
             prices: $data['prices'],
             name: $data['name'],
-            description: $data['description'],
+            description: $data['description'] ?? null,
             options: array_map(
                 fn (array $row) => CustomDesignOptionDto::fromArray($row),
                 $data['options'] ?? []
