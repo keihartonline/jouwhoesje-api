@@ -6,6 +6,9 @@ use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
 
 final readonly class BuyableDto
 {
+    /**
+     * @param BuyableDto[] $giftPackaging
+     */
     public function __construct(
         public ProductTypeEnum $productType,
         public string $articleNumber,
@@ -15,6 +18,7 @@ final readonly class BuyableDto
         public ?string $brandSlug,
         public ?string $deviceSlug,
         public int $limit,
+        public array $giftPackaging,
         public int $stock,
     ) {}
 
@@ -31,6 +35,10 @@ final readonly class BuyableDto
             brandSlug: $data['brand_slug'] ?? null,
             deviceSlug: $data['device_slug'] ?? null,
             limit: $data['limit'],
+            giftPackaging: array_map(
+                fn (array $row) => self::fromArray($row),
+                $data['gift_packaging'] ?? []
+            ),
             stock: $data['stock'],
         );
     }
