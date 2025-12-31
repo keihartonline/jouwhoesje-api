@@ -18,6 +18,7 @@ final readonly class BuyableDto
         public string $slug,
         public ?string $brandSlug,
         public ?string $deviceSlug,
+        public int $price,
         public int $limit,
         public array $giftPackaging,
         public int $stock,
@@ -36,6 +37,7 @@ final readonly class BuyableDto
             slug: $data['slug'],
             brandSlug: $data['brand_slug'] ?? null,
             deviceSlug: $data['device_slug'] ?? null,
+            price: $data['price'],
             limit: $data['limit'],
             giftPackaging: array_map(
                 fn (array $row) => self::fromArray($row),
