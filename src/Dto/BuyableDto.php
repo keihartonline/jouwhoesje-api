@@ -10,6 +10,7 @@ final readonly class BuyableDto
      * @param BuyableDto[] $giftPackaging
      */
     public function __construct(
+        public int $id,
         public ProductTypeEnum $productType,
         public string $articleNumber,
         public ?MediaDto $firstMedia,
@@ -25,6 +26,7 @@ final readonly class BuyableDto
     public static function fromArray(array $data): self
     {
         return new self(
+            id: $data['id'],
             productType: ProductTypeEnum::from($data['product_type']),
             articleNumber: $data['article_number'],
             firstMedia: ! blank($data['first_media'])
