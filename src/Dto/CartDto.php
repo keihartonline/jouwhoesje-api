@@ -35,8 +35,8 @@ final readonly class CartDto
             totalPriceNet: (int) ($data['total_price_net'] ?? 0),
             totalGiftPackagingGross: (int) ($data['total_gift_packaging_gross'] ?? 0),
             totalGiftPackagingNet: (int) ($data['total_gift_packaging_net'] ?? 0),
-            totalProductsGross: (int) ($data['total_price_gross'] ?? 0),
-            totalProductsNet: (int) ($data['total_price_net'] ?? 0),
+            totalProductsGross: (int) ($data['total_products_gross'] ?? 0),
+            totalProductsNet: (int) ($data['total_products_net'] ?? 0),
             totalVat: (int) ($data['total_vat'] ?? 0),
             minimumOrderValue: (int) ($data['minimum_order_value'] ?? 0),
             items: array_map(
