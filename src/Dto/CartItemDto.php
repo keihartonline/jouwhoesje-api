@@ -9,8 +9,9 @@ final readonly class CartItemDto
     public function __construct(
         public string $cartItemToken,
         public int $quantity,
-        public int $priceGross,
-        public int $priceNet,
+        public int $unitPriceGross,
+        public int $unitPriceNet,
+        public int $unitVat,
         public int $totalPriceGross,
         public int $totalPriceNet,
         public int $totalVat,
@@ -25,8 +26,9 @@ final readonly class CartItemDto
         return new self(
             cartItemToken: $data['cart_item_token'],
             quantity: (int) ($data['quantity'] ?? 0),
-            priceGross: (int) ($data['price_gross'] ?? 0),
-            priceNet: (int) ($data['price_net'] ?? 0),
+            unitPriceGross: (int) ($data['unit_price_gross'] ?? 0),
+            unitPriceNet: (int) ($data['unit_price_net'] ?? 0),
+            unitVat: (int) ($data['unit_vat'] ?? 0),
             totalPriceGross: (int) ($data['total_price_gross'] ?? 0),
             totalPriceNet: (int) ($data['total_price_net'] ?? 0),
             totalVat: (int) ($data['total_vat'] ?? 0),

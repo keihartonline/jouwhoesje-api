@@ -7,7 +7,7 @@ use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
 final readonly class BuyableDto
 {
     /**
-     * @param BuyableDto[] $giftPackaging
+     * @param  BuyableDto[]  $giftPackaging
      */
     public function __construct(
         public int $id,
