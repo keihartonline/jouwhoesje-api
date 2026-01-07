@@ -63,15 +63,9 @@ class ApiClient
     private function request(string $method, string $endpoint, array $data = []): Response
     {
         try {
-            return Cache::driver('array')
-                ->rememberForever(
-                    'jouw-hoesje-api-request-'.md5($endpoint.json_encode($data)),
-                    function () use ($method, $endpoint, $data) {
-                        return $this->client()
-                            ->$method($endpoint, $data)
-                            ->throwIf($this->throwError);
-                    }
-                );
+            return $this->client()
+                ->$method($endpoint, $data)
+                ->throwIf($this->throwError);
         } catch (Throwable $e) {
             Log::error("API {$method} error: {$e->getMessage()}", [
                 'endpoint' => $endpoint,
