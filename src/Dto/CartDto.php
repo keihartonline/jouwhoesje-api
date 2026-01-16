@@ -20,6 +20,8 @@ final readonly class CartDto
         public int $totalProductsNet,
         public int $totalVat,
         public int $minimumOrderValue,
+        public bool $isShippable,
+        public bool $isPayable,
         public array $items,
         public array $messages,
         public Carbon $createdAt,
@@ -39,6 +41,8 @@ final readonly class CartDto
             totalProductsNet: (int) ($data['total_products_net'] ?? 0),
             totalVat: (int) ($data['total_vat'] ?? 0),
             minimumOrderValue: (int) ($data['minimum_order_value'] ?? 0),
+            isShippable: (bool) ($data['is_shippable'] ?? 0),
+            isPayable: (bool) ($data['is_payable'] ?? 0),
             items: array_map(
                 fn (array $itemData) => CartItemDto::fromArray($itemData),
                 $data['items'] ?? []
