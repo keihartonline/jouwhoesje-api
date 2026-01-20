@@ -6,6 +6,7 @@ final readonly class ShopDto
 {
     /**
      * @param  PaymentMethodDto[]  $paymentMethods
+     * @param  CountryDto[]  $countries
      */
     public function __construct(
         public int $shopId,
@@ -16,6 +17,7 @@ final readonly class ShopDto
         public string $locale,
         public string $countryCode,
         public array $paymentMethods = [],
+        public array $countries = [],
     ) {}
 
     public static function fromArray(array $data): self
@@ -31,6 +33,10 @@ final readonly class ShopDto
             paymentMethods: array_map(
                 fn (array $paymentMethod) => PaymentMethodDto::fromArray($paymentMethod),
                 $data['payment_methods']
+            ),
+            countries: array_map(
+                fn (array $countryData) => CountryDto::fromArray($countryData),
+                $data['countries']
             )
         );
     }
