@@ -325,6 +325,23 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
+    public function updateShippingInformation(
+        array $payload,
+    ): CartDto {
+        $response = $this->client
+            ->post('/shipping/update-information', $payload);
+
+        if ($response->successful()) {
+            return CartDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Geen cart teruggegeven.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
     public function createCustomDesign(
         string $sku,
         string $device,
