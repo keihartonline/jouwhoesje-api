@@ -9,6 +9,7 @@ final readonly class CountryDto
         public string $countryCode,
         public string $name,
         public string $flag,
+        public int $vatRate,
     ) {}
 
     public static function fromArray(array $data): self
@@ -18,6 +19,7 @@ final readonly class CountryDto
             countryCode: $data['country_code'],
             name: $data['name'],
             flag: $data['flag'],
+            vatRate: $data['vat_rate'],
         );
     }
 }
