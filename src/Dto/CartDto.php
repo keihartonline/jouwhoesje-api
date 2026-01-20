@@ -26,6 +26,7 @@ final readonly class CartDto
         public bool $useAlternativeShippingAddress,
         public AddressDto $invoiceAddress,
         public AddressDto $shippingAddress,
+        public int $vatRate,
         public array $items,
         public array $messages,
         public Carbon $createdAt,
@@ -51,6 +52,7 @@ final readonly class CartDto
             useAlternativeShippingAddress: (bool) ($data['use_alternative_shipping_address'] ?? 0),
             invoiceAddress: AddressDto::fromArray($data['invoice_address'] ?? []),
             shippingAddress: AddressDto::fromArray($data['shipping_address'] ?? []),
+            vatRate: $data['vat_rate'],
             items: array_map(
                 fn (array $itemData) => CartItemDto::fromArray($itemData),
                 $data['items'] ?? []

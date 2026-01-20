@@ -14,7 +14,6 @@ final readonly class AddressDto
         public ?string $zipcode,
         public ?string $city,
         public int $countryId,
-        public ?CountryDto $country,
     ) {}
 
     public static function fromArray(array $data): self
@@ -29,7 +28,6 @@ final readonly class AddressDto
             zipcode: $data['zipcode'] ?? null,
             city: $data['city'] ?? null,
             countryId: $data['country_id'],
-            country: CountryDto::fromArray($data['country']),
 
         );
     }
