@@ -36,10 +36,11 @@ final readonly class ShopDto
             ),
             countries: (function () use ($data) {
                 $countries = array_map(
-                    fn(array $countryData) => CountryDto::fromArray($countryData),
+                    fn (array $countryData) => CountryDto::fromArray($countryData),
                     $data['countries']
                 );
-                usort($countries, fn($a, $b) => $a->name <=> $b->name);
+                usort($countries, fn ($a, $b) => $a->name <=> $b->name);
+
                 return $countries;
             })()
         );

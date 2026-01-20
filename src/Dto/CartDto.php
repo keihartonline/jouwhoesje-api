@@ -22,6 +22,10 @@ final readonly class CartDto
         public int $minimumOrderValue,
         public bool $isShippable,
         public bool $isPayable,
+        public ?string $email,
+        public bool $useAlternativeShippingAddress,
+        public AddressDto $invoiceAddress,
+        public AddressDto $shippingAddress,
         public array $items,
         public array $messages,
         public Carbon $createdAt,
@@ -43,6 +47,10 @@ final readonly class CartDto
             minimumOrderValue: (int) ($data['minimum_order_value'] ?? 0),
             isShippable: (bool) ($data['is_shippable'] ?? 0),
             isPayable: (bool) ($data['is_payable'] ?? 0),
+            email: $data['email'],
+            useAlternativeShippingAddress: (bool) ($data['use_alternative_shipping_address'] ?? 0),
+            invoiceAddress: AddressDto::fromArray($data['invoice_address'] ?? []),
+            shippingAddress: AddressDto::fromArray($data['shipping_address'] ?? []),
             items: array_map(
                 fn (array $itemData) => CartItemDto::fromArray($itemData),
                 $data['items'] ?? []
