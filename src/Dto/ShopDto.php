@@ -34,10 +34,14 @@ final readonly class ShopDto
                 fn (array $paymentMethod) => PaymentMethodDto::fromArray($paymentMethod),
                 $data['payment_methods']
             ),
-            countries: array_map(
-                fn (array $countryData) => CountryDto::fromArray($countryData),
-                $data['countries']
-            )
+            countries: (function () use ($data) {
+                $countries = array_map(
+                    fn(array $countryData) => CountryDto::fromArray($countryData),
+                    $data['countries']
+                );
+                usort($countries, fn($a, $b) => $a->name <=> $b->name);
+                return $countries;
+            })()
         );
     }
 }
