@@ -3,11 +3,13 @@
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
 use Illuminate\Support\Carbon;
+use KeihartOnline\JouwHoesjeApi\Enums\CartErrorEnum;
 
 final readonly class CartDto
 {
     /**
      * @param  CartItemDto[]  $items
+     * @param  CartErrorEnum[]  $errors
      */
     public function __construct(
         public string $cartToken,
@@ -29,6 +31,7 @@ final readonly class CartDto
         public int $vatRate,
         public array $items,
         public array $messages,
+        public array $errors,
         public Carbon $createdAt,
         public Carbon $updatedAt,
     ) {}
@@ -60,6 +63,10 @@ final readonly class CartDto
             messages: array_map(
                 fn (array $messageData) => CartMessageDto::fromArray($messageData),
                 $data['messages'] ?? []
+            ),
+            errors: array_map(
+                fn (string $error) => CartErrorEnum::from($error),
+                $data['errors'] ?? []
             ),
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
