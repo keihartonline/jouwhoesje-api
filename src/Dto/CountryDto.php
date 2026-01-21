@@ -14,6 +14,9 @@ final readonly class CountryDto
         public bool $splitAddress,
         public bool $showAddressAdditional,
         public bool $showHouseNumberAdditional,
+        public ?string $cityLabel,
+        public ?string $addressLabel,
+        public ?string $addressAdditionalLabel,
         public ?string $zipcodeExample,
         public ?string $addressAdditionalExample,
     ) {}
@@ -30,6 +33,9 @@ final readonly class CountryDto
             splitAddress: $data['split_address'],
             showAddressAdditional: $data['show_address_additional'],
             showHouseNumberAdditional: $data['show_house_number_additional'],
+            cityLabel: $data['city_label'] ?? null,
+            addressLabel: $data['address_label'] ?? null,
+            addressAdditionalLabel: $data['address_additional_label'] ?? null,
             zipcodeExample: $data['zipcode_example'] ?? null,
             addressAdditionalExample: $data['address_additional_example'] ?? null,
         );
