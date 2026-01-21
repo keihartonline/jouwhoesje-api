@@ -11,8 +11,8 @@ final readonly class CountryDto
         public string $flag,
         public int $vatRate,
         public bool $vatDeferral,
-        public bool $showAddressAdditional,
         public bool $splitAddress,
+        public bool $showAddressAdditional,
         public bool $showHouseNumberAdditional,
     ) {}
 
@@ -25,8 +25,8 @@ final readonly class CountryDto
             flag: $data['flag'],
             vatRate: $data['vat_rate'],
             vatDeferral: $data['vat_deferral'],
-            showAddressAdditional: $data['show_address_additional'],
             splitAddress: $data['split_address'],
+            showAddressAdditional: $data['show_address_additional'],
             showHouseNumberAdditional: $data['show_house_number_additional'],
         );
     }
