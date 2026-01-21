@@ -11,7 +11,9 @@ final readonly class CountryDto
         public string $flag,
         public int $vatRate,
         public bool $vatDeferral,
-        public bool $showAdditionalAddressLine,
+        public bool $showAddressAdditional,
+        public bool $splitAddress,
+        public bool $showHouseNumberAdditional,
     ) {}
 
     public static function fromArray(array $data): self
@@ -23,7 +25,9 @@ final readonly class CountryDto
             flag: $data['flag'],
             vatRate: $data['vat_rate'],
             vatDeferral: $data['vat_deferral'],
-            showAdditionalAddressLine: $data['show_additional_address_line'],
+            showAddressAdditional: $data['show_address_additional'],
+            splitAddress: $data['split_address'],
+            showHouseNumberAdditional: $data['show_house_number_additional'],
         );
     }
 }
