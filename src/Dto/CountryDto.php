@@ -14,6 +14,8 @@ final readonly class CountryDto
         public bool $splitAddress,
         public bool $showAddressAdditional,
         public bool $showHouseNumberAdditional,
+        public ?string $zipcodeExample,
+        public ?string $addressAdditionalExample,
     ) {}
 
     public static function fromArray(array $data): self
@@ -28,6 +30,8 @@ final readonly class CountryDto
             splitAddress: $data['split_address'],
             showAddressAdditional: $data['show_address_additional'],
             showHouseNumberAdditional: $data['show_house_number_additional'],
+            zipcodeExample: $data['zipcode_example'] ?? null,
+            addressAdditionalExample: $data['address_additional_example'] ?? null,
         );
     }
 }
