@@ -14,6 +14,7 @@ final readonly class AddressDto
         public ?string $zipcode,
         public ?string $city,
         public int $countryId,
+        public bool $useManualInput,
         public CountryDto $country,
     ) {}
 
@@ -29,6 +30,7 @@ final readonly class AddressDto
             zipcode: $data['zipcode'] ?? null,
             city: $data['city'] ?? null,
             countryId: $data['country_id'],
+            useManualInput: $data['use_manual_input'],
             country: CountryDto::fromArray($data['country']),
         );
     }
