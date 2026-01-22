@@ -342,6 +342,26 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
+    public function updateVatNumber(
+        string $vatNumber,
+    ): CartDto {
+        $response = $this->client
+            ->throwError(false)
+            ->post('/shipping/update-vat-number', [
+                'vat_number' => $vatNumber,
+            ]);
+
+        if ($response->successful()) {
+            return CartDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Geen geldig btw-nummer.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
     public function createCustomDesign(
         string $sku,
         string $device,
