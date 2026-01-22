@@ -4,6 +4,9 @@ namespace KeihartOnline\JouwHoesjeApi\Dto;
 
 final readonly class AddressDto
 {
+    /**
+     * @param  string[]  $invalidFields
+     */
     public function __construct(
         public ?string $name,
         public ?string $street,
@@ -14,6 +17,7 @@ final readonly class AddressDto
         public ?string $zipcode,
         public ?string $city,
         public int $countryId,
+        public array $invalidFields,
         public CountryDto $country,
     ) {}
 
@@ -29,6 +33,7 @@ final readonly class AddressDto
             zipcode: $data['zipcode'] ?? null,
             city: $data['city'] ?? null,
             countryId: $data['country_id'],
+            invalidFields: $data['invalid_fields'] ?? [],
             country: CountryDto::fromArray($data['country']),
         );
     }
