@@ -19,6 +19,7 @@ final readonly class CountryDto
         public ?string $addressAdditionalLabel,
         public ?string $zipcodeExample,
         public ?string $addressAdditionalExample,
+        public ?string $vatNumberExample,
     ) {}
 
     public static function fromArray(array $data): self
@@ -38,6 +39,7 @@ final readonly class CountryDto
             addressAdditionalLabel: $data['address_additional_label'] ?? null,
             zipcodeExample: $data['zipcode_example'] ?? null,
             addressAdditionalExample: $data['address_additional_example'] ?? null,
+            vatNumberExample: $data['vat_number_example'] ?? null,
         );
     }
 }
