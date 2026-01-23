@@ -18,6 +18,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\ResultDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Enums\FilterEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
+use KeihartOnline\JouwHoesjeApi\Enums\VatNumberStatusEnum;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
 use KeihartOnline\JouwHoesjeApi\Exceptions\BuyableNotFoundException;
 use Throwable;
@@ -344,7 +345,7 @@ readonly class ApiService
      */
     public function updateVatNumber(
         string $vatNumber,
-    ): CartDto {
+    ): VatNumberStatusEnum {
         $response = $this->client
             ->throwError(false)
             ->post('/shipping/update-vat-number', [
@@ -352,10 +353,13 @@ readonly class ApiService
             ]);
 
         if ($response->successful()) {
-            return CartDto::fromArray($response->json()['data']);
+            return VatNumberStatusEnum::VALID;
         }
 
-        throw new ApiException('Geen geldig btw-nummer.');
+        $status = $response->json('status');
+
+        return VatNumberStatusEnum::tryFrom($status)
+            ?? VatNumberStatusEnum::SERVER_ERROR;
     }
 
     /**
