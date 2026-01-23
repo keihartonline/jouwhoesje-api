@@ -345,7 +345,7 @@ readonly class ApiService
      */
     public function updateVatNumber(
         string $vatNumber,
-    ): VatNumberStatusEnum {
+    ): CartDto|VatNumberStatusEnum {
         $response = $this->client
             ->throwError(false)
             ->post('/shipping/update-vat-number', [
@@ -353,13 +353,30 @@ readonly class ApiService
             ]);
 
         if ($response->successful()) {
-            return VatNumberStatusEnum::VALID;
+            return CartDto::fromArray($response->json()['data']);
         }
 
         $status = $response->json('status');
 
         return VatNumberStatusEnum::tryFrom($status)
             ?? VatNumberStatusEnum::SERVER_ERROR;
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function removeVatNumber(): CartDto
+    {
+        $response = $this->client
+            ->throwError(false)
+            ->post('/shipping/remove-vat-number');
+
+        if ($response->successful()) {
+            return CartDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Geen cart teruggegeven.');
     }
 
     /**
