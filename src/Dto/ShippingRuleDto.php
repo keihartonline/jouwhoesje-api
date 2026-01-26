@@ -2,22 +2,24 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
+use KeihartOnline\JouwHoesjeApi\Enums\ShippingLevelEnum;
+
 final readonly class ShippingRuleDto
 {
     public function __construct(
         public int $shippingRuleId,
-        public string $name,
-        public bool $tracking,
+        public ShippingLevelEnum $shippingLevel,
         public int $price,
+        public ?string $carrierName = null,
     ) {}
 
     public static function fromArray(array $data): self
     {
         return new self(
             shippingRuleId: $data['shipping_rule_id'],
-            name: $data['name'],
-            tracking: $data['tracking'],
+            shippingLevel: ShippingLevelEnum::from($data['shipping_level']),
             price: $data['price'],
+            carrierName: $data['carrier_name'] ?? null,
         );
     }
 }
