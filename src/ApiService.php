@@ -407,7 +407,7 @@ readonly class ApiService
         array $ids,
     ): array {
         $response = $this->client
-            ->post('/shipping/estimated-delivery', [
+            ->get('/shipping/estimated-delivery', [
                 'ids' => $ids,
             ]);
 
