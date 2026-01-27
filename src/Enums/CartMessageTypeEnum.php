@@ -10,4 +10,5 @@ enum CartMessageTypeEnum: string
     case UPDATED_PRICE = 'updated-price';
     case GIFT_PACKAGING_NOT_AVAILABLE = 'gift-packaging-not-available';
     case VAT_NUMBER_NOT_MATCHING_COUNTRY = 'vat-number-not-matching-country';
+    case SHIPPING_METHOD_CHANGED = 'shipping-method-changed';
 }
