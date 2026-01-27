@@ -2,15 +2,13 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
-use Illuminate\Support\Carbon;
-
 final readonly class EstimatedDeliveryDto
 {
     public function __construct(
         public int $shippingRuleId,
-        public Carbon $cutoff,
-        public Carbon $firstDay,
-        public Carbon $lastDay,
+        public string $cutoff,
+        public string $firstDay,
+        public string $lastDay,
         public bool $hasRange,
     ) {}
 
@@ -18,9 +16,9 @@ final readonly class EstimatedDeliveryDto
     {
         return new self(
             shippingRuleId: $data['shipping_rule_id'],
-            cutoff: Carbon::parse($data['cutoff']),
-            firstDay: Carbon::parse($data['first_day']),
-            lastDay: Carbon::parse($data['last_day']),
+            cutoff: $data['cutoff'],
+            firstDay: $data['first_day'],
+            lastDay: $data['last_day'],
             hasRange: $data['has_range'],
         );
     }
