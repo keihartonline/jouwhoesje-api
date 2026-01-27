@@ -10,6 +10,7 @@ final readonly class CartDto
     /**
      * @param  CartItemDto[]  $items
      * @param  CartErrorEnum[]  $errors
+     * @param  ShippingRuleDto[]  $possibleShippingRules
      */
     public function __construct(
         public string $cartToken,
@@ -37,6 +38,8 @@ final readonly class CartDto
         public array $items,
         public array $messages,
         public array $errors,
+        public ShippingRuleDto $shippingRule,
+        public array $possibleShippingRules,
         public Carbon $createdAt,
         public Carbon $updatedAt,
     ) {}
@@ -77,6 +80,11 @@ final readonly class CartDto
             errors: array_map(
                 fn (string $error) => CartErrorEnum::from($error),
                 $data['errors'] ?? []
+            ),
+            shippingRule: ShippingRuleDto::fromArray($data['shipping_rule'] ?? []),
+            possibleShippingRules: array_map(
+                fn (array $ruleData) => ShippingRuleDto::fromArray($ruleData),
+                $data['possible_shipping_rules'] ?? []
             ),
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
