@@ -51,8 +51,8 @@ final readonly class CartDto
         return new self(
             cartToken: $data['cart_token'],
             totalQuantity: (int) ($data['total_quantity'] ?? 0),
-            shippingCostsGross: (int)  ($data['shipping_costs_gross'] ?? 0),
-            shippingCostsNet: (int)  ($data['shipping_costs_net'] ?? 0),
+            shippingCostsGross: (int) ($data['shipping_costs_gross'] ?? 0),
+            shippingCostsNet: (int) ($data['shipping_costs_net'] ?? 0),
             totalPriceGross: (int) ($data['total_price_gross'] ?? 0),
             totalPriceNet: (int) ($data['total_price_net'] ?? 0),
             totalGiftPackagingGross: (int) ($data['total_gift_packaging_gross'] ?? 0),

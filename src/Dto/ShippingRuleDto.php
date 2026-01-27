@@ -13,7 +13,7 @@ final readonly class ShippingRuleDto
         public bool $hasTracking,
         public string $trackingLabel,
         public string $label,
-        public ?string $carrierName = null,
+        public ?string $carrierName,
         public int $minDays,
         public int $maxDays,
         public bool $hasRange,
