@@ -38,7 +38,7 @@ final readonly class CartDto
         public array $items,
         public array $messages,
         public array $errors,
-        public ShippingRuleDto $shippingRule,
+        public ?ShippingRuleDto $shippingRule,
         public array $possibleShippingRules,
         public Carbon $createdAt,
         public Carbon $updatedAt,
@@ -81,7 +81,9 @@ final readonly class CartDto
                 fn (string $error) => CartErrorEnum::from($error),
                 $data['errors'] ?? []
             ),
-            shippingRule: ShippingRuleDto::fromArray($data['shipping_rule'] ?? []),
+            shippingRule: ! blank($data['shipping_rule'])
+                ? ShippingRuleDto::fromArray($data['shipping_rule'])
+                : null,
             possibleShippingRules: array_map(
                 fn (array $ruleData) => ShippingRuleDto::fromArray($ruleData),
                 $data['possible_shipping_rules'] ?? []
