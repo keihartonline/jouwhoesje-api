@@ -34,7 +34,7 @@ enum ShippingLevelEnum: string
 
     public function trackingLabel(): string
     {
-        return self::getLabel($this);
+        return self::getTrackingLabel($this);
     }
 
     public static function getTrackingLabel(self $value): string
