@@ -14,6 +14,9 @@ final readonly class ShippingRuleDto
         public string $trackingLabel,
         public string $label,
         public ?string $carrierName = null,
+        public int $minDays,
+        public int $maxDays,
+        public bool $hasRange,
     ) {}
 
     public static function fromArray(array $data): self
@@ -26,6 +29,9 @@ final readonly class ShippingRuleDto
             trackingLabel: __($data['tracking_label']),
             label: __($data['label']),
             carrierName: $data['carrier_name'] ?? null,
+            minDays: $data['min_days'],
+            maxDays: $data['max_days'],
+            hasRange: $data['has_range'],
         );
     }
 }
