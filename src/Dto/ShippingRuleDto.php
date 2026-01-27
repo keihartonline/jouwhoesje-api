@@ -11,7 +11,8 @@ final readonly class ShippingRuleDto
         public ShippingLevelEnum $shippingLevel,
         public int $price,
         public bool $hasTracking,
-        public string $name,
+        public string $trackingLabel,
+        public string $label,
         public ?string $carrierName = null,
     ) {}
 
@@ -22,7 +23,8 @@ final readonly class ShippingRuleDto
             shippingLevel: ShippingLevelEnum::from($data['shipping_level']),
             price: $data['price'],
             hasTracking: $data['has_tracking'],
-            name: $data['name'],
+            trackingLabel: $data['tracking_label'],
+            label: $data['label'],
             carrierName: $data['carrier_name'] ?? null,
         );
     }
