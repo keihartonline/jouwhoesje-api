@@ -383,6 +383,25 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
+    public function setShippingRule(
+        int $shippingRuleId,
+    ): CartDto {
+        $response = $this->client
+            ->post('/shipping/set-shipping-rule', [
+                'id' => $shippingRuleId,
+            ]);
+
+        if ($response->successful()) {
+            return CartDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Geen cart teruggegeven.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
     public function createCustomDesign(
         string $sku,
         string $device,
