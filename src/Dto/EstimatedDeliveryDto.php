@@ -10,8 +10,9 @@ final readonly class EstimatedDeliveryDto
         public string $cutoffTime,
         public bool $cutoffIsToday,
         public bool $cutoffIsTomorrow,
-        public string $firstDay,
-        public string $lastDay,
+        public string $expectedDeliveryDay,
+        public string $expectedLastDeliveryDay,
+        public bool $expectedDeliveryDayIsTomorrow,
         public bool $hasRange,
     ) {}
 
@@ -23,8 +24,9 @@ final readonly class EstimatedDeliveryDto
             cutoffTime: $data['cutoff_time'],
             cutoffIsToday: $data['cutoff_is_today'],
             cutoffIsTomorrow: $data['cutoff_is_tomorrow'],
-            firstDay: $data['first_day'],
-            lastDay: $data['last_day'],
+            expectedDeliveryDay: $data['expected_delivery_day'],
+            expectedLastDeliveryDay: $data['expected_last_delivery_day'],
+            expectedDeliveryDayIsTomorrow: $data['expected_delivery_day_is_tomorrow'],
             hasRange: $data['has_range'],
         );
     }
