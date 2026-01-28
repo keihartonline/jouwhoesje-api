@@ -246,9 +246,12 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
-    public function getCart(): CartDto
-    {
-        $response = $this->client->get('/cart');
+    public function getCart(
+        bool $withEstimatedDelivery = false
+    ): CartDto {
+        $response = $this->client->get('/cart', [
+            'with_estimated_delivery' => $withEstimatedDelivery,
+        ]);
 
         if ($response->successful()) {
             return CartDto::fromArray($response->json()['data']);

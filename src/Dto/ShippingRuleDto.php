@@ -16,7 +16,7 @@ final readonly class ShippingRuleDto
         public ?string $carrierName,
         public int $minDays,
         public int $maxDays,
-        public bool $hasRange,
+        public bool $hasRange
     ) {}
 
     public static function fromArray(array $data): self
@@ -31,7 +31,7 @@ final readonly class ShippingRuleDto
             carrierName: $data['carrier_name'] ?? null,
             minDays: $data['min_days'],
             maxDays: $data['max_days'],
-            hasRange: $data['has_range'],
+            hasRange: $data['has_range']
         );
     }
 }

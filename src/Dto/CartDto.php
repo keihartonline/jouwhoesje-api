@@ -42,6 +42,7 @@ final readonly class CartDto
         public array $errors,
         public ?ShippingRuleDto $shippingRule,
         public array $possibleShippingRules,
+        public ?EstimatedDeliveryDto $estimatedDelivery,
         public Carbon $createdAt,
         public Carbon $updatedAt,
     ) {}
@@ -92,6 +93,9 @@ final readonly class CartDto
                 fn (array $ruleData) => ShippingRuleDto::fromArray($ruleData),
                 $data['possible_shipping_rules'] ?? []
             ),
+            estimatedDelivery: ! blank($data['estimated_delivery'])
+                ? EstimatedDeliveryDto::fromArray($data['estimated_delivery'])
+                : null,
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
         );
