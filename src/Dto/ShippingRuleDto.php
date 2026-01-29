@@ -17,6 +17,7 @@ final readonly class ShippingRuleDto
         public int $minDays,
         public int $maxDays,
         public bool $hasRange,
+        public ?EstimatedDeliveryDto $estimatedDelivery,
     ) {}
 
     public static function fromArray(array $data): self
@@ -32,6 +33,9 @@ final readonly class ShippingRuleDto
             minDays: $data['min_days'],
             maxDays: $data['max_days'],
             hasRange: $data['has_range'],
+            estimatedDelivery: ! blank($data['estimated_delivery'])
+                ? EstimatedDeliveryDto::fromArray($data['estimated_delivery'])
+                : null
         );
     }
 }

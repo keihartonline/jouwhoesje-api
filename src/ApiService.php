@@ -12,7 +12,6 @@ use KeihartOnline\JouwHoesjeApi\Dto\CreatedCustomDesignDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignInfoDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
-use KeihartOnline\JouwHoesjeApi\Dto\EstimatedDeliveryDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultDto;
@@ -397,28 +396,6 @@ readonly class ApiService
         }
 
         throw new ApiException('Geen cart teruggegeven.');
-    }
-
-    /**
-     * @throws ApiException
-     * @throws Throwable
-     */
-    public function getEstimatedDeliveries(
-        array $ids,
-    ): array {
-        $response = $this->client
-            ->get('/shipping/estimated-delivery', [
-                'ids' => $ids,
-            ]);
-
-        if ($response->successful()) {
-            return array_map(
-                fn (array $record) => EstimatedDeliveryDto::fromArray($record),
-                $response->json()['data']
-            );
-        }
-
-        throw new ApiException('Geen data teruggegeven.');
     }
 
     /**

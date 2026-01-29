@@ -5,7 +5,6 @@ namespace KeihartOnline\JouwHoesjeApi\Dto;
 final readonly class EstimatedDeliveryDto
 {
     public function __construct(
-        public int $shippingRuleId,
         public string $cutoffDay,
         public string $cutoffTime,
         public bool $cutoffIsToday,
@@ -19,7 +18,6 @@ final readonly class EstimatedDeliveryDto
     public static function fromArray(array $data): self
     {
         return new self(
-            shippingRuleId: $data['shipping_rule_id'],
             cutoffDay: $data['cutoff_day'],
             cutoffTime: $data['cutoff_time'],
             cutoffIsToday: $data['cutoff_is_today'],
