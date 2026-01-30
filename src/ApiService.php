@@ -13,6 +13,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignInfoDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
+use KeihartOnline\JouwHoesjeApi\Dto\PaymentAttemptDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
@@ -545,5 +546,21 @@ readonly class ApiService
         }
 
         throw new ApiException('Custom design toevoegen aan cart mislukt.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function createPaymentAttempt(): PaymentAttemptDto
+    {
+        $response = $this->client
+            ->post('/cart/create-payment-attempt');
+
+        if ($response->successful()) {
+            return PaymentAttemptDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Payment attempt maken mislukt.');
     }
 }
