@@ -556,7 +556,7 @@ readonly class ApiService
         string $returnUrl
     ): PaymentAttemptDto {
         $response = $this->client
-            ->post('/cart/create-payment-attempt', [
+            ->post('/payment-attempts', [
                 'return_url' => $returnUrl,
             ]);
 
@@ -565,5 +565,24 @@ readonly class ApiService
         }
 
         throw new ApiException('Payment attempt maken mislukt.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getPaymentAttempt(
+        string $uuid
+    ): PaymentAttemptDto {
+        $response = $this->client
+            ->get('/payment-attempts', [
+                'uuid' => $uuid,
+            ]);
+
+        if ($response->successful()) {
+            return PaymentAttemptDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Payment attempt niet gevonden.');
     }
 }

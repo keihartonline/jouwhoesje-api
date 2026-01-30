@@ -22,7 +22,7 @@ enum PaymentAttemptStatus: string
             self::CANCELLED,
             self::EXPIRED,
             self::ABANDONED,
-            self::NEEDS_REVIEW
+            self::NEEDS_REVIEW,
         ]);
     }
 
