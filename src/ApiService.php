@@ -552,10 +552,14 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
-    public function createPaymentAttempt(): PaymentAttemptDto
+    public function createPaymentAttempt(
+        string $redirectBaseUrl
+    ): PaymentAttemptDto
     {
         $response = $this->client
-            ->post('/cart/create-payment-attempt');
+            ->post('/cart/create-payment-attempt', [
+                'redirect_base_url' => $redirectBaseUrl,
+            ]);
 
         if ($response->successful()) {
             return PaymentAttemptDto::fromArray($response->json()['data']);
