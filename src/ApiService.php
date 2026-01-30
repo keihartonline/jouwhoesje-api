@@ -553,12 +553,14 @@ readonly class ApiService
      * @throws Throwable
      */
     public function createPaymentAttempt(
-        string $returnUrl
+        string $returnUrl,
+        string $cancelUrl
     ): PaymentAttemptDto
     {
         $response = $this->client
             ->post('/cart/create-payment-attempt', [
                 'return_url' => $returnUrl,
+                'cancel_url' => $cancelUrl,
             ]);
 
         if ($response->successful()) {
