@@ -554,8 +554,7 @@ readonly class ApiService
      */
     public function createPaymentAttempt(
         string $returnUrl
-    ): PaymentAttemptDto
-    {
+    ): PaymentAttemptDto {
         $response = $this->client
             ->post('/cart/create-payment-attempt', [
                 'return_url' => $returnUrl,
