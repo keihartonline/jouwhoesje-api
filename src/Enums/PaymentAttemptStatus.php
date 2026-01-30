@@ -12,6 +12,7 @@ enum PaymentAttemptStatus: string
     case EXPIRED = 'expired';
     case ABANDONED = 'abandoned';
     case INITIAL_FAIL = 'initial-fail';
+    case NEEDS_REVIEW = 'needs-review';
 
     public function isFinal(): bool
     {
@@ -21,18 +22,17 @@ enum PaymentAttemptStatus: string
             self::CANCELLED,
             self::EXPIRED,
             self::ABANDONED,
-            self::INITIAL_FAIL
+            self::NEEDS_REVIEW
         ]);
     }
 
-    public function isFinalNegative(): bool
+    public function shouldUnlockCart(): bool
     {
         return in_array($this, [
             self::FAILED,
             self::CANCELLED,
             self::EXPIRED,
             self::ABANDONED,
-            self::INITIAL_FAIL
         ]);
     }
 }
