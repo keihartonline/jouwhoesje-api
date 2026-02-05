@@ -12,6 +12,9 @@ final readonly class PaymentAttemptDto
         public ?string $redirectUrl,
         public bool $canRetry,
         public int $retryInSeconds,
+        public bool $hasOrder,
+        public ?string $orderNumber,
+        public ?string $email,
     ) {}
 
     public static function fromArray(array $data): self
@@ -22,6 +25,9 @@ final readonly class PaymentAttemptDto
             redirectUrl: $data['redirect_url'],
             canRetry: $data['can_retry'],
             retryInSeconds: $data['retry_in_seconds'],
+            hasOrder: $data['has_order'],
+            orderNumber: $data['order_number'] ?? null,
+            email: $data['email'] ?? null,
         );
     }
 }
