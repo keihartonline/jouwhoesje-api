@@ -7,6 +7,7 @@ use KeihartOnline\JouwHoesjeApi\Enums\PaymentAttemptStatus;
 final readonly class PaymentAttemptDto
 {
     public function __construct(
+        public string $uuid,
         public PaymentAttemptStatus $status,
         public ?string $redirectUrl,
         public bool $canRetry,
@@ -16,6 +17,7 @@ final readonly class PaymentAttemptDto
     public static function fromArray(array $data): self
     {
         return new self(
+            uuid: $data['uuid'],
             status: PaymentAttemptStatus::from($data['status']),
             redirectUrl: $data['redirect_url'],
             canRetry: $data['can_retry'],
