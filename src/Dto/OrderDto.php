@@ -17,7 +17,7 @@ final readonly class OrderDto
     public static function fromArray(array $data): self
     {
         return new self(
-            orderNumber: $data['uuid'],
+            orderNumber: $data['order_number'],
             status: OrderStatusEnum::from($data['status']),
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
