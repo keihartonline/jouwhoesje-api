@@ -596,7 +596,7 @@ readonly class ApiService
         string $email,
         string $orderNumber
     ): ?string {
-        $response = $this->client->post('/order-token', [
+        $response = $this->client->post('/order/token', [
             'email' => $email,
             'order_number' => $orderNumber,
         ]);
