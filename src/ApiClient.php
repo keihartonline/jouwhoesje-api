@@ -16,6 +16,8 @@ class ApiClient
 {
     private ?string $cartToken = null;
 
+    private ?string $orderToken = null;
+
     private bool $throwError = true;
 
     private UploadedFile $file;
@@ -80,6 +82,11 @@ class ApiClient
         $this->cartToken = $cartToken;
     }
 
+    public function setOrderToken(?string $orderToken = null): void
+    {
+        $this->orderToken = $orderToken;
+    }
+
     public function throwError(bool $value = true): self
     {
         $this->throwError = $value;
@@ -119,6 +126,13 @@ class ApiClient
                 fn ($client) => $client->withHeader(
                     'X-Cart-Token',
                     $this->cartToken
+                )
+            )
+            ->when(
+                $this->orderToken !== null,
+                fn ($client) => $client->withHeader(
+                    'X-Order-Token',
+                    $this->orderToken
                 )
             )
             ->when(

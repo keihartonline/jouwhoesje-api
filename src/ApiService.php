@@ -31,6 +31,7 @@ readonly class ApiService
         Request $request,
     ) {
         $this->client->setCartToken($request->cookie('cart_token'));
+        $this->client->setOrderToken($request->cookie('order_token'));
     }
 
     /**
