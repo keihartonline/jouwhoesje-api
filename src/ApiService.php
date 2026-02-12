@@ -602,7 +602,7 @@ readonly class ApiService
         ]);
 
         if ($response->successful()) {
-            return $response->json()['data'];
+            return $response->json()['data']['order_token'] ?? null;
         }
 
         return null;
