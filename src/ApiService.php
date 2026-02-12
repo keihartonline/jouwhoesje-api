@@ -13,6 +13,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignInfoDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
+use KeihartOnline\JouwHoesjeApi\Dto\OrderDto;
 use KeihartOnline\JouwHoesjeApi\Dto\PaymentAttemptDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultDto;
@@ -585,5 +586,40 @@ readonly class ApiService
         }
 
         throw new ApiException('Payment attempt niet gevonden.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getOrderToken(
+        string $email,
+        string $orderNumber
+    ): ?string {
+        $response = $this->client->post('/order-token', [
+            'email' => $email,
+            'order_number' => $orderNumber,
+        ]);
+
+        if ($response->successful()) {
+            return $response->json()['data'];
+        }
+
+        return null;
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getOrder(): OrderDto
+    {
+        $response = $this->client->get('/order');
+
+        if ($response->successful()) {
+            return OrderDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Geen order teruggegeven.');
     }
 }
