@@ -26,16 +26,22 @@ enum OrderStatusEnum: string
 
     public function isMinimal(self $enum): bool
     {
-        $cases = self::cases();
-
-        $thisIndex = array_search($this, $cases, true);
-        $enumIndex = array_search($enum, $cases, true);
-
-        if ($thisIndex === false || $enumIndex === false) {
-            return false;
+        if ($this === $enum) {
+            return true;
         }
 
-        return $thisIndex <= $enumIndex;
-    }
+        $foundSelf = false;
 
+        foreach (self::cases() as $case) {
+            if ($case === $this) {
+                $foundSelf = true;
+            }
+
+            if ($case === $enum) {
+                break;
+            }
+        }
+
+        return $foundSelf;
+    }
 }
