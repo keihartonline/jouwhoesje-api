@@ -31,7 +31,7 @@ enum OrderStatusEnum: string
 
     public function isNext(self $other): bool
     {
-        return $this->rank() === ($other->rank() + 1);
+        return ($this->rank() + 1) === $other->rank();
     }
 
     private function rank(): int
