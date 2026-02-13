@@ -24,24 +24,18 @@ enum OrderStatusEnum: string
         };
     }
 
-    public function isMinimal(self $enum): bool
+    public function isMinimal(self $other): bool
     {
-        if ($this === $enum) {
-            return true;
-        }
+        return $this->rank() <= $other->rank();
+    }
 
-        $foundSelf = false;
-
-        foreach (self::cases() as $case) {
-            if ($case === $this) {
-                $foundSelf = true;
-            }
-
-            if ($case === $enum) {
-                break;
-            }
-        }
-
-        return $foundSelf;
+    private function rank(): int
+    {
+        return match ($this) {
+            self::NEW => 0,
+            self::SUBMITTED => 1,
+            self::PROCESSING => 2,
+            self::SHIPPED => 3,
+        };
     }
 }
