@@ -7,6 +7,9 @@ use KeihartOnline\JouwHoesjeApi\Enums\OrderStatusEnum;
 
 final readonly class OrderDto
 {
+    /**
+     * @param  OrderItemDto[]  $items
+     */
     public function __construct(
         public string $orderNumber,
         public OrderStatusEnum $status,
@@ -23,6 +26,7 @@ final readonly class OrderDto
         public Carbon $expectedShippingDate,
         public Carbon $firstExpectedDeliveryDate,
         public Carbon $lastExpectedDeliveryDate,
+        public array $items,
         public Carbon $createdAt,
         public Carbon $updatedAt,
     ) {}
@@ -47,6 +51,10 @@ final readonly class OrderDto
             expectedShippingDate: Carbon::parse($data['expected_shipping_date']),
             firstExpectedDeliveryDate: Carbon::parse($data['first_expected_delivery_date']),
             lastExpectedDeliveryDate: Carbon::parse($data['last_expected_delivery_date']),
+            items: array_map(
+                fn (array $itemData) => OrderItemDto::fromArray($itemData),
+                $data['items']
+            ),
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
         );
