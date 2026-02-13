@@ -29,6 +29,11 @@ enum OrderStatusEnum: string
         return $this->rank() >= $other->rank();
     }
 
+    public function isNext(self $other): bool
+    {
+        return $this->rank() === ($other->rank() + 1);
+    }
+
     private function rank(): int
     {
         return match ($this) {
