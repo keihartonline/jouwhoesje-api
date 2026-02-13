@@ -26,7 +26,7 @@ enum OrderStatusEnum: string
 
     public function isMinimal(self $other): bool
     {
-        return $this->rank() <= $other->rank();
+        return $this->rank() >= $other->rank();
     }
 
     private function rank(): int
