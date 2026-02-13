@@ -23,4 +23,19 @@ enum OrderStatusEnum: string
             self::SHIPPED => 'Verzonden',
         };
     }
+
+    public function isMinimal(self $enum): bool
+    {
+        $cases = self::cases();
+
+        $thisIndex = array_search($this, $cases, true);
+        $enumIndex = array_search($enum, $cases, true);
+
+        if ($thisIndex === false || $enumIndex === false) {
+            return false;
+        }
+
+        return $thisIndex <= $enumIndex;
+    }
+
 }
