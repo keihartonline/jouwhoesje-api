@@ -20,6 +20,9 @@ final readonly class OrderDto
         public AddressDto $invoiceAddress,
         public ?AddressDto $shippingAddress,
         public ShippingRuleDto $shippingRule,
+        public Carbon $expectedShippingDate,
+        public Carbon $firstExpectedDeliveryDate,
+        public Carbon $lastExpectedDeliveryDate,
         public Carbon $createdAt,
         public Carbon $updatedAt,
     ) {}
@@ -41,6 +44,9 @@ final readonly class OrderDto
                 ? AddressDto::fromArray($data['shipping_address'])
                 : null,
             shippingRule: ShippingRuleDto::fromArray($data['shipping_rule']),
+            expectedShippingDate: Carbon::parse($data['expected_shipping_date']),
+            firstExpectedDeliveryDate: Carbon::parse($data['first_expected_delivery_date']),
+            lastExpectedDeliveryDate: Carbon::parse($data['last_expected_delivery_date']),
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
         );
