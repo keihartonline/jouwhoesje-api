@@ -15,6 +15,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
 use KeihartOnline\JouwHoesjeApi\Dto\OrderDto;
 use KeihartOnline\JouwHoesjeApi\Dto\PaymentAttemptDto;
+use KeihartOnline\JouwHoesjeApi\Dto\QuestionDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
@@ -621,5 +622,28 @@ readonly class ApiService
         }
 
         throw new ApiException('Geen order teruggegeven.');
+    }
+
+    /**
+     * @return QuestionDto[]
+     *
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getQuestions(
+        array $tags = [],
+    ): array {
+        $response = $this->client->get('/questions', array_filter([
+            'tags' => $tags,
+        ]));
+
+        if ($response->successful()) {
+            return array_map(
+                fn (array $record) => QuestionDto::fromArray($record),
+                $response->json()['data']
+            );
+        }
+
+        throw new ApiException('Geen vragen gevonden.');
     }
 }
