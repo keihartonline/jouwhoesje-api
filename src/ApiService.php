@@ -12,6 +12,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\CreatedCustomDesignDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignInfoDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
+use KeihartOnline\JouwHoesjeApi\Dto\DocumentVersionDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
 use KeihartOnline\JouwHoesjeApi\Dto\OrderDto;
 use KeihartOnline\JouwHoesjeApi\Dto\PaymentAttemptDto;
@@ -666,5 +667,26 @@ readonly class ApiService
         }
 
         throw new ApiException('Geen vragen gevonden.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getDocument(string $slug): ?DocumentVersionDto
+    {
+        $response = $this->client
+            ->throwError(false)
+            ->get('/documents/'.$slug);
+
+        if ($response->successful()) {
+            return DocumentVersionDto::fromArray($response->json()['data']);
+        }
+
+        if ($response->status() === 404) {
+            return null;
+        }
+
+        throw new ApiException('Geen document teruggekregen.');
     }
 }
