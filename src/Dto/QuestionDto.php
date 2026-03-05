@@ -8,7 +8,6 @@ final readonly class QuestionDto
         public string $title,
         public string $content,
         public array $tags,
-        public ?QuestionGroupDto $group,
     ) {}
 
     public static function fromArray(array $data): self
@@ -17,9 +16,6 @@ final readonly class QuestionDto
             title: $data['title'],
             content: $data['content'],
             tags: $data['tags'] ?? [],
-            group: isset($data['group'])
-                ? QuestionGroupDto::fromArray($data['group'])
-                : null,
         );
     }
 }
