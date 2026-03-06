@@ -689,4 +689,20 @@ readonly class ApiService
 
         throw new ApiException('Geen document teruggekregen.');
     }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function postContact(
+        array $payload,
+    ): bool {
+        $response = $this->client->post('/contacts', array_filter($payload));
+
+        if ($response->successful()) {
+            return true;
+        }
+
+        return false;
+    }
 }
