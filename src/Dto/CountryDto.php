@@ -20,6 +20,8 @@ final readonly class CountryDto
         public ?string $zipcodeExample,
         public ?string $addressAdditionalExample,
         public ?string $vatNumberExample,
+        public string $dialCode,
+        public string $dialCodeWithFlag,
     ) {}
 
     public static function fromArray(array $data): self
@@ -40,6 +42,8 @@ final readonly class CountryDto
             zipcodeExample: $data['zipcode_example'] ?? null,
             addressAdditionalExample: $data['address_additional_example'] ?? null,
             vatNumberExample: $data['vat_number_example'] ?? null,
+            dialCode: $data['dial_code'],
+            dialCodeWithFlag: $data['dial_code_with_flag'],
         );
     }
 }
