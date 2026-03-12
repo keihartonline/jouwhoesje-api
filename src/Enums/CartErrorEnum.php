@@ -5,6 +5,7 @@ namespace KeihartOnline\JouwHoesjeApi\Enums;
 enum CartErrorEnum: string
 {
     case INCORRECT_EMAIL = 'incorrect-email';
+    case INCORRECT_PHONE_NUMBER = 'incorrect-phone-number';
     case MISSING_COMPANY_NAME = 'missing-company-name';
     case MISSING_SHIPPING_ADDRESS = 'missing-shipping-address';
     case INCORRECT_INVOICE_ADDRESS = 'incorrect-invoice-address';
