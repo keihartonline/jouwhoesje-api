@@ -35,6 +35,8 @@ final readonly class CartDto
         public bool $vatDeferred,
         public bool $hasBeenTouched,
         public ?string $email,
+        public ?string $dialCode,
+        public ?string $phoneNumber,
         public ?string $companyName,
         public bool $useAlternativeShippingAddress,
         public AddressDto $invoiceAddress,
@@ -53,7 +55,6 @@ final readonly class CartDto
     {
         return new self(
             cartToken: $data['cart_token'],
-
             totalQuantity: (int) ($data['total_quantity'] ?? 0),
             totalGross: (int) ($data['total_gross'] ?? 0),
             totalNet: (int) ($data['total_net'] ?? 0),
@@ -75,6 +76,8 @@ final readonly class CartDto
             vatDeferred: (bool) ($data['vat_deferred'] ?? 0),
             hasBeenTouched: (bool) ($data['has_been_touched'] ?? 0),
             email: $data['email'],
+            dialCode: $data['dial_code'],
+            phoneNumber: $data['phone_number'],
             companyName: $data['company_name'],
             useAlternativeShippingAddress: (bool) ($data['use_alternative_shipping_address'] ?? 0),
             invoiceAddress: AddressDto::fromArray($data['invoice_address'] ?? []),
