@@ -3,13 +3,11 @@
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
 use Illuminate\Support\Carbon;
-use KeihartOnline\JouwHoesjeApi\Enums\CartErrorEnum;
 
 final readonly class CartDto
 {
     /**
      * @param  CartItemDto[]  $items
-     * @param  CartErrorEnum[]  $errors
      * @param  ShippingRuleDto[]  $possibleShippingRules
      */
     public function __construct(
@@ -93,10 +91,7 @@ final readonly class CartDto
                 fn (array $messageData) => CartMessageDto::fromArray($messageData),
                 $data['messages'] ?? []
             ),
-            errors: array_map(
-                fn (string $error) => CartErrorEnum::from($error),
-                $data['errors'] ?? []
-            ),
+            errors: $data['errors'] ?? [],
             shippingRule: ! blank($data['shipping_rule'])
                 ? ShippingRuleDto::fromArray($data['shipping_rule'])
                 : null,
