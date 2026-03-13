@@ -41,6 +41,7 @@ final readonly class CartDto
         public AddressDto $invoiceAddress,
         public AddressDto $shippingAddress,
         public int $vatRate,
+        public ?string $vatNumberExample,
         public array $items,
         public array $messages,
         public array $errors,
@@ -83,6 +84,7 @@ final readonly class CartDto
             invoiceAddress: AddressDto::fromArray($data['invoice_address'] ?? []),
             shippingAddress: AddressDto::fromArray($data['shipping_address'] ?? []),
             vatRate: $data['vat_rate'],
+            vatNumberExample: $data['vat_number_example'],
             items: array_map(
                 fn (array $itemData) => CartItemDto::fromArray($itemData),
                 $data['items'] ?? []
