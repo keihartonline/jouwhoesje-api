@@ -20,6 +20,6 @@ class JouwHoesjeApiServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        //
+        $this->loadJsonTranslationsFrom(__DIR__.'/../lang');
     }
 }
