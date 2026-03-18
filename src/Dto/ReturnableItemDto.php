@@ -10,7 +10,7 @@ final readonly class ReturnableItemDto
         public int $unitPriceNet,
         public string $articleNumber,
         public string $name,
-        public BuyableDto $buyable,
+        public MediaDto $firstMedia,
     ) {}
 
     public static function fromArray(array $data): self
@@ -21,7 +21,7 @@ final readonly class ReturnableItemDto
             unitPriceNet: (int) ($data['unit_price_net'] ?? 0),
             articleNumber: $data['article_number'] ?? null,
             name: $data['name'] ?? null,
-            buyable: BuyableDto::fromArray($data['buyable']),
+            firstMedia: MediaDto::fromArray($data['first_media']),
         );
     }
 }
