@@ -4,12 +4,12 @@ namespace KeihartOnline\JouwHoesjeApi\Enums;
 
 enum ReturnRequestStatusEnum: string
 {
-    case PENDING = 'pending';
-    case CANCELLED = 'cancelled';
-    case REJECTED = 'rejected';
-    case APPROVED = 'approved';
+    case CREATED = 'created';
+    case IN_TRANSIT = 'in-transit';
     case RECEIVED = 'received';
+    case WAITING_FOR_REFUND = 'waiting-for-refund';
     case REFUNDED = 'refunded';
+
 
     public function label(): string
     {
@@ -19,11 +19,10 @@ enum ReturnRequestStatusEnum: string
     public static function getLabel(self $value): string
     {
         return match ($value) {
-            self::PENDING => 'Aangemeld',
-            self::CANCELLED => 'Geannuleerd',
-            self::REJECTED => 'Afgewezen',
-            self::APPROVED => 'Goedgekeurd',
+            self::CREATED => 'Aangemaakt',
+            self::IN_TRANSIT => 'Onderweg',
             self::RECEIVED => 'Ontvangen',
+            self::WAITING_FOR_REFUND => 'Wachten op terugbetaling',
             self::REFUNDED => 'Terugbetaald',
         };
     }
