@@ -7,7 +7,8 @@ enum ReturnRequestStatusEnum: string
     case CREATED = 'created';
     case IN_TRANSIT = 'in-transit';
     case RECEIVED = 'received';
-    case APPROVED = 'approved';
+    case WAITING_FOR_REFUND = 'waiting-for-refund';
+    case REFUNDED = 'refunded';
 
 
     public function label(): string
@@ -21,7 +22,8 @@ enum ReturnRequestStatusEnum: string
             self::CREATED => 'Aangemaakt',
             self::IN_TRANSIT => 'Onderweg',
             self::RECEIVED => 'Ontvangen',
-            self::APPROVED => 'Goedgekeurd',
+            self::WAITING_FOR_REFUND => 'Wachten op terugbetaling',
+            self::REFUNDED => 'Terugbetaald',
         };
     }
 }
