@@ -20,6 +20,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\QuestionDto;
 use KeihartOnline\JouwHoesjeApi\Dto\QuestionGroupDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultDto;
+use KeihartOnline\JouwHoesjeApi\Dto\ReturnRequestDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Enums\FilterEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
@@ -624,6 +625,24 @@ readonly class ApiService
         }
 
         throw new ApiException('Geen order teruggegeven.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getReturnRequests(): array
+    {
+        $response = $this->client->get('/return-requests');
+
+        if ($response->successful()) {
+            return array_map(
+                fn (array $record) => ReturnRequestDto::fromArray($record),
+                $response->json()['data']
+            );
+        }
+
+        throw new ApiException('Geen return requests teruggegeven.');
     }
 
     /**
