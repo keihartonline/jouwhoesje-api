@@ -1,12 +1,15 @@
 {
-    "Verkeerd product besteld": "Mauvais produit commandé",
-    "Product niet zoals beschreven": "Produit non conforme à la description",
-    "Veranderd van gedachten": "Changement d'avis",
-    "Anders": "Autre",
     "Aangemeld": "Inscrit",
     "Geannuleerd": "Annulé",
     "Afgewezen": "Refusé",
     "Goedgekeurd": "Approuvé",
     "Ontvangen": "Reçu",
-    "Terugbetaald": "Remboursé"
+    "Terugbetaald": "Remboursé",
+    "Verkeerd product besteld": "Mauvais produit commandé",
+    "Product niet zoals beschreven": "Produit non conforme à la description",
+    "Veranderd van gedachten": "Changement d'avis",
+    "Coulance": "Geste commercial",
+    "Defect": "Défectueux",
+    "Verkeerd product verzonden": "Mauvais produit expédié",
+    "Anders": "Autre"
 }
