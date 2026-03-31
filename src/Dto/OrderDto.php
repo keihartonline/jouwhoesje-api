@@ -9,6 +9,7 @@ final readonly class OrderDto
 {
     /**
      * @param  OrderItemDto[]  $items
+     * @param  ReturnRequestDto[]  $returnRequests
      */
     public function __construct(
         public string $orderNumber,
@@ -36,6 +37,7 @@ final readonly class OrderDto
         public Carbon $firstExpectedDeliveryDate,
         public Carbon $lastExpectedDeliveryDate,
         public array $items,
+        public array $returnRequests,
         public Carbon $createdAt,
         public Carbon $updatedAt,
     ) {}
@@ -72,6 +74,10 @@ final readonly class OrderDto
             items: array_map(
                 fn (array $itemData) => OrderItemDto::fromArray($itemData),
                 $data['items']
+            ),
+            returnRequests: array_map(
+                fn (array $returnRequestData) => ReturnRequestDto::fromArray($returnRequestData),
+                $data['return_requests'] ?? []
             ),
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
