@@ -1,10 +1,4 @@
 {
-    "Aangemeld": "Registrado",
-    "Geannuleerd": "Cancelado",
-    "Afgewezen": "Rechazado",
-    "Goedgekeurd": "Aprobado",
-    "Ontvangen": "Recibido",
-    "Terugbetaald": "Reembolsado",
     "Verkeerd product besteld": "Producto equivocado pedido",
     "Product niet zoals beschreven": "Producto no conforme con la descripción",
     "Veranderd van gedachten": "Cambio de opinión",
@@ -15,5 +9,10 @@
     "Verkoopfactuur": "Factura de venta",
     "Creditnota": "Nota de crédito",
     "Retouraanvraag": "Solicitud de devolución",
-    "Coulanceverzoek": "Solicitud de gesto comercial"
+    "Coulanceverzoek": "Solicitud de gesto comercial",
+    "Aangemaakt": "Creado",
+    "Onderweg": "En tránsito",
+    "Ontvangen": "Recibido",
+    "Verwerkt": "Procesado",
+    "Huidige status:": "Estado actual:"
 }

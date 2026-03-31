@@ -1,10 +1,4 @@
 {
-    "Aangemeld": "Inscrit",
-    "Geannuleerd": "Annulé",
-    "Afgewezen": "Refusé",
-    "Goedgekeurd": "Approuvé",
-    "Ontvangen": "Reçu",
-    "Terugbetaald": "Remboursé",
     "Verkeerd product besteld": "Mauvais produit commandé",
     "Product niet zoals beschreven": "Produit non conforme à la description",
     "Veranderd van gedachten": "Changement d'avis",
@@ -15,5 +9,10 @@
     "Verkoopfactuur": "Facture de vente",
     "Creditnota": "Note de crédit",
     "Retouraanvraag": "Demande de retour",
-    "Coulanceverzoek": "Demande de geste commercial"
+    "Coulanceverzoek": "Demande de geste commercial",
+    "Aangemaakt": "Créé",
+    "Onderweg": "En transit",
+    "Ontvangen": "Reçu",
+    "Verwerkt": "Traité",
+    "Huidige status:": "Statut actuel :"
 }
