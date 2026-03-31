@@ -631,18 +631,15 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
-    public function getReturnRequests(): array
+    public function getReturnRequest(string $returnRequestNumber): ReturnRequestDto
     {
-        $response = $this->client->get('/return-requests');
+        $response = $this->client->get('/return-requests/'.$returnRequestNumber);
 
         if ($response->successful()) {
-            return array_map(
-                fn (array $record) => ReturnRequestDto::fromArray($record),
-                $response->json()['data']
-            );
+            return ReturnRequestDto::fromArray($response->json()['data']);
         }
 
-        throw new ApiException('Geen return requests teruggegeven.');
+        throw new ApiException('Geen return request teruggegeven.');
     }
 
     /**
