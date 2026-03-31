@@ -11,6 +11,7 @@ final readonly class ReturnRequestDto
     public function __construct(
         public string $returnRequestNumber,
         public ReturnRequestStatusEnum $status,
+        public array $statusHistory,
         public ReturnRequestTypeEnum $type,
         public string $title,
         public int $totalQuantity,
@@ -26,6 +27,10 @@ final readonly class ReturnRequestDto
         return new self(
             returnRequestNumber: $data['return_request_number'],
             status: ReturnRequestStatusEnum::from($data['status']),
+            statusHistory: array_map(
+                fn (array $statusData) => ReturnRequestStatusDto::fromArray($statusData),
+                $data['status_history']
+            ),
             type: ReturnRequestTypeEnum::from($data['type']),
             title: $data['title'],
             totalQuantity: $data['total_quantity'],
