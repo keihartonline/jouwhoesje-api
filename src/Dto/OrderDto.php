@@ -76,7 +76,7 @@ final readonly class OrderDto
                 $data['items']
             ),
             returnRequests: array_map(
-                fn (array $returnRequestData) => ReturnRequestDto::fromArray($returnRequestData),
+                fn (array $returnRequestData) => ReturnRequestCompactDto::fromArray($returnRequestData),
                 $data['return_requests'] ?? []
             ),
             createdAt: Carbon::parse($data['created_at']),
