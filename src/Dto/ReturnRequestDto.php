@@ -8,6 +8,9 @@ use KeihartOnline\JouwHoesjeApi\Enums\ReturnRequestTypeEnum;
 
 final readonly class ReturnRequestDto
 {
+    /**
+     * @param  ReturnRequestItemDto[]  $items
+     */
     public function __construct(
         public string $returnRequestNumber,
         public ReturnRequestStatusEnum $status,
@@ -19,6 +22,7 @@ final readonly class ReturnRequestDto
         public ?string $note,
         public bool $shouldReturnItems,
         public bool $compensateShippingCosts,
+        public array $items,
         public Carbon $createdAt,
         public Carbon $updatedAt,
     ) {}
@@ -39,6 +43,10 @@ final readonly class ReturnRequestDto
             note: $data['note'] ?? null,
             shouldReturnItems: $data['should_return_items'],
             compensateShippingCosts: $data['compensate_shipping_costs'],
+            items: array_map(
+                fn (array $itemData) => ReturnRequestItemDto::fromArray($itemData),
+                $data['items'] ?? []
+            ),
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
         );
