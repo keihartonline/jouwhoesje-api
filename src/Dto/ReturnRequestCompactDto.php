@@ -13,8 +13,8 @@ final readonly class ReturnRequestCompactDto
         public ReturnRequestStatusEnum $status,
         public ReturnRequestTypeEnum $type,
         public int $totalQuantity,
-        public bool $isCancelled = false,
-        public bool $canCancel = false,
+        public bool $isCancelled,
+        public bool $canCancel,
         public Carbon $createdAt,
         public Carbon $updatedAt,
     ) {}

@@ -643,6 +643,21 @@ readonly class ApiService
     }
 
     /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function cancelReturnRequest(string $returnRequestNumber): bool
+    {
+        $response = $this->client->delete('/return-requests/'.$returnRequestNumber);
+
+        if ($response->successful()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @return QuestionDto[]
      *
      * @throws ApiException
