@@ -20,6 +20,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\QuestionDto;
 use KeihartOnline\JouwHoesjeApi\Dto\QuestionGroupDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultDto;
+use KeihartOnline\JouwHoesjeApi\Dto\ReturnableItemDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ReturnRequestDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Enums\FilterEnum;
@@ -625,6 +626,24 @@ readonly class ApiService
         }
 
         throw new ApiException('Geen order teruggegeven.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getReturnableItemsForOrder(): array
+    {
+        $response = $this->client->get('/order/returnable-items');
+
+        if ($response->successful()) {
+            return array_map(
+                fn (array $record) => ReturnableItemDto::fromArray($record),
+                $response->json()['data']
+            );
+        }
+
+        throw new ApiException('Unable to get returnable items for order.');
     }
 
     /**
