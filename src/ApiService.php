@@ -665,6 +665,21 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
+    public function createReturnRequest(array $payload): ReturnRequestDto
+    {
+        $response = $this->client->post('/return-requests', $payload);
+
+        if ($response->successful()) {
+            return ReturnRequestDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Geen return request teruggegeven.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
     public function cancelReturnRequest(string $returnRequestNumber): bool
     {
         $response = $this->client->delete('/return-requests/'.$returnRequestNumber);
