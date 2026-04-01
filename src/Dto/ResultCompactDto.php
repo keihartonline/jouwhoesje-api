@@ -25,8 +25,6 @@ final readonly class ResultCompactDto
         public int $price,
         public ?int $retailPrice,
         public bool $isPromotion = false,
-        public bool $isCancelled = false,
-        public bool $canCancel = false,
         public ?string $deviceCombinedName = null,
         public ?DeviceTypeEnum $deviceType = null,
         public ?string $brandName = null,
@@ -50,8 +48,6 @@ final readonly class ResultCompactDto
             price: $data['price'],
             retailPrice: $data['retail_price'],
             isPromotion: $data['retail_price'] > $data['price'],
-            isCancelled: $data['is_cancelled'] ?? false,
-            canCancel: $data['can_cancel'] ?? false,
             deviceCombinedName: $data['device_combined_name'],
             deviceType: $data['device_type'] !== null
                 ? DeviceTypeEnum::tryFrom($data['device_type'])

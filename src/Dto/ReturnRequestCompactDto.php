@@ -13,6 +13,8 @@ final readonly class ReturnRequestCompactDto
         public ReturnRequestStatusEnum $status,
         public ReturnRequestTypeEnum $type,
         public int $totalQuantity,
+        public bool $isCancelled = false,
+        public bool $canCancel = false,
         public Carbon $createdAt,
         public Carbon $updatedAt,
     ) {}
@@ -24,6 +26,8 @@ final readonly class ReturnRequestCompactDto
             status: ReturnRequestStatusEnum::from($data['status']),
             type: ReturnRequestTypeEnum::from($data['type']),
             totalQuantity: $data['total_quantity'],
+            isCancelled: $data['is_cancelled'] ?? false,
+            canCancel: $data['can_cancel'] ?? false,
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
         );
