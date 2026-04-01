@@ -18,6 +18,7 @@ final readonly class ReturnRequestDto
         public int $returnPrice,
         public ?string $note,
         public bool $shouldReturnItems,
+        public bool $compensateShippingCosts,
         public Carbon $createdAt,
         public Carbon $updatedAt,
     ) {}
@@ -37,6 +38,7 @@ final readonly class ReturnRequestDto
             returnPrice: $data['return_price'],
             note: $data['note'] ?? null,
             shouldReturnItems: $data['should_return_items'],
+            compensateShippingCosts: $data['compensate_shipping_costs'],
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
         );
