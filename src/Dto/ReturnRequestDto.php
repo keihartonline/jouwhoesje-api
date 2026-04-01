@@ -22,6 +22,8 @@ final readonly class ReturnRequestDto
         public ?string $note,
         public bool $shouldReturnItems,
         public bool $compensateShippingCosts,
+        public bool $isCancelled,
+        public bool $canCancel,
         public array $items,
         public Carbon $createdAt,
         public Carbon $updatedAt,
@@ -43,6 +45,8 @@ final readonly class ReturnRequestDto
             note: $data['note'] ?? null,
             shouldReturnItems: $data['should_return_items'],
             compensateShippingCosts: $data['compensate_shipping_costs'],
+            isCancelled: $data['is_cancelled'],
+            canCancel: $data['can_cancel'],
             items: array_map(
                 fn (array $itemData) => ReturnRequestItemDto::fromArray($itemData),
                 $data['items'] ?? []
