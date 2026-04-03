@@ -2,6 +2,8 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
+use KeihartOnline\JouwHoesjeApi\Enums\DeviceTypeEnum;
+
 final readonly class BrandDto
 {
     /**
@@ -16,6 +18,7 @@ final readonly class BrandDto
         public int $customizableCount = 0,
         public array $devices = [],
         public array $series = [],
+        public DeviceTypeEnum $type,
         public ?MediaDto $firstMedia = null,
     ) {}
 
@@ -35,6 +38,7 @@ final readonly class BrandDto
             customizableCount: $data['customizable_count'] ?? 0,
             devices: $devices,
             series: $data['series'] ?? [],
+            type: DeviceTypeEnum::from($data['type']),
             firstMedia: ! blank($data['media'] ?? null)
                 ? MediaDto::fromArray($data['media'][0])
                 : null,
