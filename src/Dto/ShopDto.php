@@ -19,6 +19,7 @@ final readonly class ShopDto
         public string $dialCode,
         public int $returnDays,
         public int $returnPrice,
+        public CountryDto $country,
         public array $paymentMethods = [],
         public array $countries = [],
     ) {}
@@ -36,6 +37,7 @@ final readonly class ShopDto
             dialCode: $data['dial_code'],
             returnDays: $data['return_days'],
             returnPrice: $data['return_price'],
+            country: CountryDto::fromArray($data['country']),
             paymentMethods: array_map(
                 fn (array $paymentMethod) => PaymentMethodDto::fromArray($paymentMethod),
                 $data['payment_methods']
