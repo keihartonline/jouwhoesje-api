@@ -18,7 +18,7 @@ enum DeviceTypeEnum: string
         return match ($value) {
             self::IPAD => 'iPad',
             self::MACBOOK => 'MacBook',
-            self::PHONE => 'Telefoon',
+            self::PHONE => 'telefoon',
         };
     }
 }
