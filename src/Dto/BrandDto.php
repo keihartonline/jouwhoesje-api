@@ -14,6 +14,7 @@ final readonly class BrandDto
         public int $coversCount = 0,
         public int $customizableCount = 0,
         public array $devices = [],
+        public array $series = [],
         public ?MediaDto $firstMedia = null,
     ) {}
 
@@ -31,6 +32,7 @@ final readonly class BrandDto
             coversCount: $data['covers_count'] ?? 0,
             customizableCount: $data['customizable_count'] ?? 0,
             devices: $devices,
+            series: $data['series'] ?? [],
             firstMedia: ! blank($data['media'] ?? null)
                 ? MediaDto::fromArray($data['media'][0])
                 : null,
