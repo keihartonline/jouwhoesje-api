@@ -12,6 +12,7 @@ final class ResultDto
     /**
      * @param  SpecificationDto[]  $specifications
      * @param  LabelEnum[]  $labels
+     * @param  array<string, string>  $alternates
      * @param  MediaDto[]  $media
      */
     public function __construct(
@@ -39,6 +40,7 @@ final class ResultDto
         public ?string $brandSlug,
         public array $specifications,
         public array $labels,
+        public array $alternates,
         public array $media,
 
         // Handy accessors
@@ -82,6 +84,7 @@ final class ResultDto
                 fn (string $label) => LabelEnum::from($label),
                 $data['labels']
             ),
+            alternates: $data['alternates'] ?? [],
             media: array_map(
                 fn (array $row) => MediaDto::fromArray($row),
                 $data['media']
