@@ -12,12 +12,12 @@ final readonly class BrandDto
     public function __construct(
         public int $brandId,
         public string $name,
-        public ?string $slug = null,
-        public ?string $usp = null,
-        public int $coversCount = 0,
-        public int $customizableCount = 0,
-        public array $devices = [],
-        public array $series = [],
+        public ?string $slug,
+        public ?string $usp,
+        public int $coversCount,
+        public int $customizableCount,
+        public array $devices,
+        public array $series,
         public DeviceTypeEnum $type,
         public ?MediaDto $firstMedia = null,
     ) {}

@@ -7,6 +7,7 @@ final readonly class ShopDto
     /**
      * @param  PaymentMethodDto[]  $paymentMethods
      * @param  CountryDto[]  $countries
+     * @param  HostnameDto[]  $hostnames
      */
     public function __construct(
         public int $shopId,
@@ -23,6 +24,7 @@ final readonly class ShopDto
         public CountryDto $country,
         public array $paymentMethods = [],
         public array $countries = [],
+        public array $hostnames = []
     ) {}
 
     public static function fromArray(array $data): self
@@ -52,7 +54,11 @@ final readonly class ShopDto
                 usort($countries, fn ($a, $b) => $a->name <=> $b->name);
 
                 return $countries;
-            })()
+            })(),
+            hostnames: array_map(
+                fn (array $hostnameData) => HostnameDto::fromArray($hostnameData),
+                $data['hostnames'] ?? []
+            )
         );
     }
 }
