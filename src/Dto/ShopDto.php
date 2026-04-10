@@ -22,6 +22,7 @@ final readonly class ShopDto
         public int $returnPrice,
         public string $cutoffTime,
         public CountryDto $country,
+        public CompanyDetailsDto $company,
         public array $paymentMethods = [],
         public array $countries = [],
         public array $hostnames = []
@@ -42,6 +43,7 @@ final readonly class ShopDto
             returnPrice: $data['return_price'],
             cutoffTime: $data['cutoff_time'],
             country: CountryDto::fromArray($data['country']),
+            company: CompanyDetailsDto::fromArray($data['company']),
             paymentMethods: array_map(
                 fn (array $paymentMethod) => PaymentMethodDto::fromArray($paymentMethod),
                 $data['payment_methods']
