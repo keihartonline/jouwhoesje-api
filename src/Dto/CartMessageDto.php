@@ -15,7 +15,7 @@ final readonly class CartMessageDto
     {
         return new self(
             cartMessageType: CartMessageTypeEnum::from($data['cart_message_type']),
-            subject: $data['subject'],
+            subject: $data['subject'] ?? null,
         );
     }
 }

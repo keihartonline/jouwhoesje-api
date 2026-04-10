@@ -61,8 +61,8 @@ final readonly class OrderDto
             totalNet: (int) ($data['total_net'] ?? 0),
             totalVat: (int) ($data['total_vat'] ?? 0),
             shippingCostsGross: (int) ($data['shipping_costs_gross'] ?? 0),
-            shippingCostsNet: (int) ($data['shipping_costs_gross'] ?? 0),
-            shippingCostsVat: (int) ($data['shipping_costs_gross'] ?? 0),
+            shippingCostsNet: (int) ($data['shipping_costs_net'] ?? 0),
+            shippingCostsVat: (int) ($data['shipping_costs_vat'] ?? 0),
             invoiceAddress: AddressDto::fromArray($data['invoice_address'] ?? []),
             shippingAddress: ! blank($data['shipping_address'])
                 ? AddressDto::fromArray($data['shipping_address'])

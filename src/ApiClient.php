@@ -20,7 +20,7 @@ class ApiClient
 
     private bool $throwError = true;
 
-    private UploadedFile $file;
+    private ?UploadedFile $file = null;
 
     public function __construct(
         private TokenResolverInterface $tokenResolver
@@ -137,14 +137,19 @@ class ApiClient
             )
             ->when(
                 isset($this->file),
-                fn ($client) => $client->attach(
-                    'file',
-                    $this->file->get(),
-                    $this->file->getClientOriginalName(),
-                    [
-                        'Content-Type' => $this->file->getMimeType(),
-                    ]
-                )
+                function ($client) {
+                    $file = $this->file;
+                    $this->file = null;
+
+                    return $client->attach(
+                        'file',
+                        $file->get(),
+                        $file->getClientOriginalName(),
+                        [
+                            'Content-Type' => $file->getMimeType(),
+                        ]
+                    );
+                }
             )
             ->baseUrl(config('jouwhoesje-api.base_url'))
             ->acceptJson();
