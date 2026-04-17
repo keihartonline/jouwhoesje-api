@@ -8,6 +8,8 @@ enum DeviceTypeEnum: string
     case MACBOOK = 'macbook';
     case PHONE = 'phone';
 
+    case AIRPODS = 'airpods';
+
     public function label(): string
     {
         return self::getLabel($this);
@@ -19,6 +21,7 @@ enum DeviceTypeEnum: string
             self::IPAD => 'iPad',
             self::MACBOOK => 'MacBook',
             self::PHONE => 'telefoon',
+            self::AIRPODS => 'AirPods',
         };
     }
 }
