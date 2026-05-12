@@ -38,6 +38,7 @@ final class ResultDto
         public ?string $deviceCombinedName,
         public array $deviceAllNames,
         public ?DeviceTypeEnum $deviceType,
+        public ?int $family = null,
         public ?string $brandName,
         public ?string $brandSlug,
         public array $specifications,
@@ -78,6 +79,7 @@ final class ResultDto
             deviceType: $data['device_type'] !== null
                 ? DeviceTypeEnum::tryFrom($data['device_type'])
                 : null,
+            family: $data['family'],
             brandName: $data['brand_name'],
             brandSlug: $data['brand_slug'],
             specifications: array_map(

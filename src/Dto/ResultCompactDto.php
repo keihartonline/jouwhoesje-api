@@ -29,6 +29,7 @@ final readonly class ResultCompactDto
         public bool $isPromotion = false,
         public ?string $deviceCombinedName = null,
         public ?DeviceTypeEnum $deviceType = null,
+        public ?int $family = null,
         public ?string $brandName = null,
         public ?string $brandSlug = null,
         public array $labels = [],
@@ -56,6 +57,7 @@ final readonly class ResultCompactDto
             deviceType: $data['device_type'] !== null
                 ? DeviceTypeEnum::tryFrom($data['device_type'])
                 : null,
+            family: $data['family'],
             brandName: $data['brand_name'],
             brandSlug: $data['brand_slug'],
             labels: array_map(
