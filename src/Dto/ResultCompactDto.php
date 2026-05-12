@@ -28,6 +28,7 @@ final readonly class ResultCompactDto
         public ?int $retailPrice,
         public bool $isPromotion = false,
         public ?string $deviceCombinedName = null,
+        public ?string $deviceSlug = null,
         public ?DeviceTypeEnum $deviceType = null,
         public ?int $family = null,
         public ?string $brandName = null,
@@ -54,6 +55,7 @@ final readonly class ResultCompactDto
             retailPrice: $data['retail_price'],
             isPromotion: $data['retail_price'] > $data['price'],
             deviceCombinedName: $data['device_combined_name'],
+            deviceSlug: $data['device_slug'],
             deviceType: $data['device_type'] !== null
                 ? DeviceTypeEnum::tryFrom($data['device_type'])
                 : null,
