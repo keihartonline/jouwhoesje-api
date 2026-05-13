@@ -48,6 +48,7 @@ final class ResultDto
 
         // Handy accessors
         public ?MediaDto $firstMedia = null,
+        public ?string $firstMediaUrl = null,
         public bool $noLongerAvailable = false,
         public bool $isSellable = true,
     ) {}
@@ -102,6 +103,10 @@ final class ResultDto
             : null;
         $dto->noLongerAvailable = ! $dto->canBackorder && $dto->stockStatus === StockStatusEnum::OUT_OF_STOCK;
         $dto->isSellable = in_array($dto->stockStatus, [StockStatusEnum::LOW_STOCK, StockStatusEnum::IN_STOCK]);
+
+        if ($dto->firstMedia !== null) {
+            $dto->firstMediaUrl = $dto->firstMedia->conversions['lg'] ?? null;
+        }
 
         return $dto;
     }
