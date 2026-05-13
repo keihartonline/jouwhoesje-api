@@ -780,7 +780,7 @@ readonly class ApiService
         $response = $this->client->get('/cache-manifest');
 
         if ($response->successful()) {
-            return $response->json()['data'];
+            return $response->json();
         }
 
         throw new ApiException('Fout tijdens ophalen van cache manifest.');
