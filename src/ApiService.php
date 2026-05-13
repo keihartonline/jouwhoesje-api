@@ -770,4 +770,19 @@ readonly class ApiService
 
         return false;
     }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getCacheManifest(): array
+    {
+        $response = $this->client->get('/cache-manifest');
+
+        if ($response->successful()) {
+            return $response->json()['data'];
+        }
+
+        throw new ApiException('Fout tijdens ophalen van cache manifest.');
+    }
 }

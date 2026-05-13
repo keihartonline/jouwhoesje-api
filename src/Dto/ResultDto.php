@@ -38,7 +38,7 @@ final class ResultDto
         public ?string $deviceCombinedName,
         public array $deviceAllNames,
         public ?DeviceTypeEnum $deviceType,
-        public ?int $family = null,
+        public ?int $family,
         public ?string $brandName,
         public ?string $brandSlug,
         public array $specifications,
