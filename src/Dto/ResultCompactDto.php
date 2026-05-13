@@ -35,14 +35,16 @@ final readonly class ResultCompactDto
         public ?string $brandSlug = null,
         public array $labels = [],
         public ?MediaDto $firstMedia = null,
-
-        // Handy accessors
-        public ?string $firstMediaUrl = null,
     ) {}
+
+    public function firstMediaUrl(): ?string
+    {
+        return $this->firstMedia?->conversions['lg'] ?? null;
+    }
 
     public static function fromArray(array $data): self
     {
-        $dto = new self(
+        return new self(
             productType: ProductTypeEnum::from($data['product_type']),
             slug: $data['slug'],
             stockStatus: StockStatusEnum::from($data['stock_status']),
@@ -73,11 +75,5 @@ final readonly class ResultCompactDto
                 ? MediaDto::fromArray($data['media'][0])
                 : null,
         );
-
-        if ($dto->firstMedia !== null) {
-            $dto->firstMediaUrl = $dto->firstMedia->conversions['lg'] ?? null;
-        }
-
-        return $dto;
     }
 }

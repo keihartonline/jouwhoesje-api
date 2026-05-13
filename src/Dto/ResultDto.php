@@ -45,17 +45,31 @@ final class ResultDto
         public array $labels,
         public array $alternates,
         public array $media,
-
-        // Handy accessors
-        public ?MediaDto $firstMedia = null,
-        public ?string $firstMediaUrl = null,
-        public bool $noLongerAvailable = false,
-        public bool $isSellable = true,
     ) {}
+
+    public function firstMedia(): ?MediaDto
+    {
+        return ! blank($this->media) ? $this->media[0] : null;
+    }
+
+    public function firstMediaUrl(): ?string
+    {
+        return $this->firstMedia()?->conversions['lg'] ?? null;
+    }
+
+    public function noLongerAvailable(): bool
+    {
+        return ! $this->canBackorder && $this->stockStatus === StockStatusEnum::OUT_OF_STOCK;
+    }
+
+    public function isSellable(): bool
+    {
+        return in_array($this->stockStatus, [StockStatusEnum::LOW_STOCK, StockStatusEnum::IN_STOCK]);
+    }
 
     public static function fromArray(array $data): self
     {
-        $dto = new self(
+        return new self(
             productType: ProductTypeEnum::from($data['product_type']),
             slug: $data['slug'],
             stockStatus: StockStatusEnum::from($data['stock_status']),
@@ -97,17 +111,5 @@ final class ResultDto
                 $data['media']
             ),
         );
-
-        $dto->firstMedia = ! blank($dto->media)
-            ? $dto->media[0]
-            : null;
-        $dto->noLongerAvailable = ! $dto->canBackorder && $dto->stockStatus === StockStatusEnum::OUT_OF_STOCK;
-        $dto->isSellable = in_array($dto->stockStatus, [StockStatusEnum::LOW_STOCK, StockStatusEnum::IN_STOCK]);
-
-        if ($dto->firstMedia !== null) {
-            $dto->firstMediaUrl = $dto->firstMedia->conversions['lg'] ?? null;
-        }
-
-        return $dto;
     }
 }
