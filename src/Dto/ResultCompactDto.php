@@ -21,7 +21,7 @@ final readonly class ResultCompactDto
         public string $articleNumber,
         public ?string $ean,
         public string $title,
-        public string $name,
+        public ?string $name,
         public ?string $variantDescription,
         public ?string $emoji,
         public int $price,
