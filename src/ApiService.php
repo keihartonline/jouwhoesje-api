@@ -45,19 +45,13 @@ readonly class ApiService
      */
     public function getShop(): ShopDto
     {
-        return Cache::driver('array')
-            ->rememberForever(
-                'jouw-hoesje-api:shop',
-                function () {
-                    $response = $this->client->get('/shop');
+        $response = $this->client->get('/shop');
 
-                    if ($response->successful()) {
-                        return ShopDto::fromArray($response->json()['data']);
-                    }
+        if ($response->successful()) {
+            return ShopDto::fromArray($response->json()['data']);
+        }
 
-                    throw new ApiException('Geen geldige shop gevonden.');
-                }
-            );
+        throw new ApiException('Geen geldige shop gevonden.');
     }
 
     /**
