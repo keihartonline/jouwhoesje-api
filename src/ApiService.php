@@ -22,6 +22,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\ResultCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ResultDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ReturnableItemDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ReturnRequestDto;
+use KeihartOnline\JouwHoesjeApi\Dto\ShippingRuleDto;
 use KeihartOnline\JouwHoesjeApi\Dto\ShopDto;
 use KeihartOnline\JouwHoesjeApi\Enums\FilterEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
@@ -339,6 +340,29 @@ readonly class ApiService
         }
 
         throw new ApiException('Geen cart teruggegeven.');
+    }
+
+    /**
+     * @return ShippingRuleDto[]
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getShippingRules(
+        int $points,
+    ): array {
+        $response = $this->client
+            ->get('/shipping/shipping-rules', [
+                'points' => $points,
+            ]);
+
+        if ($response->successful()) {
+            return array_map(
+                fn (array $record) => ShippingRuleDto::fromArray($record),
+                $response->json()['data']
+            );
+        }
+
+        throw new ApiException('Geen shipping rules teruggegeven.');
     }
 
     /**

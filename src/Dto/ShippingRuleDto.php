@@ -19,6 +19,7 @@ final readonly class ShippingRuleDto
         public bool $hasRange,
         public ?string $estimatedDelivery,
         public ?string $estimatedDeliveryShort,
+        public string $countryCode,
     ) {}
 
     public static function fromArray(array $data): self
@@ -36,6 +37,7 @@ final readonly class ShippingRuleDto
             hasRange: $data['has_range'],
             estimatedDelivery: $data['estimated_delivery'],
             estimatedDeliveryShort: $data['estimated_delivery_short'],
+            countryCode: $data['country_code'],
         );
     }
 }
