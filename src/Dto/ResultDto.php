@@ -46,6 +46,7 @@ final class ResultDto
         public array $labels,
         public array $alternates,
         public array $media,
+        public ?DeviceDto $device = null,
     ) {}
 
     public function firstMedia(): ?MediaDto
@@ -112,6 +113,9 @@ final class ResultDto
                 fn (array $row) => MediaDto::fromArray($row),
                 $data['media']
             ),
+            device: ! blank($data['device'])
+                ? DeviceDto::fromArray($data['device'])
+                : null,
         );
     }
 }
