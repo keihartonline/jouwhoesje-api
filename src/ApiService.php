@@ -5,7 +5,6 @@ namespace KeihartOnline\JouwHoesjeApi;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Cache;
 use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CartDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CreatedCustomDesignDto;
@@ -344,6 +343,7 @@ readonly class ApiService
 
     /**
      * @return ShippingRuleDto[]
+     *
      * @throws ApiException
      * @throws Throwable
      */
