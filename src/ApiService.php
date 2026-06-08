@@ -795,7 +795,9 @@ readonly class ApiService
      */
     public function getCacheManifest(): array
     {
-        $response = $this->client->get('/cache-manifest');
+        $response = $this->client
+            ->setTimeout(5)
+            ->get('/cache-manifest');
 
         if ($response->successful()) {
             return $response->json();
