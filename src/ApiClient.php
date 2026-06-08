@@ -22,6 +22,8 @@ class ApiClient
 
     private ?UploadedFile $file = null;
 
+    private ?int $timeout = null;
+
     public function __construct(
         private TokenResolverInterface $tokenResolver
     ) {}
@@ -115,6 +117,13 @@ class ApiClient
         return $this;
     }
 
+    public function setTimeout(int $timeout): self
+    {
+        $this->timeout = $timeout;
+
+        return $this;
+    }
+
     /**
      * @throws Exception
      */
@@ -134,6 +143,10 @@ class ApiClient
                     'X-Order-Token',
                     $this->orderToken
                 )
+            )
+            ->when(
+                $this->timeout !== null,
+                fn ($client) => $client->timeout($this->timeout)
             )
             ->when(
                 isset($this->file),
