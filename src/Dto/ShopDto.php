@@ -23,6 +23,10 @@ final readonly class ShopDto
         public string $cutoffTime,
         public CountryDto $country,
         public CompanyDetailsDto $company,
+        public bool $reviewsEnabled,
+        public ?string $kiyohLocationId,
+        public ?string $kiyohTenantId,
+        public ?KiyohAverageDto $kiyohAverage,
         public array $paymentMethods = [],
         public array $countries = [],
         public array $hostnames = []
@@ -44,6 +48,12 @@ final readonly class ShopDto
             cutoffTime: $data['cutoff_time'],
             country: CountryDto::fromArray($data['country']),
             company: CompanyDetailsDto::fromArray($data['company']),
+            reviewsEnabled: $data['reviews_enabled'],
+            kiyohLocationId: $data['kiyoh_location_id'] ?? null,
+            kiyohTenantId: $data['kiyoh_tenant_id'] ?? null,
+            kiyohAverage: isset($data['kiyoh_average'])
+                ? KiyohAverageDto::fromArray($data['kiyoh_average'])
+                : null,
             paymentMethods: array_map(
                 fn (array $paymentMethod) => PaymentMethodDto::fromArray($paymentMethod),
                 $data['payment_methods']
