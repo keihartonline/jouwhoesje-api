@@ -3,6 +3,7 @@
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
 use Illuminate\Support\Carbon;
+use KeihartOnline\JouwHoesjeApi\Enums\StarEnum;
 
 final readonly class KiyohAverageDto
 {
@@ -26,6 +27,33 @@ final readonly class KiyohAverageDto
             viewReviewUrl: $data['view_review_url'],
             createReviewUrl: $data['create_review_url'],
             lastUpdate: Carbon::parse($data['last_update']),
+        );
+    }
+
+    public function getYearAverageRatingFirstPart(): int
+    {
+        return intdiv((int) round($this->yearAverageRating * 10), 10);
+    }
+
+    public function getYearAverageRatingSecondPart(): int
+    {
+        return ((int) round($this->yearAverageRating * 10)) % 10;
+    }
+
+    /**
+     * @return StarEnum[]
+     */
+    public function getStars(): array
+    {
+        $halves = (int) round($this->yearAverageRating);
+
+        return array_map(
+            fn (int $i) => match (true) {
+                $halves >= $i * 2 => StarEnum::FULL,
+                $halves === $i * 2 - 1 => StarEnum::HALF,
+                default => StarEnum::EMPTY,
+            },
+            range(1, 5),
         );
     }
 }
