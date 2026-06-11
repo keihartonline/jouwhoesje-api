@@ -10,6 +10,8 @@ use KeihartOnline\JouwHoesjeApi\Dto\CartDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CreatedCustomDesignDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignInfoDto;
+use KeihartOnline\JouwHoesjeApi\Dto\DesignCollectionCompactDto;
+use KeihartOnline\JouwHoesjeApi\Dto\DesignCollectionDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DeviceDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DocumentVersionDto;
 use KeihartOnline\JouwHoesjeApi\Dto\FilterDto;
@@ -52,6 +54,41 @@ readonly class ApiService
         }
 
         throw new ApiException('Geen geldige shop gevonden.');
+    }
+
+    /**
+     * @return DesignCollectionCompactDto[]
+     *
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getDesignCollections(): array
+    {
+        $response = $this->client->get('/design-collections');
+
+        if ($response->successful()) {
+            return array_map(
+                fn (array $record) => DesignCollectionCompactDto::fromArray($record),
+                $response->json()['data']
+            );
+        }
+
+        throw new ApiException('Geen design collecties gevonden.');
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getDesignCollection(string $slug): DesignCollectionDto
+    {
+        $response = $this->client->get('/design-collections/'.$slug);
+
+        if ($response->successful()) {
+            return DesignCollectionDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Geen geldige design collectie gevonden.');
     }
 
     /**
