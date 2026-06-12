@@ -12,7 +12,8 @@ final readonly class DesignCollectionDto
         public string $slug,
         public string $name,
         public string $title,
-        public string $description,
+        public string $intro,
+        public ?string $description,
         public string $metaTitle,
         public string $metaDescription,
     ) {}
@@ -25,7 +26,8 @@ final readonly class DesignCollectionDto
             slug: $data['slug'],
             name: $data['name'],
             title: $data['title'],
-            description: $data['description'],
+            intro: $data['intro'],
+            description: $data['description'] ?? null,
             metaTitle: $data['meta_title'],
             metaDescription: $data['meta_description'],
         );
