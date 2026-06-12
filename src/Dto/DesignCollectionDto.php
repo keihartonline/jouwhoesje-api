@@ -16,6 +16,7 @@ final readonly class DesignCollectionDto
         public ?string $description,
         public string $metaTitle,
         public string $metaDescription,
+        public ?MediaDto $firstMedia = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -30,6 +31,9 @@ final readonly class DesignCollectionDto
             description: $data['description'] ?? null,
             metaTitle: $data['meta_title'],
             metaDescription: $data['meta_description'],
+            firstMedia: ! blank($data['media'] ?? null)
+                ? MediaDto::fromArray($data['media'][0])
+                : null,
         );
     }
 }
