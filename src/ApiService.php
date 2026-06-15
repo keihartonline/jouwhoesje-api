@@ -62,9 +62,11 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
-    public function getDesignCollections(): array
+    public function getDesignCollections(
+        array $payload = []
+    ): array
     {
-        $response = $this->client->get('/design-collections');
+        $response = $this->client->get('/design-collections', array_filter($payload));
 
         if ($response->successful()) {
             return array_map(
