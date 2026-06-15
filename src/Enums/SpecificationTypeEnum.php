@@ -7,6 +7,7 @@ enum SpecificationTypeEnum: string
     case COMPATIBLE_MODELS = 'compatible-models';
     case COLOUR = 'colour';
     case MATERIAL = 'material';
+    case DESIGN_COLLECTIONS = 'design-collections';
     case PRINT_SIDE = 'print-side';
     case CASE_TYPE = 'case-type';
     case MAG_SAFE_COMPATIBLE = 'mag-safe-compatible';
@@ -23,6 +24,7 @@ enum SpecificationTypeEnum: string
             self::COMPATIBLE_MODELS => 'Geschikte modellen',
             self::COLOUR => 'Kleur',
             self::MATERIAL => 'Materiaal',
+            self::DESIGN_COLLECTIONS => 'Collecties',
             self::PRINT_SIDE => 'Bedrukking',
             self::CASE_TYPE => 'Soort hoesje',
             self::MAG_SAFE_COMPATIBLE => 'Geschikt voor MagSafe',
