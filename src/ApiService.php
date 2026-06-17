@@ -64,7 +64,8 @@ readonly class ApiService
      */
     public function getDesignCollections(
         array $payload = []
-    ): array {
+    ): array
+    {
         $response = $this->client->get('/design-collections', array_filter($payload));
 
         if ($response->successful()) {
@@ -825,39 +826,6 @@ readonly class ApiService
         }
 
         return false;
-    }
-
-    /**
-     * @throws ApiException
-     * @throws Throwable
-     */
-    public function setPreferredDevice(
-        int $deviceId,
-    ): ?CartDto {
-        $response = $this->client->post('/preferred-device', [
-            'device_id' => $deviceId,
-        ]);
-
-        if ($response->successful()) {
-            return CartDto::fromArray($response->json()['data']);
-        }
-
-        throw new ApiException('Geen cart teruggegeven.');
-    }
-
-    /**
-     * @throws ApiException
-     * @throws Throwable
-     */
-    public function resetPreferredDevice(): ?CartDto
-    {
-        $response = $this->client->delete('/preferred-device');
-
-        if ($response->successful()) {
-            return CartDto::fromArray($response->json()['data']);
-        }
-
-        throw new ApiException('Geen cart teruggegeven.');
     }
 
     /**
