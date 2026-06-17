@@ -48,7 +48,6 @@ final readonly class CartDto
         public array $errors,
         public ?ShippingRuleDto $shippingRule,
         public array $possibleShippingRules,
-        public ?DeviceDto $preferredDevice,
         public Carbon $createdAt,
         public Carbon $updatedAt,
     ) {}
@@ -104,9 +103,6 @@ final readonly class CartDto
                 fn (array $ruleData) => ShippingRuleDto::fromArray($ruleData),
                 $data['possible_shipping_rules'] ?? []
             ),
-            preferredDevice: ! blank($data['preferred_device'])
-                ? DeviceDto::fromArray($data['preferred_device'])
-                : null,
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
         );
