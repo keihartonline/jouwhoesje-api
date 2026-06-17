@@ -64,8 +64,7 @@ readonly class ApiService
      */
     public function getDesignCollections(
         array $payload = []
-    ): array
-    {
+    ): array {
         $response = $this->client->get('/design-collections', array_filter($payload));
 
         if ($response->successful()) {
