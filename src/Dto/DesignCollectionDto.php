@@ -16,6 +16,7 @@ final readonly class DesignCollectionDto
         public ?string $description,
         public string $metaTitle,
         public string $metaDescription,
+        public array $alternates,
         public ?MediaDto $firstMedia = null,
     ) {}
 
@@ -31,6 +32,7 @@ final readonly class DesignCollectionDto
             description: $data['description'] ?? null,
             metaTitle: $data['meta_title'],
             metaDescription: $data['meta_description'],
+            alternates: $data['alternates'] ?? [],
             firstMedia: ! blank($data['media'] ?? null)
                 ? MediaDto::fromArray($data['media'][0])
                 : null,
