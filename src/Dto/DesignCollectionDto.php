@@ -3,6 +3,7 @@
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
 use Illuminate\Support\Carbon;
+use KeihartOnline\JouwHoesjeApi\Enums\DesignCollectionTypeEnum;
 
 final readonly class DesignCollectionDto
 {
@@ -16,6 +17,7 @@ final readonly class DesignCollectionDto
         public ?string $description,
         public string $metaTitle,
         public string $metaDescription,
+        public DesignCollectionTypeEnum $type,
         public array $alternates,
         public ?MediaDto $firstMedia = null,
     ) {}
@@ -32,6 +34,7 @@ final readonly class DesignCollectionDto
             description: $data['description'] ?? null,
             metaTitle: $data['meta_title'],
             metaDescription: $data['meta_description'],
+            type: DesignCollectionTypeEnum::from($data['type']),
             alternates: $data['alternates'] ?? [],
             firstMedia: ! blank($data['media'] ?? null)
                 ? MediaDto::fromArray($data['media'][0])
