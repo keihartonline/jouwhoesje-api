@@ -16,6 +16,7 @@ final class ResultDto
      * @param  MediaDto[]  $media
      */
     public function __construct(
+        public string $id,
         public ProductTypeEnum $productType,
         public string $slug,
         public StockStatusEnum $stockStatus,
@@ -73,6 +74,7 @@ final class ResultDto
     public static function fromArray(array $data): self
     {
         return new self(
+            id: $data['id'] ?? '',
             productType: ProductTypeEnum::from($data['product_type']),
             slug: $data['slug'],
             stockStatus: StockStatusEnum::from($data['stock_status']),
