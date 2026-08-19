@@ -18,6 +18,7 @@ final readonly class AddressDto
         public ?string $city,
         public int $countryId,
         public FormattedAddressDto $formattedAddress,
+        public string $formattedString,
         public array $invalidFields,
         public CountryDto $country,
     ) {}
@@ -35,6 +36,7 @@ final readonly class AddressDto
             city: $data['city'] ?? null,
             countryId: $data['country_id'],
             formattedAddress: FormattedAddressDto::fromArray($data['formatted_address']),
+            formattedString: $data['formatted_string'],
             invalidFields: $data['invalid_fields'] ?? [],
             country: CountryDto::fromArray($data['country']),
         );
