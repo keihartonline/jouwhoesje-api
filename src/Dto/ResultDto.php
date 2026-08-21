@@ -62,7 +62,8 @@ final class ResultDto
 
     public function noLongerAvailable(): bool
     {
-        return ! $this->canBackorder && $this->stockStatus === StockStatusEnum::OUT_OF_STOCK;
+        return ! in_array($this->status, ProductStatusEnum::presentableStatuses())
+            && $this->stockStatus === StockStatusEnum::OUT_OF_STOCK;
     }
 
     public function isSellable(): bool
