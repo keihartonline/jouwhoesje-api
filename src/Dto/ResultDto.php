@@ -4,6 +4,7 @@ namespace KeihartOnline\JouwHoesjeApi\Dto;
 
 use KeihartOnline\JouwHoesjeApi\Enums\DeviceTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\LabelEnum;
+use KeihartOnline\JouwHoesjeApi\Enums\ProductStatusEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\ProductTypeEnum;
 use KeihartOnline\JouwHoesjeApi\Enums\StockStatusEnum;
 
@@ -20,7 +21,7 @@ final class ResultDto
         public ProductTypeEnum $productType,
         public string $slug,
         public StockStatusEnum $stockStatus,
-        public bool $canBackorder,
+        public ProductStatusEnum $status,
         public ?int $amountLeft,
         public int $shippingPoints,
         public string $articleNumber,
@@ -33,7 +34,6 @@ final class ResultDto
         public ?string $variantDescription,
         public ?string $emoji,
         public int $price,
-        public ?int $retailPrice,
         public bool $isPromotion,
         public ?string $deviceName,
         public ?string $deviceSlug,
@@ -78,7 +78,7 @@ final class ResultDto
             productType: ProductTypeEnum::from($data['product_type']),
             slug: $data['slug'],
             stockStatus: StockStatusEnum::from($data['stock_status']),
-            canBackorder: $data['can_backorder'],
+            status: ProductStatusEnum::from($data['status']),
             amountLeft: $data['amount_left'],
             shippingPoints: $data['shipping_points'],
             articleNumber: $data['article_number'],
@@ -91,7 +91,6 @@ final class ResultDto
             variantDescription: $data['variant_description'],
             emoji: $data['emoji'],
             price: $data['price'],
-            retailPrice: $data['retail_price'],
             isPromotion: $data['retail_price'] > $data['price'],
             deviceName: $data['device_name'],
             deviceSlug: $data['device_slug'],
