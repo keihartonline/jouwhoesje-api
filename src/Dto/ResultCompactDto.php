@@ -24,7 +24,6 @@ final readonly class ResultCompactDto
         public ?string $variantDescription,
         public ?string $emoji,
         public int $price,
-        public bool $isPromotion = false,
         public ?string $deviceCombinedName = null,
         public ?string $deviceSlug = null,
         public ?DeviceTypeEnum $deviceType = null,
@@ -54,7 +53,6 @@ final readonly class ResultCompactDto
             variantDescription: $data['variant_description'],
             emoji: $data['emoji'],
             price: $data['price'],
-            isPromotion: $data['retail_price'] > $data['price'],
             deviceCombinedName: $data['device_combined_name'],
             deviceSlug: $data['device_slug'],
             deviceType: $data['device_type'] !== null
