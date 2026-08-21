@@ -10,6 +10,8 @@ enum SpecificationTypeEnum: string
     case DESIGN_COLLECTIONS = 'design-collections';
     case PRINT_SIDE = 'print-side';
     case CASE_TYPE = 'case-type';
+    case DIMENSIONS_MIN = 'dimensions-min';
+    case DIMENSIONS_OPTIMAL = 'dimension-optimal';
     case MAG_SAFE_COMPATIBLE = 'mag-safe-compatible';
     case ARTICLE_NUMBER = 'article-number';
 
@@ -27,6 +29,8 @@ enum SpecificationTypeEnum: string
             self::DESIGN_COLLECTIONS => 'Collecties',
             self::PRINT_SIDE => 'Bedrukking',
             self::CASE_TYPE => 'Soort hoesje',
+            self::DIMENSIONS_MIN => 'Minimale afmetingen printgebied',
+            self::DIMENSIONS_OPTIMAL => 'Aanbevolen afmetingen printgebied',
             self::MAG_SAFE_COMPATIBLE => 'Geschikt voor MagSafe',
             self::ARTICLE_NUMBER => 'Artikelnummer',
         };
