@@ -3,6 +3,7 @@
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
 use KeihartOnline\JouwHoesjeApi\Enums\CustomDesignQualityEnum;
+use KeihartOnline\JouwHoesjeApi\Enums\CustomDesignWarningTextEnum;
 
 final readonly class CustomDesignDto
 {
@@ -20,6 +21,7 @@ final readonly class CustomDesignDto
         public CustomDesignQualityEnum $quality,
         public DimensionsDto $dimensions,
         public array $colourVariants,
+        public ?CustomDesignWarningTextEnum $warningText,
     ) {}
 
     public static function fromArray(array $data): self
@@ -40,7 +42,10 @@ final readonly class CustomDesignDto
             colourVariants: array_map(
                 fn (array $row) => CustomDesignColourVariantDto::fromArray($row),
                 $data['colour_variants']
-            )
+            ),
+            warningText: ! blank($data['warning_text'])
+                ? CustomDesignWarningTextEnum::from($data['warning_text'])
+                : null,
         );
     }
 }
