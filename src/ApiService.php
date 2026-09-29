@@ -9,6 +9,7 @@ use KeihartOnline\JouwHoesjeApi\Dto\BrandDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CartDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CreatedCustomDesignDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignDto;
+use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignFeedItemDto;
 use KeihartOnline\JouwHoesjeApi\Dto\CustomDesignInfoDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DesignCollectionCompactDto;
 use KeihartOnline\JouwHoesjeApi\Dto\DesignCollectionDto;
@@ -262,6 +263,28 @@ readonly class ApiService
         }
 
         throw new ApiException('Geen filters gevonden.');
+    }
+
+    /**
+     * Alle toestellen met een ontwerphoesje, met laagste prijs en eerste afbeelding.
+     *
+     * @return CustomDesignFeedItemDto[]
+     *
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function getCustomDesignFeedItems(): array
+    {
+        $response = $this->client->get('/custom-designs/feed');
+
+        if ($response->successful()) {
+            return array_map(
+                fn (array $record) => CustomDesignFeedItemDto::fromArray($record),
+                $response->json()['data']
+            );
+        }
+
+        throw new ApiException('Geen custom design feed items gevonden.');
     }
 
     /**
