@@ -9,6 +9,8 @@ final readonly class AddressDto
      */
     public function __construct(
         public ?string $name,
+        public ?string $givenName,
+        public ?string $familyName,
         public ?string $street,
         public ?string $houseNumber,
         public ?string $houseNumberAddition,
@@ -26,6 +28,8 @@ final readonly class AddressDto
     {
         return new self(
             name: $data['name'] ?? null,
+            givenName: $data['given_name'] ?? null,
+            familyName: $data['family_name'] ?? null,
             street: $data['street'] ?? null,
             houseNumber: $data['house_number'] ?? null,
             houseNumberAddition: $data['house_number_addition'] ?? null,
