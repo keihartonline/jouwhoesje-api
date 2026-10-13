@@ -8,6 +8,7 @@ enum OrderStatusEnum: string
     case SUBMITTED = 'submitted';
     case PROCESSING = 'processing';
     case SHIPPED = 'shipped';
+    case CANCELED = 'canceled';
 
     public function label(): string
     {
@@ -21,6 +22,7 @@ enum OrderStatusEnum: string
             self::SUBMITTED => 'Overgedragen',
             self::PROCESSING => 'In behandeling',
             self::SHIPPED => 'Verzonden',
+            self::CANCELED => 'Geannuleerd',
         };
     }
 
@@ -41,6 +43,7 @@ enum OrderStatusEnum: string
             self::SUBMITTED => 1,
             self::PROCESSING => 2,
             self::SHIPPED => 3,
+            self::CANCELED => -1,
         };
     }
 }
