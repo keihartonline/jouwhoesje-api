@@ -5,7 +5,8 @@ namespace KeihartOnline\JouwHoesjeApi\Dto;
 final readonly class ShopDto
 {
     /**
-     * @param  PaymentMethodDto[]  $paymentMethods
+     * @param  PaymentMethodDto[]  $allPaymentMethods
+     * @param  PaymentMethodDto[]  $primaryPaymentMethods
      * @param  CountryDto[]  $countries
      * @param  HostnameDto[]  $hostnames
      */
@@ -27,9 +28,10 @@ final readonly class ShopDto
         public ?string $kiyohLocationId,
         public ?string $kiyohTenantId,
         public ?KiyohAverageDto $kiyohAverage,
-        public array $paymentMethods = [],
         public array $countries = [],
-        public array $hostnames = []
+        public array $hostnames = [],
+        public array $allPaymentMethods = [],
+        public array $primaryPaymentMethods = [],
     ) {}
 
     public static function fromArray(array $data): self
@@ -54,10 +56,6 @@ final readonly class ShopDto
             kiyohAverage: isset($data['kiyoh_average'])
                 ? KiyohAverageDto::fromArray($data['kiyoh_average'])
                 : null,
-            paymentMethods: array_map(
-                fn (array $paymentMethod) => PaymentMethodDto::fromArray($paymentMethod),
-                $data['payment_methods']
-            ),
             countries: (function () use ($data) {
                 $countries = array_map(
                     fn (array $countryData) => CountryDto::fromArray($countryData),
@@ -70,6 +68,14 @@ final readonly class ShopDto
             hostnames: array_map(
                 fn (array $hostnameData) => HostnameDto::fromArray($hostnameData),
                 $data['hostnames'] ?? []
+            ),
+            allPaymentMethods: array_map(
+                fn (array $paymentMethod) => PaymentMethodDto::fromArray($paymentMethod),
+                $data['all_payment_methods'] ?? []
+            ),
+            primaryPaymentMethods: array_map(
+                fn (array $paymentMethod) => PaymentMethodDto::fromArray($paymentMethod),
+                $data['primary_payment_methods'] ?? []
             )
         );
     }
