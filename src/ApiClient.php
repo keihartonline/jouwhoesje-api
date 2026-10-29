@@ -24,6 +24,8 @@ class ApiClient
 
     private ?int $timeout = null;
 
+    private string $method = 'get';
+
     public function __construct(
         private TokenResolverInterface $tokenResolver
     ) {}
@@ -66,6 +68,8 @@ class ApiClient
     private function request(string $method, string $endpoint, array $data = []): Response
     {
         try {
+            $this->method = $method;
+
             return $this->client()
                 ->$method($endpoint, $data)
                 ->throwIf($this->throwError);
@@ -144,9 +148,12 @@ class ApiClient
                     $this->orderToken
                 )
             )
-            ->when(
-                $this->timeout !== null,
-                fn ($client) => $client->timeout($this->timeout)
+            ->connectTimeout(config('jouwhoesje-api.connect_timeout', 2))
+            ->timeout(
+                $this->timeout
+                    ?? ($this->method === 'get'
+                        ? config('jouwhoesje-api.read_timeout', 5)
+                        : 30)
             )
             ->when(
                 isset($this->file),
