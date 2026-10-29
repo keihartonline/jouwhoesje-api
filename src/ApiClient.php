@@ -24,8 +24,6 @@ class ApiClient
 
     private ?int $timeout = null;
 
-    private string $method = 'get';
-
     public function __construct(
         private TokenResolverInterface $tokenResolver
     ) {}
@@ -33,9 +31,9 @@ class ApiClient
     /**
      * @throws Throwable
      */
-    public function get(string $endpoint, array $query = []): Response
+    public function get(string $endpoint, array $query = [], ?int $timeout = null): Response
     {
-        return $this->request('get', $endpoint, $query);
+        return $this->request('get', $endpoint, $query, $timeout);
     }
 
     /**
@@ -65,12 +63,10 @@ class ApiClient
     /**
      * @throws Throwable
      */
-    private function request(string $method, string $endpoint, array $data = []): Response
+    private function request(string $method, string $endpoint, array $data = [], ?int $timeout = null): Response
     {
         try {
-            $this->method = $method;
-
-            return $this->client()
+            return $this->client($timeout)
                 ->$method($endpoint, $data)
                 ->throwIf($this->throwError);
         } catch (Throwable $e) {
@@ -131,7 +127,7 @@ class ApiClient
     /**
      * @throws Exception
      */
-    private function client(): PendingRequest
+    private function client(?int $timeout = null): PendingRequest
     {
         return Http::withToken($this->getToken())
             ->when(
@@ -149,11 +145,9 @@ class ApiClient
                 )
             )
             ->connectTimeout(config('jouwhoesje-api.connect_timeout', 2))
-            ->timeout(
-                $this->timeout
-                    ?? ($this->method === 'get'
-                        ? config('jouwhoesje-api.read_timeout', 5)
-                        : 30)
+            ->when(
+                ($timeout ?? $this->timeout) !== null,
+                fn ($client) => $client->timeout($timeout ?? $this->timeout)
             )
             ->when(
                 isset($this->file),
