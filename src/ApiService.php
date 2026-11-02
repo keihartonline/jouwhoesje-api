@@ -418,11 +418,13 @@ readonly class ApiService
      * @throws Throwable
      */
     public function getShippingRules(
-        int $points,
+        int $credit,
+        int $grams = 0,
     ): array {
         $response = $this->client
             ->get('/shipping/shipping-rules', [
-                'points' => $points,
+                'credit' => $credit,
+                'grams' => $grams,
             ]);
 
         if ($response->successful()) {

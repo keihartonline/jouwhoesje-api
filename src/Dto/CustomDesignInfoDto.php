@@ -13,7 +13,8 @@ final readonly class CustomDesignInfoDto
         public array $options,
         public int $optionsCount,
         public array $media,
-        public int $shippingPoints,
+        public int $expressCredit,
+        public int $weightGrams,
     ) {}
 
     public static function fromArray(array $data): self
@@ -29,7 +30,8 @@ final readonly class CustomDesignInfoDto
                 fn (array $row) => MediaDto::fromArray($row),
                 $data['media']
             ),
-            shippingPoints: $data['shipping_points'] ?? 0,
+            expressCredit: $data['express_credit'] ?? 0,
+            weightGrams: $data['weight_grams'] ?? 0,
         );
     }
 }
