@@ -107,10 +107,12 @@ readonly class ApiService
     public function getBrands(
         ?int $devicesLimit = null,
         ?bool $withImage = null,
+        ?bool $popularDevicesOnly = null,
     ): array {
         $response = $this->client->get('/brands', array_filter([
             'devices_limit' => $devicesLimit,
             'with_image' => $withImage,
+            'popular_devices_only' => $popularDevicesOnly,
         ]));
 
         if ($response->successful()) {
