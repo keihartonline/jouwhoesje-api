@@ -20,6 +20,7 @@ final readonly class DeviceDto
         public int $coversCount = 0,
         public int $customizableCount = 0,
         public bool $preferredProduct = false,
+        public ?bool $isPopular = false,
         public ?BrandDto $brand = null,
         public ?string $series = null,
         public ?MediaDto $firstMedia = null,
@@ -41,6 +42,7 @@ final readonly class DeviceDto
             coversCount: $data['covers_count'] ?? 0,
             customizableCount: $data['customizable_count'] ?? 0,
             preferredProduct: $data['preferred_product'] ?? false,
+            isPopular: $data['is_popular'] ?? false,
             brand: isset($data['brand']) ? BrandDto::fromArray($data['brand']) : null,
             series: $data['series'] ?? null,
             firstMedia: ! blank($data['media'] ?? null)
