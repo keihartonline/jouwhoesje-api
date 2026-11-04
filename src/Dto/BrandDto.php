@@ -19,6 +19,7 @@ final readonly class BrandDto
         public array $devices,
         public array $series,
         public DeviceTypeEnum $type,
+        public bool $isPopular = false,
         public ?MediaDto $firstMedia = null,
     ) {}
 
@@ -39,6 +40,7 @@ final readonly class BrandDto
             devices: $devices,
             series: $data['series'] ?? [],
             type: DeviceTypeEnum::from($data['type']),
+            isPopular: $data['is_popular'] ?? false,
             firstMedia: ! blank($data['media'] ?? null)
                 ? MediaDto::fromArray($data['media'][0])
                 : null,
