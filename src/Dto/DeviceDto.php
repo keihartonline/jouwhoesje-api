@@ -24,6 +24,7 @@ final readonly class DeviceDto
         public ?BrandDto $brand = null,
         public ?string $series = null,
         public ?MediaDto $firstMedia = null,
+        public ?string $shortName = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -48,6 +49,7 @@ final readonly class DeviceDto
             firstMedia: ! blank($data['media'] ?? null)
                 ? MediaDto::fromArray($data['media'][0])
                 : null,
+            shortName: $data['short_name'] ?? null,
         );
     }
 }
