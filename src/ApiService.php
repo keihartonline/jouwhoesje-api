@@ -99,6 +99,7 @@ readonly class ApiService
     }
 
     /**
+     * @param  bool|null  $popularDevicesOnly  Deprecated, use $topModelsOnly
      * @return BrandDto[]
      *
      * @throws ApiException
@@ -107,12 +108,13 @@ readonly class ApiService
     public function getBrands(
         ?int $devicesLimit = null,
         ?bool $withImage = null,
+        ?bool $topModelsOnly = null,
         ?bool $popularDevicesOnly = null,
     ): array {
         $response = $this->client->get('/brands', array_filter([
             'devices_limit' => $devicesLimit,
             'with_image' => $withImage,
-            'popular_devices_only' => $popularDevicesOnly,
+            'top_models_only' => $topModelsOnly ?? $popularDevicesOnly,
         ]));
 
         if ($response->successful()) {
