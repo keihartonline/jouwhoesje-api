@@ -157,11 +157,15 @@ readonly class ApiService
     public function getTopDevices(
         int $limit = 10,
         int $perBrand = 2,
+        ?string $brand = null,
+        ?bool $customizable = null,
     ): array {
-        $response = $this->client->get('/devices/top', [
+        $response = $this->client->get('/devices/top', array_filter([
             'limit' => $limit,
             'per_brand' => $perBrand,
-        ]);
+            'brand' => $brand,
+            'customizable' => $customizable,
+        ], fn ($value) => $value !== null));
 
         if (! $response->successful()) {
             throw new ApiException('Top devices ophalen mislukte.');
