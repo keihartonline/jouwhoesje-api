@@ -154,6 +154,31 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
+    public function getTopDevices(
+        int $limit = 10,
+        int $perBrand = 2,
+    ): array {
+        $response = $this->client->get('/devices/top', [
+            'limit' => $limit,
+            'per_brand' => $perBrand,
+        ]);
+
+        if (! $response->successful()) {
+            throw new ApiException('Top devices ophalen mislukte.');
+        }
+
+        return array_map(
+            fn (array $record) => DeviceDto::fromArray($record),
+            $response->json()['data'] ?? []
+        );
+    }
+
+    /**
+     * @return DeviceDto[]
+     *
+     * @throws ApiException
+     * @throws Throwable
+     */
     public function getDevices(
         string $query,
         int $limit = 10,
