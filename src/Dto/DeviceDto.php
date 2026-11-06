@@ -25,6 +25,7 @@ final readonly class DeviceDto
         public ?string $series = null,
         public ?MediaDto $firstMedia = null,
         public ?string $shortName = null,
+        public ?string $sentenceName = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -50,6 +51,7 @@ final readonly class DeviceDto
                 ? MediaDto::fromArray($data['media'][0])
                 : null,
             shortName: $data['short_name'] ?? null,
+            sentenceName: $data['sentence_name'] ?? null,
         );
     }
 }
