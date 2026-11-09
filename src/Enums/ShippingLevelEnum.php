@@ -6,6 +6,7 @@ enum ShippingLevelEnum: string
 {
     case NORMAL = 'normal';
     case TRACKED = 'tracked';
+    case PARCEL = 'parcel';
     case PREMIUM = 'premium';
 
     public function hasTracking(): bool
@@ -28,6 +29,7 @@ enum ShippingLevelEnum: string
         return match ($value) {
             self::NORMAL => 'Standaard briefpost',
             self::TRACKED => 'Verzending met track & trace',
+            self::PARCEL => 'Pakketpost',
             self::PREMIUM => 'Express pakketdienst',
         };
     }
@@ -42,6 +44,7 @@ enum ShippingLevelEnum: string
         return match ($value) {
             self::NORMAL => 'Geen track & trace',
             self::TRACKED => 'Track & trace',
+            self::PARCEL => 'Track & trace',
             self::PREMIUM => 'Volledige track & trace',
         };
     }
