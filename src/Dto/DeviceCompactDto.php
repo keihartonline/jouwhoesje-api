@@ -15,6 +15,8 @@ final readonly class DeviceCompactDto
         public ?int $releaseYear = null,
         public int $coversCount = 0,
         public int $customizableCount = 0,
+        public ?string $shortName = null,
+        public ?string $sentenceName = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -28,6 +30,8 @@ final readonly class DeviceCompactDto
             releaseYear: $data['release_year'] ?? null,
             coversCount: $data['covers_count'] ?? 0,
             customizableCount: $data['customizable_count'] ?? 0,
+            shortName: $data['short_name'] ?? null,
+            sentenceName: $data['sentence_name'] ?? null,
         );
     }
 }
