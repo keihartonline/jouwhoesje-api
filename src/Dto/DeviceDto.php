@@ -26,6 +26,8 @@ final readonly class DeviceDto
         public ?MediaDto $firstMedia = null,
         public ?string $shortName = null,
         public ?string $sentenceName = null,
+        /** @var DeviceCompactDto[] Visible models that are easily confused with this one */
+        public array $relatedDevices = [],
     ) {}
 
     public static function fromArray(array $data): self
@@ -52,6 +54,10 @@ final readonly class DeviceDto
                 : null,
             shortName: $data['short_name'] ?? null,
             sentenceName: $data['sentence_name'] ?? null,
+            relatedDevices: array_map(
+                DeviceCompactDto::fromArray(...),
+                $data['related_devices'] ?? []
+            ),
         );
     }
 }
