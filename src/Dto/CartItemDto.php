@@ -20,6 +20,8 @@ final readonly class CartItemDto
         public BuyableDto $buyable,
         public Carbon $createdAt,
         public Carbon $updatedAt,
+        /** @var DeviceCompactDto[] */
+        public array $relatedDevices = [],
     ) {}
 
     public static function fromArray(array $data): self
@@ -38,6 +40,10 @@ final readonly class CartItemDto
             buyable: BuyableDto::fromArray($data['buyable']),
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
+            relatedDevices: array_map(
+                DeviceCompactDto::fromArray(...),
+                $data['related_devices'] ?? []
+            ),
         );
     }
 }
