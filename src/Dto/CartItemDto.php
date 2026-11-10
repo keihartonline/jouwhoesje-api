@@ -22,6 +22,8 @@ final readonly class CartItemDto
         public Carbon $updatedAt,
         /** @var DeviceCompactDto[] */
         public array $relatedDevices = [],
+        public bool $relatedDevicesConfirmed = false,
+        public bool $needsRelatedDevicesCheck = false,
     ) {}
 
     public static function fromArray(array $data): self
@@ -44,6 +46,8 @@ final readonly class CartItemDto
                 DeviceCompactDto::fromArray(...),
                 $data['related_devices'] ?? []
             ),
+            relatedDevicesConfirmed: (bool) ($data['related_devices_confirmed'] ?? false),
+            needsRelatedDevicesCheck: (bool) ($data['needs_related_devices_check'] ?? false),
         );
     }
 }

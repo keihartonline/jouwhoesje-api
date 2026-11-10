@@ -407,6 +407,26 @@ readonly class ApiService
     }
 
     /**
+     * @param  string[]  $cartItemTokens
+     *
+     * @throws ApiException
+     * @throws Throwable
+     */
+    public function confirmRelatedDevices(array $cartItemTokens): CartDto
+    {
+        $response = $this->client
+            ->post('/cart/confirm-related-devices', [
+                'cart_item_tokens' => array_values($cartItemTokens),
+            ]);
+
+        if ($response->successful()) {
+            return CartDto::fromArray($response->json()['data']);
+        }
+
+        throw new ApiException('Geen cart teruggegeven.');
+    }
+
+    /**
      * @throws ApiException
      * @throws Throwable
      */

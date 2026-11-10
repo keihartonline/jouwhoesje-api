@@ -50,6 +50,7 @@ final readonly class CartDto
         public array $possibleShippingRules,
         public Carbon $createdAt,
         public Carbon $updatedAt,
+        public bool $needsRelatedDevicesCheck = false,
     ) {}
 
     public static function fromArray(array $data): self
@@ -105,6 +106,7 @@ final readonly class CartDto
             ),
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
+            needsRelatedDevicesCheck: (bool) ($data['needs_related_devices_check'] ?? false),
         );
     }
 }
