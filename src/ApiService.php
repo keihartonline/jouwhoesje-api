@@ -445,7 +445,9 @@ readonly class ApiService
     public function updateShippingInformation(
         array $payload,
     ): CartDto {
+        // Valideert een btw-nummer bij VIES (backend-timeout 15s), dus ruimer dan de standaard.
         $response = $this->client
+            ->setTimeout(20)
             ->post('/shipping/update-information', $payload);
 
         if ($response->successful()) {
