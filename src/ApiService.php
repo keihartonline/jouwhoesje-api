@@ -43,11 +43,6 @@ readonly class ApiService
         $this->client->setOrderToken($request->cookie('order_token'));
     }
 
-    private function visitorTimeout(): int
-    {
-        return (int) config('jouwhoesje-api.read_timeout', 5);
-    }
-
     /**
      * @throws Throwable
      */
@@ -238,11 +233,7 @@ readonly class ApiService
             'soft_filters' => $softFilters,
         ]);
 
-        $response = $this->client->get(
-            '/results',
-            $query,
-            $perPage <= 100 ? $this->visitorTimeout() : null
-        );
+        $response = $this->client->get('/results', $query);
 
         if (! $response->successful()) {
             throw new ApiException('Resultaten ophalen mislukte.');
@@ -272,7 +263,7 @@ readonly class ApiService
      */
     public function getResult(string $slug): ResultDto
     {
-        $response = $this->client->get('/results/'.$slug, [], $this->visitorTimeout());
+        $response = $this->client->get('/results/'.$slug);
 
         if ($response->successful()) {
             return ResultDto::fromArray($response->json()['data']);
@@ -295,7 +286,7 @@ readonly class ApiService
         $response = $this->client->get('/filters', array_filter([
             'filters' => $filters,
             'hard_filters' => $hardFilters,
-        ]), $this->visitorTimeout());
+        ]));
 
         if ($response->successful()) {
             return array_map(
@@ -634,6 +625,7 @@ readonly class ApiService
     ): bool {
         $response = $this->client
             ->setAttachment($file)
+            ->setTimeout(30)
             ->post(sprintf('/custom-designs/%s/upload', $customDesignToken));
 
         if ($response->successful()) {

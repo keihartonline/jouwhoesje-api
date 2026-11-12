@@ -22,6 +22,7 @@ class ApiClient
 
     private ?UploadedFile $file = null;
 
+    /** Timeout voor de eerstvolgende request; wordt daarna gereset. */
     private ?int $timeout = null;
 
     public function __construct(
@@ -31,9 +32,9 @@ class ApiClient
     /**
      * @throws Throwable
      */
-    public function get(string $endpoint, array $query = [], ?int $timeout = null): Response
+    public function get(string $endpoint, array $query = []): Response
     {
-        return $this->request('get', $endpoint, $query, $timeout);
+        return $this->request('get', $endpoint, $query);
     }
 
     /**
@@ -63,10 +64,10 @@ class ApiClient
     /**
      * @throws Throwable
      */
-    private function request(string $method, string $endpoint, array $data = [], ?int $timeout = null): Response
+    private function request(string $method, string $endpoint, array $data = []): Response
     {
         try {
-            return $this->client($timeout)
+            return $this->client()
                 ->$method($endpoint, $data)
                 ->throwIf($this->throwError);
         } catch (Throwable $e) {
@@ -125,10 +126,16 @@ class ApiClient
     }
 
     /**
+     * Connect- en totale timeout komen uit de Http-defaults van de applicatie
+     * (Http::globalOptions); alleen setTimeout() overschrijft die voor één request.
+     *
      * @throws Exception
      */
-    private function client(?int $timeout = null): PendingRequest
+    private function client(): PendingRequest
     {
+        $timeout = $this->timeout;
+        $this->timeout = null;
+
         return Http::withToken($this->getToken())
             ->when(
                 $this->cartToken !== null,
@@ -144,10 +151,9 @@ class ApiClient
                     $this->orderToken
                 )
             )
-            ->connectTimeout(config('jouwhoesje-api.connect_timeout', 2))
             ->when(
-                ($timeout ?? $this->timeout) !== null,
-                fn ($client) => $client->timeout($timeout ?? $this->timeout)
+                $timeout !== null,
+                fn ($client) => $client->timeout($timeout)
             )
             ->when(
                 isset($this->file),

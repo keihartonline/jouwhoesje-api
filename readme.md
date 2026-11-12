@@ -47,3 +47,20 @@ $this->app->bind(
     \App\Services\TokenResolver::class
 );
 ```
+
+---
+
+### Timeouts
+
+Het pakket stelt zelf geen connect- of totale timeout in. Stel die in de applicatie
+in voor alle uitgaande Http-calls, bijvoorbeeld in een service provider:
+
+```php
+Http::globalOptions([
+    'connect_timeout' => 2,
+    'timeout' => 5,
+]);
+```
+
+Een enkele call kan dit overschrijven met `ApiClient::setTimeout()` (geldt alleen voor de
+eerstvolgende request, bijvoorbeeld bij uploads).
