@@ -21,6 +21,7 @@ final readonly class BrandDto
         public DeviceTypeEnum $type,
         public bool $isPopular = false,
         public ?MediaDto $firstMedia = null,
+        public ?string $customDesignText = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -44,6 +45,7 @@ final readonly class BrandDto
             firstMedia: ! blank($data['media'] ?? null)
                 ? MediaDto::fromArray($data['media'][0])
                 : null,
+            customDesignText: $data['custom_design_text'] ?? null,
         );
     }
 }
