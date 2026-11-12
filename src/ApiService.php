@@ -681,6 +681,7 @@ readonly class ApiService
     ): CartDto {
         $response = $this->client
             ->throwError(false)
+            ->setTimeout(30)
             ->post(sprintf('/custom-designs/%s/add-to-cart', $customDesignToken));
 
         if ($response->successful()) {
