@@ -699,6 +699,7 @@ readonly class ApiService
         string $returnUrl
     ): PaymentAttemptDto {
         $response = $this->client
+            ->setTimeout(30)
             ->post('/payment-attempts', [
                 'return_url' => $returnUrl,
             ]);
@@ -898,7 +899,9 @@ readonly class ApiService
     public function postContact(
         array $payload,
     ): bool {
-        $response = $this->client->post('/contacts', array_filter($payload));
+        $response = $this->client
+            ->setTimeout(15)
+            ->post('/contacts', array_filter($payload));
 
         if ($response->successful()) {
             return true;
