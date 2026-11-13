@@ -13,7 +13,7 @@ final readonly class CustomDesignInfoDto
         public array $options,
         public int $optionsCount,
         public array $media,
-        public int $expressCredit,
+        public int $suggestedRetailPrice,
         public int $weightGrams,
     ) {}
 
@@ -30,7 +30,7 @@ final readonly class CustomDesignInfoDto
                 fn (array $row) => MediaDto::fromArray($row),
                 $data['media']
             ),
-            expressCredit: $data['express_credit'] ?? 0,
+            suggestedRetailPrice: $data['suggested_retail_price'] ?? 0,
             weightGrams: $data['weight_grams'] ?? 0,
         );
     }
