@@ -28,8 +28,8 @@ enum ShippingLevelEnum: string
     {
         return match ($value) {
             self::NORMAL => 'Standaard briefpost',
-            self::TRACKED => 'Verzending met track & trace',
-            self::PARCEL => 'Pakketpost',
+            self::TRACKED => 'Bezorgd via brievenbus',
+            self::PARCEL => 'Pakketpost aan de deur',
             self::PREMIUM => 'Express pakketdienst',
         };
     }
