@@ -9,7 +9,7 @@ final readonly class OrderDto
 {
     /**
      * @param  OrderItemDto[]  $items
-     * @param  ReturnRequestDto[]  $returnRequests
+     * @param  ReturnRequestCompactDto[]  $returnRequests
      */
     public function __construct(
         public string $orderNumber,
@@ -38,6 +38,7 @@ final readonly class OrderDto
         public Carbon $lastExpectedDeliveryDate,
         public array $items,
         public array $returnRequests,
+        public ?InvoiceDto $invoice,
         public Carbon $createdAt,
         public Carbon $updatedAt,
     ) {}
@@ -79,6 +80,7 @@ final readonly class OrderDto
                 fn (array $returnRequestData) => ReturnRequestCompactDto::fromArray($returnRequestData),
                 $data['return_requests'] ?? []
             ),
+            invoice: InvoiceDto::fromNullableArray($data['invoice'] ?? null),
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
         );

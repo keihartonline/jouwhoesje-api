@@ -768,6 +768,26 @@ readonly class ApiService
     }
 
     /**
+     * Returns the raw PDF contents, or null when no PDF is available (yet).
+     *
+     * @throws Throwable
+     */
+    public function getOrderInvoicePdf(): ?string
+    {
+        return $this->getInvoicePdf('/order/invoice');
+    }
+
+    /**
+     * Returns the raw PDF contents, or null when no PDF is available (yet).
+     *
+     * @throws Throwable
+     */
+    public function getReturnRequestInvoicePdf(string $returnRequestNumber): ?string
+    {
+        return $this->getInvoicePdf('/return-requests/'.$returnRequestNumber.'/invoice');
+    }
+
+    /**
      * @throws ApiException
      * @throws Throwable
      */
@@ -927,5 +947,27 @@ readonly class ApiService
         }
 
         throw new ApiException('Fout tijdens ophalen van cache manifest.');
+    }
+
+    /**
+     * @throws Throwable
+     */
+    private function getInvoicePdf(string $endpoint): ?string
+    {
+        $response = $this->client
+            ->throwError(false)
+            ->get($endpoint);
+
+        $this->client->throwError();
+
+        if ($response->status() === 404) {
+            return null;
+        }
+
+        if ($response->successful()) {
+            return $response->body();
+        }
+
+        throw new ApiException('Factuur kon niet worden opgehaald.');
     }
 }

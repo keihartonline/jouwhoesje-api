@@ -25,6 +25,7 @@ final readonly class ReturnRequestDto
         public bool $isCancelled,
         public bool $canCancel,
         public array $items,
+        public ?InvoiceDto $invoice,
         public Carbon $createdAt,
         public Carbon $updatedAt,
     ) {}
@@ -51,6 +52,7 @@ final readonly class ReturnRequestDto
                 fn (array $itemData) => ReturnRequestItemDto::fromArray($itemData),
                 $data['items'] ?? []
             ),
+            invoice: InvoiceDto::fromNullableArray($data['invoice'] ?? null),
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
         );

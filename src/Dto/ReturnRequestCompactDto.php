@@ -15,6 +15,7 @@ final readonly class ReturnRequestCompactDto
         public int $totalQuantity,
         public bool $isCancelled,
         public bool $canCancel,
+        public ?InvoiceDto $invoice,
         public Carbon $createdAt,
         public Carbon $updatedAt,
     ) {}
@@ -28,6 +29,7 @@ final readonly class ReturnRequestCompactDto
             totalQuantity: $data['total_quantity'],
             isCancelled: $data['is_cancelled'] ?? false,
             canCancel: $data['can_cancel'] ?? false,
+            invoice: InvoiceDto::fromNullableArray($data['invoice'] ?? null),
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
         );
