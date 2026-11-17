@@ -15,6 +15,8 @@ final class ResultDto
      * @param  LabelEnum[]  $labels
      * @param  array<string, string>  $alternates
      * @param  MediaDto[]  $media
+     * @param  ResultCompactDto[]  $familyResults
+     * @param  ResultCompactDto[]  $relatedResults
      */
     public function __construct(
         public string $id,
@@ -49,6 +51,8 @@ final class ResultDto
         public array $alternates,
         public array $media,
         public ?DeviceDto $device = null,
+        public array $familyResults = [],
+        public array $relatedResults = [],
     ) {}
 
     public function firstMedia(): ?MediaDto
@@ -120,6 +124,14 @@ final class ResultDto
             device: ! blank($data['device'])
                 ? DeviceDto::fromArray($data['device'])
                 : null,
+            familyResults: array_map(
+                fn (array $row) => ResultCompactDto::fromArray($row),
+                $data['family_results'] ?? []
+            ),
+            relatedResults: array_map(
+                fn (array $row) => ResultCompactDto::fromArray($row),
+                $data['related_results'] ?? []
+            ),
         );
     }
 }
