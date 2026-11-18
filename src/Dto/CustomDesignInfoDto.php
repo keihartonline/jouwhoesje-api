@@ -7,7 +7,6 @@ final readonly class CustomDesignInfoDto
     /**
      * @param  CustomDesignOptionDto[]  $options
      * @param  MediaDto[]  $media
-     * @param  ResultCompactDto[]  $deviceResults
      */
     public function __construct(
         public array $prices,
@@ -16,7 +15,6 @@ final readonly class CustomDesignInfoDto
         public array $media,
         public int $suggestedRetailPrice,
         public int $weightGrams,
-        public array $deviceResults = [],
     ) {}
 
     public static function fromArray(array $data): self
@@ -34,10 +32,6 @@ final readonly class CustomDesignInfoDto
             ),
             suggestedRetailPrice: $data['suggested_retail_price'] ?? 0,
             weightGrams: $data['weight_grams'] ?? 0,
-            deviceResults: array_map(
-                fn (array $row) => ResultCompactDto::fromArray($row),
-                $data['device_results'] ?? []
-            ),
         );
     }
 }
