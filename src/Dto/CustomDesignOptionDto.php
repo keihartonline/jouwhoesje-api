@@ -2,6 +2,8 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
+use KeihartOnline\JouwHoesjeApi\Enums\StockStatusEnum;
+
 final readonly class CustomDesignOptionDto
 {
     /**
@@ -18,6 +20,8 @@ final readonly class CustomDesignOptionDto
         public array $colours,
         public array $specifications,
         public ?MediaDto $firstMedia = null,
+        public StockStatusEnum $stockStatus = StockStatusEnum::IN_STOCK,
+        public bool $disabled = false,
     ) {}
 
     public static function fromArray(array $data): self
@@ -39,6 +43,8 @@ final readonly class CustomDesignOptionDto
             firstMedia: ! blank($data['first_media'])
                 ? MediaDto::fromArray($data['first_media'])
                 : null,
+            stockStatus: StockStatusEnum::tryFrom($data['stock_status'] ?? '') ?? StockStatusEnum::IN_STOCK,
+            disabled: $data['disabled'] ?? false,
         );
     }
 }
