@@ -4,6 +4,7 @@ namespace KeihartOnline\JouwHoesjeApi;
 
 use Exception;
 use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
@@ -71,6 +72,11 @@ class ApiClient
                 ->$method($endpoint, $data)
                 ->throwIf($this->throwError);
         } catch (Throwable $e) {
+            // Een onbekende slug is geen fout; de applicatie bepaalt zelf of ze dit logt
+            if ($e instanceof RequestException && $e->response->status() === 404) {
+                throw $e;
+            }
+
             Log::error("API {$method} error: {$e->getMessage()}", [
                 'endpoint' => $endpoint,
                 'data' => $data,
