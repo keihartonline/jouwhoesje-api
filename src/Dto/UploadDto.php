@@ -5,6 +5,7 @@ namespace KeihartOnline\JouwHoesjeApi\Dto;
 final readonly class UploadDto
 {
     public function __construct(
+        public int $id,
         public string $name,
         public bool $hasTransparency,
         public string $path,
@@ -17,6 +18,7 @@ final readonly class UploadDto
     public static function fromArray(array $data): self
     {
         return new self(
+            id: $data['id'],
             name: $data['name'],
             hasTransparency: $data['has_transparency'],
             path: $data['path'],

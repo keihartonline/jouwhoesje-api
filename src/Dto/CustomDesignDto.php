@@ -17,6 +17,8 @@ final readonly class CustomDesignDto
         public bool $canHaveContainFitType,
         public ?string $preview,
         public ?UploadDto $upload,
+        /** @var UploadDto[] */
+        public array $recentUploads,
         public CustomDesignSettingsDto $settings,
         public CustomDesignQualityEnum $quality,
         public DimensionsDto $dimensions,
@@ -36,6 +38,10 @@ final readonly class CustomDesignDto
             canHaveContainFitType: $data['can_have_contain_fit_type'],
             preview: $data['preview'],
             upload: ! blank($data['upload']) ? UploadDto::fromArray($data['upload']) : null,
+            recentUploads: array_map(
+                fn (array $row) => UploadDto::fromArray($row),
+                $data['recent_uploads']
+            ),
             settings: CustomDesignSettingsDto::fromArray($data['settings']),
             quality: CustomDesignQualityEnum::from($data['quality']),
             dimensions: DimensionsDto::fromArray($data['dimensions']),

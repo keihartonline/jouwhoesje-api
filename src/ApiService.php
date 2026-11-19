@@ -641,6 +641,23 @@ readonly class ApiService
      * @throws ApiException
      * @throws Throwable
      */
+    public function selectUploadForCustomDesign(
+        string $customDesignToken,
+        int $uploadId
+    ): bool {
+        $response = $this->client
+            ->put(
+                sprintf('/custom-designs/%s/upload', $customDesignToken),
+                ['upload_id' => $uploadId]
+            );
+
+        return $response->successful();
+    }
+
+    /**
+     * @throws ApiException
+     * @throws Throwable
+     */
     public function deleteUploadForCustomDesign(
         string $customDesignToken
     ): bool {
