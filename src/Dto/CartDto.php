@@ -51,6 +51,10 @@ final readonly class CartDto
         public Carbon $createdAt,
         public Carbon $updatedAt,
         public bool $needsRelatedDevicesCheck = false,
+        public int $discountGross = 0,
+        public int $discountNet = 0,
+        public int $discountVat = 0,
+        public ?string $discountLabel = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -107,6 +111,10 @@ final readonly class CartDto
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
             needsRelatedDevicesCheck: (bool) ($data['needs_related_devices_check'] ?? false),
+            discountGross: (int) ($data['discount_gross'] ?? 0),
+            discountNet: (int) ($data['discount_net'] ?? 0),
+            discountVat: (int) ($data['discount_vat'] ?? 0),
+            discountLabel: $data['discount_label'] ?? null,
         );
     }
 }
