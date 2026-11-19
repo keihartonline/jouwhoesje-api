@@ -32,6 +32,7 @@ final readonly class ShopDto
         public array $hostnames = [],
         public array $allPaymentMethods = [],
         public array $primaryPaymentMethods = [],
+        public ?string $bannerText = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -76,7 +77,8 @@ final readonly class ShopDto
             primaryPaymentMethods: array_map(
                 fn (array $paymentMethod) => PaymentMethodDto::fromArray($paymentMethod),
                 $data['primary_payment_methods'] ?? []
-            )
+            ),
+            bannerText: $data['banner_text'] ?? null,
         );
     }
 }
