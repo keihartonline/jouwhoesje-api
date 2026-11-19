@@ -33,6 +33,7 @@ final readonly class ShopDto
         public array $allPaymentMethods = [],
         public array $primaryPaymentMethods = [],
         public ?string $bannerText = null,
+        public ?string $bannerTerms = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -79,6 +80,7 @@ final readonly class ShopDto
                 $data['primary_payment_methods'] ?? []
             ),
             bannerText: $data['banner_text'] ?? null,
+            bannerTerms: $data['banner_terms'] ?? null,
         );
     }
 }
