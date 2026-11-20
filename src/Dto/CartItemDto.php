@@ -25,6 +25,7 @@ final readonly class CartItemDto
         public bool $relatedDevicesConfirmed = false,
         public bool $needsRelatedDevicesCheck = false,
         public ?string $deviceName = null,
+        public int $unitPriceNet = 0,
     ) {}
 
     public static function fromArray(array $data): self
@@ -50,6 +51,7 @@ final readonly class CartItemDto
             relatedDevicesConfirmed: (bool) ($data['related_devices_confirmed'] ?? false),
             needsRelatedDevicesCheck: (bool) ($data['needs_related_devices_check'] ?? false),
             deviceName: $data['device_name'] ?? null,
+            unitPriceNet: (int) ($data['unit_price_net'] ?? 0),
         );
     }
 }
