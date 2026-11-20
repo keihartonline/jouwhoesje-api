@@ -28,6 +28,7 @@ final readonly class ReturnRequestDto
         public ?InvoiceDto $invoice,
         public Carbon $createdAt,
         public Carbon $updatedAt,
+        public bool $pricesUnderReview = false,
     ) {}
 
     public static function fromArray(array $data): self
@@ -55,6 +56,7 @@ final readonly class ReturnRequestDto
             invoice: InvoiceDto::fromNullableArray($data['invoice'] ?? null),
             createdAt: Carbon::parse($data['created_at']),
             updatedAt: Carbon::parse($data['updated_at']),
+            pricesUnderReview: $data['prices_under_review'] ?? false,
         );
     }
 }

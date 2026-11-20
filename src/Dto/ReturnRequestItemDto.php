@@ -10,9 +10,9 @@ final readonly class ReturnRequestItemDto
         public ReturnReasonEnum $reason,
         public ?string $reasonNote,
         public int $quantity,
-        public int $lineTotalNet,
-        public int $lineTotalVat,
-        public int $lineTotalGross,
+        public ?int $lineTotalNet,
+        public ?int $lineTotalVat,
+        public ?int $lineTotalGross,
         public OrderItemDto $orderItem,
     ) {}
 
@@ -22,9 +22,9 @@ final readonly class ReturnRequestItemDto
             reason: ReturnReasonEnum::from($data['reason']),
             reasonNote: $data['reason_note'] ?? null,
             quantity: $data['quantity'],
-            lineTotalNet: (int) ($data['line_total_net'] ?? 0),
-            lineTotalVat: (int) ($data['line_total_vat'] ?? 0),
-            lineTotalGross: (int) ($data['line_total_gross'] ?? 0),
+            lineTotalNet: isset($data['line_total_net']) ? (int) $data['line_total_net'] : null,
+            lineTotalVat: isset($data['line_total_vat']) ? (int) $data['line_total_vat'] : null,
+            lineTotalGross: isset($data['line_total_gross']) ? (int) $data['line_total_gross'] : null,
             orderItem: OrderItemDto::fromArray($data['order_item']),
         );
     }
