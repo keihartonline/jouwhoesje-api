@@ -2,6 +2,7 @@
 
 namespace KeihartOnline\JouwHoesjeApi\Dto;
 
+use KeihartOnline\JouwHoesjeApi\Enums\PaymentAttemptPhase;
 use KeihartOnline\JouwHoesjeApi\Enums\PaymentAttemptStatus;
 
 final readonly class PaymentAttemptDto
@@ -15,6 +16,8 @@ final readonly class PaymentAttemptDto
         public bool $hasOrder,
         public ?string $orderNumber,
         public ?string $email,
+        public ?string $method = null,
+        public ?PaymentAttemptPhase $phase = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -28,6 +31,8 @@ final readonly class PaymentAttemptDto
             hasOrder: $data['has_order'],
             orderNumber: $data['order_number'] ?? null,
             email: $data['email'] ?? null,
+            method: $data['method'] ?? null,
+            phase: isset($data['phase']) ? PaymentAttemptPhase::from($data['phase']) : null,
         );
     }
 }

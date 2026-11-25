@@ -55,6 +55,7 @@ final readonly class CartDto
         public int $discountNet = 0,
         public int $discountVat = 0,
         public ?string $discountLabel = null,
+        public ?PaymentAttemptDto $pendingPaymentAttempt = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -115,6 +116,9 @@ final readonly class CartDto
             discountNet: (int) ($data['discount_net'] ?? 0),
             discountVat: (int) ($data['discount_vat'] ?? 0),
             discountLabel: $data['discount_label'] ?? null,
+            pendingPaymentAttempt: ! blank($data['pending_payment_attempt'] ?? null)
+                ? PaymentAttemptDto::fromArray($data['pending_payment_attempt'])
+                : null,
         );
     }
 }
