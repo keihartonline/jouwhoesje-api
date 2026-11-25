@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use KeihartOnline\JouwHoesjeApi\Contracts\TokenResolverInterface;
 use KeihartOnline\JouwHoesjeApi\Exceptions\ApiException;
+use KeihartOnline\JouwHoesjeApi\Exceptions\CartLockedException;
 use Throwable;
 
 class ApiClient
@@ -68,10 +69,20 @@ class ApiClient
     private function request(string $method, string $endpoint, array $data = []): Response
     {
         try {
-            return $this->client()
-                ->$method($endpoint, $data)
-                ->throwIf($this->throwError);
+            $response = $this->client()->$method($endpoint, $data);
+
+            // Een cart met een betaling in uitvoering is bevroren. Ook voor aanroepen
+            // zonder throwError, anders ziet de applicatie alleen een algemene fout.
+            if ($response->status() === 409 && $response->json('message') === 'cart_locked') {
+                throw new CartLockedException;
+            }
+
+            return $response->throwIf($this->throwError);
         } catch (Throwable $e) {
+            if ($e instanceof CartLockedException) {
+                throw $e;
+            }
+
             // Een onbekende slug is geen fout; de applicatie bepaalt zelf of ze dit logt
             if ($e instanceof RequestException && $e->response->status() === 404) {
                 throw $e;
