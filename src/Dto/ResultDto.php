@@ -45,7 +45,7 @@ final class ResultDto
         public ?string $brandSlug,
         public array $specifications,
         public array $labels,
-        public array $designCollections,
+        public ?int $designCollectionId,
         public array $alternates,
         public array $media,
         public ?DeviceDto $device = null,
@@ -111,7 +111,7 @@ final class ResultDto
                 fn (string $label) => LabelEnum::from($label),
                 $data['labels']
             ),
-            designCollections: $data['design_collections'] ?? [],
+            designCollectionId: $data['design_collection_id'] ?? null,
             alternates: $data['alternates'] ?? [],
             media: array_map(
                 fn (array $row) => MediaDto::fromArray($row),
