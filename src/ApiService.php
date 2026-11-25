@@ -58,15 +58,22 @@ readonly class ApiService
     }
 
     /**
+     * @param  int[]  $collectionIds
      * @return DesignCollectionCompactDto[]
      *
      * @throws ApiException
      * @throws Throwable
      */
     public function getDesignCollections(
-        array $payload = []
+        array $collectionIds = [],
+        bool $onlyParents = false,
+        ?string $brandSlug = null,
     ): array {
-        $response = $this->client->get('/design-collections', array_filter($payload));
+        $response = $this->client->get('/design-collections', array_filter([
+            'collection_id' => $collectionIds,
+            'only_parents' => $onlyParents,
+            'brand_slug' => $brandSlug,
+        ]));
 
         if ($response->successful()) {
             return array_map(
