@@ -11,6 +11,7 @@ final readonly class DesignCollectionCompactDto
         public string $title,
         public ?MediaDto $firstMedia = null,
         public ?BrandCompactDto $brand = null,
+        public ?int $parentId = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -26,6 +27,7 @@ final readonly class DesignCollectionCompactDto
             brand: ! blank($data['brand'] ?? null)
                 ? BrandCompactDto::fromArray($data['brand'])
                 : null,
+            parentId: $data['parent_id'] ?? null,
         );
     }
 }

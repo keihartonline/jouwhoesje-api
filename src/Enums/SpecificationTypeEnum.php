@@ -25,7 +25,7 @@ enum SpecificationTypeEnum: string
             self::COMPATIBLE_MODELS => 'Geschikte modellen',
             self::COLOUR => 'Kleur',
             self::MATERIAL => 'Materiaal',
-            self::DESIGN_COLLECTIONS => 'Collecties',
+            self::DESIGN_COLLECTIONS => 'Collectie',
             self::PRINT_SIDE => 'Bedrukking',
             self::CASE_TYPE => 'Soort hoesje',
             self::DIMENSIONS => 'Afmetingen printgebied',
