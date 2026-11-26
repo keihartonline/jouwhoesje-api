@@ -49,6 +49,7 @@ final class ResultDto
         public array $alternates,
         public array $media,
         public ?DeviceDto $device = null,
+        public ?string $metaTitle = null,
     ) {}
 
     public function firstMedia(): ?MediaDto
@@ -120,6 +121,7 @@ final class ResultDto
             device: ! blank($data['device'])
                 ? DeviceDto::fromArray($data['device'])
                 : null,
+            metaTitle: $data['meta_title'] ?? null,
         );
     }
 }
