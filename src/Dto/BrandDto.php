@@ -22,6 +22,8 @@ final readonly class BrandDto
         public bool $isPopular = false,
         public ?MediaDto $firstMedia = null,
         public ?string $customDesignText = null,
+        public ?string $coversIntro = null,
+        public ?string $coversDescription = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -46,6 +48,8 @@ final readonly class BrandDto
                 ? MediaDto::fromArray($data['media'][0])
                 : null,
             customDesignText: $data['custom_design_text'] ?? null,
+            coversIntro: $data['covers_intro'] ?? null,
+            coversDescription: $data['covers_description'] ?? null,
         );
     }
 }
