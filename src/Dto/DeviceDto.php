@@ -28,6 +28,8 @@ final readonly class DeviceDto
         public ?string $sentenceName = null,
         /** @var DeviceCompactDto[] Visible models that are easily confused with this one */
         public array $relatedDevices = [],
+        public ?string $coversIntro = null,
+        public ?string $coversDescription = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -58,6 +60,8 @@ final readonly class DeviceDto
                 DeviceCompactDto::fromArray(...),
                 $data['related_devices'] ?? []
             ),
+            coversIntro: $data['covers_intro'] ?? null,
+            coversDescription: $data['covers_description'] ?? null,
         );
     }
 }
